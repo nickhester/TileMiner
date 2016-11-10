@@ -12,11 +12,12 @@ public class TileDirt : Tile
 			neighbor.Activate();
 		}
 
-		Destroy(gameObject);
+		Activate();
 	}
 
 	public override void Activate()
 	{
+		eventBroadcast.TriggerEvent(EventBroadcast.Event.TILE_COLLECTED_DIRT);
 		Destroy(gameObject);	// TEMP
 	}
 }

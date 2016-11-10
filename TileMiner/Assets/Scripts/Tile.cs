@@ -5,11 +5,13 @@ public abstract class Tile : MonoBehaviour
 {
 	protected TileGrid tileGrid;
 	protected Coordinate myCoordinate;
+	protected EventBroadcast eventBroadcast;
 
 	public void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
 		tileGrid = _tileGrid;
 		myCoordinate = _coordinate;
+		eventBroadcast = FindObjectOfType<EventBroadcast>();
 	}
 
 	void OnMouseDown()

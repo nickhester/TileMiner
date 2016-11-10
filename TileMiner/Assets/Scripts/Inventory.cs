@@ -4,7 +4,20 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-	public int numDirt = 0;
-	public int numStone = 0;
-	public int numDiamonds = 0;
+	private int numDirt = 0;
+	private int numStone = 0;
+
+	public void AddDirt(int value)
+	{
+		numDirt += value;
+
+		MonoBehaviour.print("dirt: " + numDirt);
+	}
+
+	public void AddStone(int value)
+	{
+		numStone += value;
+
+		MonoBehaviour.print("stone: " + numStone);
+	}
 }
