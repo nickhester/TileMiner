@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class Tile : MonoBehaviour
 {
@@ -16,11 +17,35 @@ public abstract class Tile : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		print("you clicked me, alright!");
 		PlayerClick();
 	}
 
 	protected abstract void PlayerClick();
 
 	public abstract void Activate();
+
+	public Coordinate GetCoordinate()
+	{
+		return myCoordinate;
+	}
+
+	public bool GetIsExposed()
+	{
+		int numDirections = Enum.GetNames(typeof(TileGrid.Direction)).Length;
+		for (int i = 0; i < numDirections; i++)
+		{
+			Tile neighborTile = tileGrid.GetTileNeighbor((TileGrid.Direction)i, GetCoordinate());       // TODO: make "null" neighbors not count toward being exposed
+			if (neighborTile && neighborTile.GetComponent<TileEmpty>() != null)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected void RemoveSelf()
+	{
+		FindObjectOfType<LevelGenerator>().CreateOneTile(myCoordinate, LevelGenerator.TileType.EMPTY);
+		Destroy(gameObject);
+	}
 }

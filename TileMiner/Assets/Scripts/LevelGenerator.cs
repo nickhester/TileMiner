@@ -26,19 +26,13 @@ public class LevelGenerator : MonoBehaviour
 
 	void CreateTiles()
 	{
-		float verticalOffset = ((numSkyTiles) * tileSpacing);			// offset to make ground appear in the middle
-		float horizontalOffset = ((mapWidth - 1) * tileSpacing) / 2.0f;	// offset to center left-right
-
 		for (int i = 0; i < mapHeight; i++)
 		{
 			for (int j = 0; j < mapWidth; j++)
 			{
-				Tile newTile = CreateOneTile(
-					new Vector2((j * tileSpacing) - horizontalOffset, (-i * tileSpacing) + verticalOffset),
+				CreateOneTile(
+					new Coordinate(j, i),
 					ChooseNextTileType(j, i));
-				newTile.transform.SetParent(transform);
-				newTile.Initialize(tileGrid, new Coordinate(j, i));
-				tileGrid.AddTile(j, i, newTile);
 			}
 		}
 	}
@@ -52,16 +46,18 @@ public class LevelGenerator : MonoBehaviour
 		return TileType.EMPTY;
 	}
 
-	Tile CreateOneTile(Vector2 _position, TileType _type)
+	public Tile CreateOneTile(Coordinate _coordinate, TileType _type)
 	{
-		GameObject go = Instantiate(tilePrefabs[(int)_type], _position, Quaternion.identity) as GameObject;
-		return go.GetComponent<Tile>(); ;
-	}
+		float verticalOffset = ((numSkyTiles) * tileSpacing);				// offset to make ground appear in the middle
+		float horizontalOffset = ((mapWidth - 1) * tileSpacing) / 2.0f;		// offset to center left-right
 
-	/*
-	public Tile CreateTileDuringGame(TileType _type)
-	{
-		Tile returnTile = CreateOneTile
+		GameObject go = Instantiate(tilePrefabs[(int)_type], new Vector2((_coordinate.x * tileSpacing) - horizontalOffset, (-_coordinate.y * tileSpacing) + verticalOffset), Quaternion.identity) as GameObject;
+		Tile t = go.GetComponent<Tile>();
+
+		t.transform.SetParent(transform);
+		t.Initialize(tileGrid, _coordinate);
+		tileGrid.AddTile(_coordinate, t);
+		
+		return t;
 	}
-	*/
 }

@@ -11,6 +11,13 @@ public class TileEmpty : Tile
 
 	protected override void PlayerClick()
 	{
-		// do nothing
+		Tile tileBelow = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, myCoordinate);
+		TileDirt tileBelow_dirt = tileBelow.GetComponent<TileDirt>();
+		if (tileBelow && tileBelow_dirt != null)
+		{
+			print("ready to build");
+
+		}
+		
 	}
 }

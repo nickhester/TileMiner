@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class TileGrid
 {
@@ -23,14 +24,21 @@ public class TileGrid
 		grid = new Tile[dimY, dimX];
 	}
 
-	public void AddTile(int _x, int _y, Tile _tile)
+	public void AddTile(Coordinate _coordinate, Tile _tile)
 	{
-		grid[_y, _x] = _tile;
+		grid[_coordinate.y, _coordinate.x] = _tile;
 	}
 
 	public Tile GetTileAt(Coordinate _coordinate)
 	{
-		return grid[_coordinate.y, _coordinate.x];
+		if (_coordinate.y < grid.GetLength(0)
+			&& _coordinate.y >= 0
+			&& _coordinate.x < grid.GetLength(1)
+			&& _coordinate.x >= 0)
+		{
+			return grid[_coordinate.y, _coordinate.x];
+		}
+		return null;
 	}
 
 	public Coordinate GetCoordinate(Tile t)
@@ -50,7 +58,7 @@ public class TileGrid
 		return c;
 	}
 
-	public Tile GetTileNeighbor(Direction _direction, Coordinate _coordinate)
+	public Tile GetTileNeighbor(Direction _direction, Coordinate _originCoordinate)
 	{
 		Tile returnTile = null;
 		Coordinate returnCoordinate = new Coordinate(-1, -1);
@@ -58,37 +66,37 @@ public class TileGrid
 		{
 			case Direction.UP:
 				{
-					if (_coordinate.y >= 0)
+					if (_originCoordinate.y >= 0)
 					{
-						returnCoordinate.x = _coordinate.x;
-						returnCoordinate.y = _coordinate.y - 1;
+						returnCoordinate.x = _originCoordinate.x;
+						returnCoordinate.y = _originCoordinate.y - 1;
 					}
 					break;
 				}
 			case Direction.RIGHT:
 				{
-					if (_coordinate.x <= (dimX - 1))
+					if (_originCoordinate.x <= (dimX - 1))
 					{
-						returnCoordinate.x = _coordinate.x + 1;
-						returnCoordinate.y = _coordinate.y;
+						returnCoordinate.x = _originCoordinate.x + 1;
+						returnCoordinate.y = _originCoordinate.y;
 					}
 					break;
 				}
 			case Direction.DOWN:
 				{
-					if (_coordinate.y <= (dimY - 1))
+					if (_originCoordinate.y <= (dimY - 1))
 					{
-						returnCoordinate.x = _coordinate.x;
-						returnCoordinate.y = _coordinate.y + 1;
+						returnCoordinate.x = _originCoordinate.x;
+						returnCoordinate.y = _originCoordinate.y + 1;
 					}
 					break;
 				}
 			case Direction.LEFT:
 				{
-					if (_coordinate.x >= 0)
+					if (_originCoordinate.x >= 0)
 					{
-						returnCoordinate.x = _coordinate.x - 1;
-						returnCoordinate.y = _coordinate.y;
+						returnCoordinate.x = _originCoordinate.x - 1;
+						returnCoordinate.y = _originCoordinate.y;
 					}
 					break;
 				}
