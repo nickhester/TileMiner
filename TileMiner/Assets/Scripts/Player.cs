@@ -6,6 +6,7 @@ using System;
 public class Player : MonoBehaviour, IEventSubscriber
 {
 	private Inventory myInventory;
+	public ActionOptionMenu actionOptionMenuPrefab;
 
 	void Start ()
 	{
@@ -18,6 +19,11 @@ public class Player : MonoBehaviour, IEventSubscriber
 
 	}
 
+	public Inventory GetInventory()
+	{
+		return myInventory;
+	}
+
 	public void InformOfEvent(EventBroadcast.Event _event)
 	{
 		if (_event == EventBroadcast.Event.TILE_COLLECTED_DIRT)
@@ -25,5 +31,4 @@ public class Player : MonoBehaviour, IEventSubscriber
 			myInventory.AddDirt(1);
 		}
 	}
-
 }

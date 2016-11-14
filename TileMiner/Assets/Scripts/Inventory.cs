@@ -4,20 +4,37 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-	private int numDirt = 0;
-	private int numStone = 0;
+	List<Resource> resourceList = new List<Resource>();
+	Dictionary<Resource, int> inventory = new Dictionary<Resource, int>();
+
+	public Inventory()
+	{
+		resourceList.Add(new ResourceDirt());
+	}
 
 	public void AddDirt(int value)
 	{
-		numDirt += value;
-
-		MonoBehaviour.print("dirt: " + numDirt);
+		for (int i = 0; i < resourceList.Count; i++)
+		{
+			if (resourceList[i].GetType() == typeof(ResourceDirt))
+			{
+				ResourceDirt dirt = (ResourceDirt)resourceList[i];
+				dirt.Add(value);
+				MonoBehaviour.print(dirt.GetName() + ": " + dirt.GetAmount());
+				return;
+			}
+		}
 	}
 
-	public void AddStone(int value)
+	public void AddResource(Resource _resource, int _amount)
 	{
-		numStone += value;
-
-		MonoBehaviour.print("stone: " + numStone);
+		for (int i = 0; i < resourceList.Count; i++)
+		{
+			if (resourceList[i].GetType().Equals(_resource.GetType()))
+			{
+				resourceList[i].Add(_amount);
+				MonoBehaviour.print(resourceList[i].GetName() + ": " + resourceList[i].GetAmount());
+			}
+		}
 	}
 }

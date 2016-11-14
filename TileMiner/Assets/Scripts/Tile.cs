@@ -17,7 +17,10 @@ public abstract class Tile : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		PlayerClick();
+		if (FindObjectOfType<ActionOptionMenu>() == null)
+		{
+			PlayerClick();
+		}
 	}
 
 	protected abstract void PlayerClick();
@@ -43,9 +46,11 @@ public abstract class Tile : MonoBehaviour
 		return false;
 	}
 
+	/*
 	protected void RemoveSelf()
 	{
 		FindObjectOfType<LevelGenerator>().CreateOneTile(myCoordinate, LevelGenerator.TileType.EMPTY);
 		Destroy(gameObject);
 	}
+	*/
 }
