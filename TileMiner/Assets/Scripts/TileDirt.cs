@@ -20,15 +20,8 @@ public class TileDirt : Tile
 
 		actions = new List<IAction>();
 		actions.Add(new ActionDestroy(this));
-		actions.Add(new ActionCollect(new ResourceDirt(), 1));
+		actions.Add(new ActionAdjustResources(new ResourceDirt(1)));
 		namedActionSet.Add(new NamedActionSet("Collect Dirt", actions, true));
-
-		// TODO: remove this, this is just a test
-		actions = new List<IAction>();
-		actions.Add(new ActionDestroy(this));
-		actions.Add(new ActionDestroy(tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, myCoordinate)));
-		actions.Add(new ActionCollect(new ResourceDirt(), 5));
-		namedActionSet.Add(new NamedActionSet("Do Something Crazy", actions, true));
 
 		// instantiate action option menu
 		GameObject menu = Instantiate(FindObjectOfType<Player>().actionOptionMenuPrefab.gameObject) as GameObject;

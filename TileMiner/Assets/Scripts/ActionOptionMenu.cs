@@ -12,17 +12,31 @@ public class ActionOptionMenu : MonoBehaviour
 	{
 		actionSets = _actionSets;
 
+		actionSets.Add(new NamedActionSet("Cancel", new ActionCancel()));
+
+		// create buttons
 		LayoutGroup layout = transform.GetComponentInChildren<LayoutGroup>();
 		for (int i = 0; i < actionSets.Count; i++)
 		{
-			GameObject go = Instantiate(singleButton.gameObject) as GameObject;
-			go.transform.SetParent(layout.transform);
-			go.GetComponentInChildren<Text>().text = actionSets[i].name;
+			GameObject buttonObject = Instantiate(singleButton.gameObject) as GameObject;
+			buttonObject.transform.SetParent(layout.transform);
+			buttonObject.GetComponentInChildren<Text>().text = actionSets[i].name;
 			int currentIteration = i;
-			go.GetComponent<Button>().onClick.AddListener(delegate { ExecuteAction(currentIteration); });
+			Button buttonComponent = buttonObject.GetComponent<Button>();
+			buttonComponent.onClick.AddListener(delegate { ExecuteAction(currentIteration); });
+
+			// check if button should be disabled
+			for (int j = 0; j < actionSets[i].actions.Count; j++)
+			{
+				if (!actionSets[i].actions[j].IsActionValid())
+				{
+					buttonComponent.interactable = false;
+				}
+			}
 		}
 
-		if (_actionSets.Count == 1 && _actionSets[0].canBeDefaultIfOnlyOption)
+		// determine if it can just do an automatic action
+		if (_actionSets.Count == 2 && _actionSets[0].canBeDefaultIfOnlyOption)
 		{
 			ExecuteAction(0);
 		}

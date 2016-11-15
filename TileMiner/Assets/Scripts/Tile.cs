@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public abstract class Tile : MonoBehaviour
@@ -7,6 +8,18 @@ public abstract class Tile : MonoBehaviour
 	protected TileGrid tileGrid;
 	protected Coordinate myCoordinate;
 	protected EventBroadcast eventBroadcast;
+
+	public enum TileType
+	{
+		EMPTY,
+		DIRT,
+		STONE,
+		DIAMOND,
+		STRUCTURE,
+		RESIDENCE,
+		MILL,
+		REFINERY
+	}
 
 	public void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
@@ -44,6 +57,12 @@ public abstract class Tile : MonoBehaviour
 			}
 		}
 		return false;
+	}
+
+	protected void CreateActionOptionMenu(List<NamedActionSet> _actions)
+	{
+		GameObject menu = Instantiate(FindObjectOfType<Player>().actionOptionMenuPrefab.gameObject) as GameObject;
+		menu.GetComponent<ActionOptionMenu>().Initialize(_actions);
 	}
 
 	/*

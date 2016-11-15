@@ -20,4 +20,12 @@ public class NamedActionSet
 		actions = _actions;
 		canBeDefaultIfOnlyOption = _canBeDefaultIfOnlyOption;
 	}
+
+	public NamedActionSet(string _name, IAction _singleAction)
+	{
+		List<IAction> a = new List<IAction>();
+		a.Add(_singleAction);
+		name = _name;
+		actions = a;
+	}
 }

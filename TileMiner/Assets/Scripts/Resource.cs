@@ -7,6 +7,11 @@ public abstract class Resource
 	private string name;
 	private int amount = 0;
 
+	public Resource(int _amount)
+	{
+		amount = _amount;
+	}
+
 	public void Add(int _amountChange)
 	{
 		amount += _amountChange;

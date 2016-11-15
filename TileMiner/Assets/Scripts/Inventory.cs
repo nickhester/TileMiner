@@ -5,36 +5,35 @@ using System.Collections.Generic;
 public class Inventory
 {
 	List<Resource> resourceList = new List<Resource>();
-	Dictionary<Resource, int> inventory = new Dictionary<Resource, int>();
 
 	public Inventory()
 	{
-		resourceList.Add(new ResourceDirt());
+		resourceList.Add(new ResourceDirt(0));
 	}
 
-	public void AddDirt(int value)
+	public void AddResource(Resource _resource)
 	{
 		for (int i = 0; i < resourceList.Count; i++)
 		{
-			if (resourceList[i].GetType() == typeof(ResourceDirt))
+			if (resourceList[i].GetType() == _resource.GetType())
 			{
-				ResourceDirt dirt = (ResourceDirt)resourceList[i];
-				dirt.Add(value);
-				MonoBehaviour.print(dirt.GetName() + ": " + dirt.GetAmount());
-				return;
-			}
-		}
-	}
-
-	public void AddResource(Resource _resource, int _amount)
-	{
-		for (int i = 0; i < resourceList.Count; i++)
-		{
-			if (resourceList[i].GetType().Equals(_resource.GetType()))
-			{
-				resourceList[i].Add(_amount);
+				resourceList[i].Add(_resource.GetAmount());
 				MonoBehaviour.print(resourceList[i].GetName() + ": " + resourceList[i].GetAmount());
 			}
 		}
+	}
+
+	public int GetResource(System.Type _resourceType)
+	{
+		for (int i = 0; i < resourceList.Count; i++)
+		{
+			if (resourceList[i].GetType() == _resourceType)
+			{
+				return resourceList[i].GetAmount();
+			}
+		}
+
+		Debug.LogError("Attempted to get resource from inventory that doesn't exist");
+		return -1;
 	}
 }

@@ -28,7 +28,7 @@ public class Player : MonoBehaviour, IEventSubscriber
 	{
 		if (_event == EventBroadcast.Event.TILE_COLLECTED_DIRT)
 		{
-			myInventory.AddDirt(1);
+			myInventory.AddResource(new ResourceDirt(1));
 		}
 	}
 }

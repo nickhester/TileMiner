@@ -13,7 +13,12 @@ public class ActionDestroy : IAction
 
 	public void Execute()
 	{
-		MonoBehaviour.FindObjectOfType<LevelGenerator>().CreateOneTile(tileToDestroy.GetCoordinate(), LevelGenerator.TileType.EMPTY);
 		MonoBehaviour.Destroy(tileToDestroy.gameObject);
+		MonoBehaviour.FindObjectOfType<LevelGenerator>().CreateOneTile(tileToDestroy.GetCoordinate(), Tile.TileType.EMPTY);
+	}
+
+	public bool IsActionValid()
+	{
+		return true;
 	}
 }

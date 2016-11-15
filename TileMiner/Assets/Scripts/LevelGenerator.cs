@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -12,16 +13,16 @@ public class LevelGenerator : MonoBehaviour
 	[SerializeField] private List<GameObject> tilePrefabs = new List<GameObject>();
 	private TileGrid tileGrid;
 
-	public enum TileType
-	{
-		EMPTY,
-		DIRT
-	}
-
 	void Start ()
 	{
 		tileGrid = new TileGrid(mapWidth, mapHeight);
 		CreateTiles();
+
+		// check tile types vs prefabs
+		if (tilePrefabs.Count != Enum.GetValues(typeof(Tile.TileType)).Length)
+		{
+			Debug.LogWarning("number of tile types and prefabs are different");
+		}
 	}
 
 	void CreateTiles()
@@ -37,16 +38,16 @@ public class LevelGenerator : MonoBehaviour
 		}
 	}
 
-	TileType ChooseNextTileType(int dimX, int dimY)
+	Tile.TileType ChooseNextTileType(int dimX, int dimY)
 	{
 		if (dimY >= numSkyTiles)
 		{
-			return TileType.DIRT;
+			return Tile.TileType.DIRT;
 		}
-		return TileType.EMPTY;
+		return Tile.TileType.EMPTY;
 	}
 
-	public Tile CreateOneTile(Coordinate _coordinate, TileType _type)
+	public Tile CreateOneTile(Coordinate _coordinate, Tile.TileType _type)
 	{
 		float verticalOffset = ((numSkyTiles) * tileSpacing);				// offset to make ground appear in the middle
 		float horizontalOffset = ((mapWidth - 1) * tileSpacing) / 2.0f;		// offset to center left-right
