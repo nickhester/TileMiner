@@ -19,6 +19,6 @@ public class ActionDestroy : IAction
 
 	public bool IsActionValid()
 	{
-		return true;
+		return WeightAnalyzer.CanTileBeRemoved(tileToDestroy);
 	}
 }

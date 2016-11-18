@@ -22,6 +22,7 @@ public class ActionBuild : IAction
 
 	public bool IsActionValid()
 	{
-		return true;
+		int weightValue = MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(newType).GetWeightSupportValue();
+		return WeightAnalyzer.CanStructureBeAddedHere(tileToReplace, weightValue);
 	}
 }

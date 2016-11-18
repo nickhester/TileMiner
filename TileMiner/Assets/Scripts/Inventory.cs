@@ -18,7 +18,7 @@ public class Inventory
 			if (resourceList[i].GetType() == _resource.GetType())
 			{
 				resourceList[i].Add(_resource.GetAmount());
-				MonoBehaviour.print(resourceList[i].GetName() + ": " + resourceList[i].GetAmount());
+				//MonoBehaviour.print(resourceList[i].GetName() + ": " + resourceList[i].GetAmount());
 			}
 		}
 	}

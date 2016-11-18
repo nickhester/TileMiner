@@ -9,6 +9,8 @@ public abstract class Tile : MonoBehaviour
 	protected Coordinate myCoordinate;
 	protected EventBroadcast eventBroadcast;
 
+	[SerializeField] protected int weightSupportValue = 0;
+
 	public enum TileType
 	{
 		EMPTY,
@@ -27,7 +29,7 @@ public abstract class Tile : MonoBehaviour
 		myCoordinate = _coordinate;
 		eventBroadcast = FindObjectOfType<EventBroadcast>();
 	}
-
+	
 	void OnMouseDown()
 	{
 		if (FindObjectOfType<ActionOptionMenu>() == null)
@@ -65,11 +67,13 @@ public abstract class Tile : MonoBehaviour
 		menu.GetComponent<ActionOptionMenu>().Initialize(_actions);
 	}
 
-	/*
-	protected void RemoveSelf()
+	public TileGrid GetTileGrid()
 	{
-		FindObjectOfType<LevelGenerator>().CreateOneTile(myCoordinate, LevelGenerator.TileType.EMPTY);
-		Destroy(gameObject);
+		return tileGrid;
 	}
-	*/
+
+	public int GetWeightSupportValue()
+	{
+		return weightSupportValue;
+	}
 }

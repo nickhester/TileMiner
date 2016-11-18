@@ -16,6 +16,7 @@ public class ActionOptionMenu : MonoBehaviour
 
 		// create buttons
 		LayoutGroup layout = transform.GetComponentInChildren<LayoutGroup>();
+		bool atLeastOneActionIsInvalid = false;
 		for (int i = 0; i < actionSets.Count; i++)
 		{
 			GameObject buttonObject = Instantiate(singleButton.gameObject) as GameObject;
@@ -31,12 +32,15 @@ public class ActionOptionMenu : MonoBehaviour
 				if (!actionSets[i].actions[j].IsActionValid())
 				{
 					buttonComponent.interactable = false;
+					atLeastOneActionIsInvalid = true;
 				}
 			}
 		}
 
 		// determine if it can just do an automatic action
-		if (_actionSets.Count == 2 && _actionSets[0].canBeDefaultIfOnlyOption)
+		if (_actionSets.Count == 2
+			&& _actionSets[0].canBeDefaultIfOnlyOption
+			&& !atLeastOneActionIsInvalid)
 		{
 			ExecuteAction(0);
 		}

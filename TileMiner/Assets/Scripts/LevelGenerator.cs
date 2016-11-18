@@ -13,16 +13,20 @@ public class LevelGenerator : MonoBehaviour
 	[SerializeField] private List<GameObject> tilePrefabs = new List<GameObject>();
 	private TileGrid tileGrid;
 
+	// level generation
+	[SerializeField] private float baseStoneChance = 0.1f;
+	[SerializeField] private float rowIncreaseStoneChance = 0.05f;
+
 	void Start ()
 	{
-		tileGrid = new TileGrid(mapWidth, mapHeight);
-		CreateTiles();
-
 		// check tile types vs prefabs
 		if (tilePrefabs.Count != Enum.GetValues(typeof(Tile.TileType)).Length)
 		{
 			Debug.LogWarning("number of tile types and prefabs are different");
 		}
+
+		tileGrid = new TileGrid(mapWidth, mapHeight);
+		CreateTiles();
 	}
 
 	void CreateTiles()
@@ -42,7 +46,14 @@ public class LevelGenerator : MonoBehaviour
 	{
 		if (dimY >= numSkyTiles)
 		{
-			return Tile.TileType.DIRT;
+			if (UnityEngine.Random.Range(0.0f, 1.0f) < (baseStoneChance + (rowIncreaseStoneChance * dimY)))
+			{
+				return Tile.TileType.STONE;
+			}
+			else
+			{
+				return Tile.TileType.DIRT;
+			}
 		}
 		return Tile.TileType.EMPTY;
 	}
@@ -60,5 +71,10 @@ public class LevelGenerator : MonoBehaviour
 		tileGrid.AddTile(_coordinate, t);
 		
 		return t;
+	}
+
+	public Tile GetTilePrefab(Tile.TileType _type)
+	{
+		return tilePrefabs[(int)_type].GetComponent<Tile>();
 	}
 }
