@@ -5,31 +5,28 @@ using UnityEngine.UI;
 
 public class ActionOptionMenu : MonoBehaviour
 {
-	private List<NamedActionSet> actionSets;
 	[SerializeField] private Button singleButton;
 
-	public void Initialize(List<NamedActionSet> _actionSets)
+	public void Initialize(List<NamedActionSet> _actionSets, Player _player)
 	{
-		actionSets = _actionSets;
-
-		actionSets.Add(new NamedActionSet("Cancel", new ActionCancel()));
+		_actionSets.Add(new NamedActionSet("Cancel", new ActionCancel()));
 
 		// create buttons
 		LayoutGroup layout = transform.GetComponentInChildren<LayoutGroup>();
 		bool atLeastOneActionIsInvalid = false;
-		for (int i = 0; i < actionSets.Count; i++)
+		for (int i = 0; i < _actionSets.Count; i++)
 		{
 			GameObject buttonObject = Instantiate(singleButton.gameObject) as GameObject;
 			buttonObject.transform.SetParent(layout.transform);
-			buttonObject.GetComponentInChildren<Text>().text = actionSets[i].name;
+			buttonObject.GetComponentInChildren<Text>().text = _actionSets[i].name;
 			int currentIteration = i;
 			Button buttonComponent = buttonObject.GetComponent<Button>();
-			buttonComponent.onClick.AddListener(delegate { ExecuteAction(currentIteration); });
+			buttonComponent.onClick.AddListener(delegate { _player.ExecuteAction(currentIteration, _actionSets); });
 
 			// check if button should be disabled
-			for (int j = 0; j < actionSets[i].actions.Count; j++)
+			for (int j = 0; j < _actionSets[i].actions.Count; j++)
 			{
-				if (!actionSets[i].actions[j].IsActionValid())
+				if (!_actionSets[i].actions[j].IsActionValid())
 				{
 					buttonComponent.interactable = false;
 					atLeastOneActionIsInvalid = true;
@@ -42,17 +39,7 @@ public class ActionOptionMenu : MonoBehaviour
 			&& _actionSets[0].canBeDefaultIfOnlyOption
 			&& !atLeastOneActionIsInvalid)
 		{
-			ExecuteAction(0);
+			_player.ExecuteAction(0, _actionSets);
 		}
-	}
-
-	public void ExecuteAction(int _index)
-	{
-		for (int j = 0; j < actionSets[_index].actions.Count; j++)
-		{
-			actionSets[_index].actions[j].Execute();
-		}
-
-		Destroy(gameObject);
 	}
 }

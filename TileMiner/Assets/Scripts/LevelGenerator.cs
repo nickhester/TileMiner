@@ -27,6 +27,8 @@ public class LevelGenerator : MonoBehaviour
 
 		tileGrid = new TileGrid(mapWidth, mapHeight);
 		CreateTiles();
+
+		GetComponent<LevelManager>().Initialize(tileGrid);
 	}
 
 	void CreateTiles()

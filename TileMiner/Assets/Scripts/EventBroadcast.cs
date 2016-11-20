@@ -8,7 +8,7 @@ public class EventBroadcast : MonoBehaviour
 
 	public enum Event
 	{
-		TILE_COLLECTED_DIRT
+		PLAYER_COLLECTED_MINERAL
 	}
 
 	public void SubscribeToEvent(Event _event, IEventSubscriber _subscriber)
@@ -23,10 +23,13 @@ public class EventBroadcast : MonoBehaviour
 
 	public void TriggerEvent(Event _event)
 	{
-		int numLoops = subscriptions[_event].Count;
-		for (int i = 0; i < numLoops; i++)
+		if (subscriptions.ContainsKey(_event))
 		{
-			subscriptions[_event][i].InformOfEvent(_event);
+			int numLoops = subscriptions[_event].Count;
+			for (int i = 0; i < numLoops; i++)
+			{
+				subscriptions[_event][i].InformOfEvent(_event);
+			}
 		}
 	}
 }

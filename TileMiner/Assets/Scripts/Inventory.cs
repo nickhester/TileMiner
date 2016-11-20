@@ -8,7 +8,7 @@ public class Inventory
 
 	public Inventory()
 	{
-		resourceList.Add(new ResourceDirt(0));
+		resourceList.Add(new ResourceMineral(0));
 	}
 
 	public void AddResource(Resource _resource)
@@ -18,7 +18,7 @@ public class Inventory
 			if (resourceList[i].GetType() == _resource.GetType())
 			{
 				resourceList[i].Add(_resource.GetAmount());
-				//MonoBehaviour.print(resourceList[i].GetName() + ": " + resourceList[i].GetAmount());
+				MonoBehaviour.print(resourceList[i].GetName() + ": " + resourceList[i].GetAmount());
 			}
 		}
 	}

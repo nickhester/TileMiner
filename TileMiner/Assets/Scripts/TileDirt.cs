@@ -20,11 +20,9 @@ public class TileDirt : Tile
 
 		actions = new List<IAction>();
 		actions.Add(new ActionDestroy(this));
-		actions.Add(new ActionAdjustResources(new ResourceDirt(1)));
-		namedActionSet.Add(new NamedActionSet("Collect Dirt", actions, true));
-
-		// instantiate action option menu
-		GameObject menu = Instantiate(FindObjectOfType<Player>().actionOptionMenuPrefab.gameObject) as GameObject;
-		menu.GetComponent<ActionOptionMenu>().Initialize(namedActionSet);
+		actions.Add(new ActionAdjustResources(new ResourceMineral(1)));
+		namedActionSet.Add(new NamedActionSet("Collect Mineral", actions, true));
+		
+		ProposeActions(namedActionSet);
 	}
 }

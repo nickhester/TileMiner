@@ -22,16 +22,10 @@ public class TileEmpty : Tile
 		List<IAction> actions = new List<IAction>();
 
 		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.MILL));
-		actions.Add(new ActionAdjustResources(new ResourceDirt(-2)));
-		namedActionSet.Add(new NamedActionSet("Build Mill", actions));
-
-		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.RESIDENCE));
-		actions.Add(new ActionAdjustResources(new ResourceDirt(-4)));
-		namedActionSet.Add(new NamedActionSet("Build Residence", actions));
-
-		// instantiate action option menu
-		CreateActionOptionMenu(namedActionSet);
+		actions.Add(new ActionBuild(this, Tile.TileType.REFINERY));
+		actions.Add(new ActionAdjustResources(new ResourceMineral(-8)));
+		namedActionSet.Add(new NamedActionSet("Build Refinery", actions));
+		
+		ProposeActions(namedActionSet);
 	}
 }

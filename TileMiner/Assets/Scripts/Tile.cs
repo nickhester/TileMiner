@@ -23,7 +23,7 @@ public abstract class Tile : MonoBehaviour
 		REFINERY
 	}
 
-	public void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
+	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
 		tileGrid = _tileGrid;
 		myCoordinate = _coordinate;
@@ -61,10 +61,9 @@ public abstract class Tile : MonoBehaviour
 		return false;
 	}
 
-	protected void CreateActionOptionMenu(List<NamedActionSet> _actions)
+	protected void ProposeActions(List<NamedActionSet> _actions)
 	{
-		GameObject menu = Instantiate(FindObjectOfType<Player>().actionOptionMenuPrefab.gameObject) as GameObject;
-		menu.GetComponent<ActionOptionMenu>().Initialize(_actions);
+		FindObjectOfType<Player>().ProposeActions(_actions);
 	}
 
 	public TileGrid GetTileGrid()

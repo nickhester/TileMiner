@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class ResourceDirt : Resource
+public class ResourceMineral : Resource
 {
-	public ResourceDirt(int _amount) : base(_amount)
+	public ResourceMineral(int _amount) : base(_amount)
 	{
 	}
 
 	public override string GetName()
 	{
-		return "Dirt";
+		return "Mineral";
 	}
 }

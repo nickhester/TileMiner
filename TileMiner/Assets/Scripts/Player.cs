@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Player : MonoBehaviour, IEventSubscriber
+public class Player : MonoBehaviour
 {
 	private Inventory myInventory;
 	public ActionOptionMenu actionOptionMenuPrefab;
+	private ActionOptionMenu currentActionMenu;
 
 	void Start ()
 	{
 		myInventory = new Inventory();
-		FindObjectOfType<EventBroadcast>().SubscribeToEvent(EventBroadcast.Event.TILE_COLLECTED_DIRT, this);
 	}
 	
 	void Update ()
@@ -24,11 +24,28 @@ public class Player : MonoBehaviour, IEventSubscriber
 		return myInventory;
 	}
 
-	public void InformOfEvent(EventBroadcast.Event _event)
+	public void ProposeActions(List<NamedActionSet> _actionSets)
 	{
-		if (_event == EventBroadcast.Event.TILE_COLLECTED_DIRT)
+		// create menu
+		if (currentActionMenu == null)
 		{
-			myInventory.AddResource(new ResourceDirt(1));
+			GameObject menu = Instantiate(actionOptionMenuPrefab.gameObject) as GameObject;
+			currentActionMenu = menu.GetComponent<ActionOptionMenu>();
+			currentActionMenu.Initialize(_actionSets, this);
 		}
+		else
+		{
+			Debug.LogError("Old action menu not null, trying to create new one");
+		}
+	}
+
+	public void ExecuteAction(int _index, List<NamedActionSet> _actionSets)
+	{
+		for (int j = 0; j < _actionSets[_index].actions.Count; j++)
+		{
+			_actionSets[_index].actions[j].Execute();
+		}
+
+		Destroy(currentActionMenu.gameObject);
 	}
 }
