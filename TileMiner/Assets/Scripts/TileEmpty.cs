@@ -23,9 +23,20 @@ public class TileEmpty : Tile
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.REFINERY));
-		actions.Add(new ActionAdjustResources(new ResourceMineral(-8)));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.REFINERY).GetMineralAdjustmentToBuild())));
 		namedActionSet.Add(new NamedActionSet("Build Refinery", actions));
-		
+
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.MILL));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MILL).GetMineralAdjustmentToBuild())));
+		namedActionSet.Add(new NamedActionSet("Build Mill", actions));
+
 		ProposeActions(namedActionSet);
 	}
 }

@@ -10,6 +10,8 @@ public abstract class Tile : MonoBehaviour
 	protected EventBroadcast eventBroadcast;
 
 	[SerializeField] protected int weightSupportValue = 0;
+	[SerializeField] protected int mineralAdjustmentToBuild = 0;
+	public bool isStructure = false;
 
 	public enum TileType
 	{
@@ -17,7 +19,6 @@ public abstract class Tile : MonoBehaviour
 		DIRT,
 		STONE,
 		DIAMOND,
-		STRUCTURE,
 		RESIDENCE,
 		MILL,
 		REFINERY
@@ -75,4 +76,11 @@ public abstract class Tile : MonoBehaviour
 	{
 		return weightSupportValue;
 	}
+
+	public int GetMineralAdjustmentToBuild()
+	{
+		return mineralAdjustmentToBuild;
+	}
+
+
 }
