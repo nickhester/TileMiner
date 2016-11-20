@@ -8,6 +8,7 @@ public class EventBroadcast : MonoBehaviour
 
 	public enum Event
 	{
+		PLAYER_ACTION,
 		PLAYER_COLLECTED_MINERAL
 	}
 

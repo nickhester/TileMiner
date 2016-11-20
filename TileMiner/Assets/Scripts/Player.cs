@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
 	private Inventory myInventory;
 	public ActionOptionMenu actionOptionMenuPrefab;
 	private ActionOptionMenu currentActionMenu;
+	private EventBroadcast eventBroadcast;
 
 	void Start ()
 	{
-		myInventory = new Inventory();
+		GetInventory();
+		eventBroadcast = GameObject.FindObjectOfType<EventBroadcast>();
 	}
 	
 	void Update ()
@@ -21,6 +23,10 @@ public class Player : MonoBehaviour
 
 	public Inventory GetInventory()
 	{
+		if (myInventory == null)
+		{
+			myInventory = new Inventory();
+		}
 		return myInventory;
 	}
 
@@ -47,5 +53,6 @@ public class Player : MonoBehaviour
 		}
 
 		Destroy(currentActionMenu.gameObject);
+		eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);
 	}
 }
