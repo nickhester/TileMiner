@@ -3,29 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileMill : Tile, IEventSubscriber
+public class TileMill : Tile, IEventSubscriber, IStackableTile
 {
 	[SerializeField] private int baseMineralEarnPerPlayerAction = 1;
-	[SerializeField] private float stackMultiplier = 1.25f;
+	[SerializeField] protected float stackMultiplierValue = 1.25f;
+	private StackMultiplier stackMultiplier;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
 		base.Initialize(_tileGrid, _coordinate);
 
 		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
+
+		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerAction, stackMultiplierValue);
 	}
 
 	protected override void PlayerClick()
 	{
-		var tileBelow = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, myCoordinate);
+		//var tileBelow = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, myCoordinate);
+		//
+		//// if above dirt or another mill
+		//if (tileBelow
+		//	&& (tileBelow.GetType() == typeof(TileDirt)
+		//		|| tileBelow.GetType() == typeof(TileMill)))
+		//{
+		//	Activate();
+		//}
 
-		// if above dirt or another mill
-		if (tileBelow
-			&& (tileBelow.GetType() == typeof(TileDirt)
-				|| tileBelow.GetType() == typeof(TileMill)))
-		{
-			Activate();
-		}
+		Activate();
 	}
 
 	public override void Activate()
@@ -44,39 +49,14 @@ public class TileMill : Tile, IEventSubscriber
 	{
 		if (_event == EventBroadcast.Event.PLAYER_ACTION)
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(GetMineralAmountToAdd()));
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetMineralAmountToAdd()));
 			actionAdjustResources.Execute();
 		}
 	}
 
-	int GetMineralAmountToAdd()
+	public float MultiplyStackValue(float f)
 	{
-		int returnValue = 0;
-
-		if (tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, myCoordinate).GetType() == this.GetType())
-		{
-			// I'm not the base, so don't add anything
-			returnValue = 0;
-		}
-		else
-		{
-			// I'm the base Mill, so call recursively upward
-			float untruncatedMultipliedValue = MultiplyValue((float)baseMineralEarnPerPlayerAction);
-			returnValue = (int)untruncatedMultipliedValue;
-		}
-		return returnValue;
-	}
-
-	public float MultiplyValue(float f)
-	{
-		float retVal = f;
-		var tileAbove = tileGrid.GetTileNeighbor(TileGrid.Direction.UP, myCoordinate);
-		if (tileAbove.GetType() == this.GetType())
-		{
-			retVal *= stackMultiplier * ((TileMill)tileAbove).MultiplyValue(retVal);
-		}
-
-		return retVal;
+		return stackMultiplier.MultiplyStackValue(f);
 	}
 }
 

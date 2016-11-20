@@ -81,6 +81,4 @@ public abstract class Tile : MonoBehaviour
 	{
 		return mineralAdjustmentToBuild;
 	}
-
-
 }
