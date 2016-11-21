@@ -6,7 +6,6 @@ using System;
 public class ActionAdjustResources : IAction
 {
 	Resource resource;
-	int amount;
 	Inventory inventory;
 	bool isAdjustmentPossible;
 

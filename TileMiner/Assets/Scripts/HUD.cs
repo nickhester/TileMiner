@@ -13,13 +13,13 @@ public class HUD : MonoBehaviour, IEventSubscriber
 	void Start()
 	{
 		player = GameObject.FindObjectOfType<Player>();
-		GameObject.FindObjectOfType<EventBroadcast>().SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
+		GameObject.FindObjectOfType<EventBroadcast>().SubscribeToEvent(EventBroadcast.Event.RESOURCE_VALUES_UPDATED, this);
 		UpdateResourceValues();
 	}
 
 	public void InformOfEvent(EventBroadcast.Event _event)
 	{
-		if (_event == EventBroadcast.Event.PLAYER_ACTION)
+		if (_event == EventBroadcast.Event.RESOURCE_VALUES_UPDATED)
 		{
 			UpdateResourceValues();
 		}

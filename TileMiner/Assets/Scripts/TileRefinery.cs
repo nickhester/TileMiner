@@ -3,15 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileRefinery : Tile, IEventSubscriber
+public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 {
 	[SerializeField] private int baseMineralEarnPerPlayerCollect = 1;
+	[SerializeField] protected float stackMultiplierValue = 1.25f;
+	private StackMultiplier stackMultiplier;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
 		base.Initialize(_tileGrid, _coordinate);
 
 		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_MINERAL, this);
+
+		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerCollect, stackMultiplierValue);
 	}
 
 	protected override void PlayerClick()
@@ -35,13 +39,13 @@ public class TileRefinery : Tile, IEventSubscriber
 	{
 		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_MINERAL)
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(GetMineralAmountToAdd()));
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetMineralAmountToAdd()));
 			actionAdjustResources.Execute();
 		}
 	}
 
-	int GetMineralAmountToAdd()
+	public float MultiplyStackValue(float f)
 	{
-		return baseMineralEarnPerPlayerCollect;
+		return stackMultiplier.MultiplyStackValue(f);
 	}
 }

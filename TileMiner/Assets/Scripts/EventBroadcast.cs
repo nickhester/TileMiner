@@ -9,7 +9,8 @@ public class EventBroadcast : MonoBehaviour
 	public enum Event
 	{
 		PLAYER_ACTION,
-		PLAYER_COLLECTED_MINERAL
+		PLAYER_COLLECTED_MINERAL,
+		RESOURCE_VALUES_UPDATED
 	}
 
 	public void SubscribeToEvent(Event _event, IEventSubscriber _subscriber)
