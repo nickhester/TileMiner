@@ -20,7 +20,7 @@ public class TileEmpty : Tile
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
 		List<IAction> actions = new List<IAction>();
-
+		
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.REFINERY));
 		actions.Add(
@@ -36,6 +36,22 @@ public class TileEmpty : Tile
 				new ResourceMineral(
 					MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MILL).GetMineralAdjustmentToBuild())));
 		namedActionSet.Add(new NamedActionSet("Build Mill", actions));
+
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.QUARRY));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.QUARRY).GetMineralAdjustmentToBuild())));
+		namedActionSet.Add(new NamedActionSet("Build Quarry", actions));
+
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.RESIDENCE));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.RESIDENCE).GetMineralAdjustmentToBuild())));
+		namedActionSet.Add(new NamedActionSet("Build Residence", actions));
 
 		ProposeActions(namedActionSet);
 	}

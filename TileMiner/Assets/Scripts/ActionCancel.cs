@@ -10,7 +10,7 @@ public class ActionCancel : IAction
 		// do nothing, just pass through!
 	}
 
-	public bool IsActionValid()
+	public bool IsActionValid(ref string _failureReason)
 	{
 		return true;
 	}

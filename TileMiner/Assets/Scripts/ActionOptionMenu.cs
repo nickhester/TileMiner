@@ -18,7 +18,8 @@ public class ActionOptionMenu : MonoBehaviour
 		{
 			GameObject buttonObject = Instantiate(singleButton.gameObject) as GameObject;
 			buttonObject.transform.SetParent(layout.transform);
-			buttonObject.GetComponentInChildren<Text>().text = _actionSets[i].name;
+			Text buttonText = buttonObject.GetComponentInChildren<Text>();
+			buttonText.text = _actionSets[i].name;
 			int currentIteration = i;
 			Button buttonComponent = buttonObject.GetComponent<Button>();
 			buttonComponent.onClick.AddListener(delegate { _player.ExecuteAction(currentIteration, _actionSets); });
@@ -26,10 +27,12 @@ public class ActionOptionMenu : MonoBehaviour
 			// check if button should be disabled
 			for (int j = 0; j < _actionSets[i].actions.Count; j++)
 			{
-				if (!_actionSets[i].actions[j].IsActionValid())
+				string reason = "";
+				if (!_actionSets[i].actions[j].IsActionValid(ref reason))
 				{
 					buttonComponent.interactable = false;
 					atLeastOneActionIsInvalid = true;
+					buttonText.text += "\n(" + reason.Trim() + ")";
 				}
 			}
 		}

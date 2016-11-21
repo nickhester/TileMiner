@@ -8,6 +8,7 @@ public class TileGrid
 	private int dimX;
 	private int dimY;
 	private Tile[,] grid;
+	private int numRowsSky;
 
 	public enum Direction
 	{
@@ -17,11 +18,12 @@ public class TileGrid
 		LEFT
 	}
 
-	public TileGrid(int _dimX, int _dimY)
+	public TileGrid(int _dimX, int _dimY, int _numRowsSky)
 	{
 		dimX = _dimX;
 		dimY = _dimY;
 		grid = new Tile[dimY, dimX];
+		numRowsSky = _numRowsSky;
 	}
 
 	public void AddTile(Coordinate _coordinate, Tile _tile)
@@ -112,6 +114,11 @@ public class TileGrid
 			returnTile = GetTileAt(returnCoordinate);
 		}
 		return returnTile;
+	}
+
+	public int GetNumRowsSky()
+	{
+		return numRowsSky;
 	}
 }
 

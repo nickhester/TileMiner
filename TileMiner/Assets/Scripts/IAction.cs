@@ -6,5 +6,5 @@ public interface IAction
 {
 	void Execute();
 
-	bool IsActionValid();
+	bool IsActionValid(ref string _failureReason);
 }

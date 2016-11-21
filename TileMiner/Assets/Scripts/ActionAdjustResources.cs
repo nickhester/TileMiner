@@ -24,8 +24,13 @@ public class ActionAdjustResources : IAction
 		inventory.AddResource(resource);
 	}
 
-	public bool IsActionValid()
+	public bool IsActionValid(ref string _failureReason)
 	{
+		if (!isAdjustmentPossible)
+		{
+			_failureReason += "Not Enough Resources. ";
+		}
+
 		return isAdjustmentPossible;
 	}
 }

@@ -20,9 +20,22 @@ public class ActionBuild : IAction
 		MonoBehaviour.FindObjectOfType<LevelGenerator>().CreateOneTile(tileToReplace.GetCoordinate(), newType);
 	}
 
-	public bool IsActionValid()
+	public bool IsActionValid(ref string _failureReason)
 	{
-		int weightValue = MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(newType).GetWeightSupportValue();
-		return WeightAnalyzer.CanStructureBeAddedHere(tileToReplace, weightValue);
+		Tile tilePrefab = MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(newType);
+
+		// check weight
+		int weightValue = tilePrefab.GetWeightSupportValue();
+		bool passesWeightCheck = WeightAnalyzer.CanStructureBeAddedHere(tileToReplace, weightValue);
+
+		// check with tile for validation
+		bool passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason);
+
+		if (!passesWeightCheck)
+		{
+			_failureReason += "Can't support weight. ";
+		}
+
+		return (passesWeightCheck && passesClassValidation);
 	}
 }

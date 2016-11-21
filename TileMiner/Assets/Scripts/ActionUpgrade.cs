@@ -10,7 +10,7 @@ public class ActionUpgrade : IAction
 		throw new NotImplementedException();
 	}
 
-	public bool IsActionValid()
+	public bool IsActionValid(ref string _failureReason)
 	{
 		return true;
 	}

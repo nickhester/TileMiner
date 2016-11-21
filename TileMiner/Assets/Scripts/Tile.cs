@@ -21,7 +21,8 @@ public abstract class Tile : MonoBehaviour
 		DIAMOND,
 		RESIDENCE,
 		MILL,
-		REFINERY
+		REFINERY,
+		QUARRY
 	}
 
 	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
@@ -80,5 +81,10 @@ public abstract class Tile : MonoBehaviour
 	public int GetMineralAdjustmentToBuild()
 	{
 		return mineralAdjustmentToBuild;
+	}
+
+	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	{
+		return true;
 	}
 }

@@ -25,7 +25,7 @@ public class LevelGenerator : MonoBehaviour
 			Debug.LogWarning("number of tile types and prefabs are different");
 		}
 
-		tileGrid = new TileGrid(mapWidth, mapHeight);
+		tileGrid = new TileGrid(mapWidth, mapHeight, numSkyTiles);
 		CreateTiles();
 
 		GetComponent<LevelManager>().Initialize(tileGrid);

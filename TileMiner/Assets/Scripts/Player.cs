@@ -47,12 +47,23 @@ public class Player : MonoBehaviour
 
 	public void ExecuteAction(int _index, List<NamedActionSet> _actionSets)
 	{
+		bool actionIsCancel = false;
 		for (int j = 0; j < _actionSets[_index].actions.Count; j++)
 		{
+			IAction a = _actionSets[_index].actions[j];
+			
+			if (a.GetType() == typeof(ActionCancel))
+			{
+				actionIsCancel = true;
+			}
+
 			_actionSets[_index].actions[j].Execute();
 		}
 
 		Destroy(currentActionMenu.gameObject);
-		eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);
+		if (!actionIsCancel)
+		{
+			eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);
+		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileMill : Tile, IEventSubscriber, IStackableTile
+public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 {
 	[SerializeField] private int baseMineralEarnPerPlayerAction = 1;
 	[SerializeField] protected float stackMultiplierValue = 1.25f;
@@ -55,12 +55,12 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
-			&& (tileBelow.GetType() == typeof(TileMill)
-				|| (tileBelow.GetType() == typeof(TileDirt))))
+			&& (tileBelow.GetType() == typeof(TileQuarry)
+				|| (tileBelow.GetType() == typeof(TileStone))))
 		{
 			return true;
 		}
-		_failureReason += "Not on dirt or other Mill. ";
+		_failureReason += "Not on stone or other Quarry. ";
 		return false;
 	}
 }
