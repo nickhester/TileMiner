@@ -13,7 +13,7 @@ public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 	{
 		base.Initialize(_tileGrid, _coordinate);
 
-		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_MINERAL, this);
+		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT, this);
 
 		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerCollect, stackMultiplierValue);
 	}
@@ -37,7 +37,7 @@ public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 
 	public void InformOfEvent(EventBroadcast.Event _event)
 	{
-		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_MINERAL)
+		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT)
 		{
 			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetMineralAmountToAdd()));
 			actionAdjustResources.Execute();
@@ -47,5 +47,22 @@ public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 	public float MultiplyStackValue(float f)
 	{
 		return stackMultiplier.MultiplyStackValue(f);
+	}
+
+	// called on prefab
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	{
+		bool isValid = true;
+		
+		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
+		{
+			//
+		}
+		else
+		{
+			_failureReason += "Population can't sustain this. ";
+			isValid = false;
+		}
+		return isValid;
 	}
 }

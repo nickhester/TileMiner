@@ -120,6 +120,11 @@ public class TileGrid
 	{
 		return numRowsSky;
 	}
+
+	public Tile[,] GetRawGrid()
+	{
+		return grid;
+	}
 }
 
 public struct Coordinate

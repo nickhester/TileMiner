@@ -52,16 +52,33 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 	// called on prefab
 	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
 	{
+		bool isValid = true;
+
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
 			&& (tileBelow.GetType() == typeof(TileMill)
 				|| (tileBelow.GetType() == typeof(TileDirt))))
 		{
-			return true;
+			//
 		}
-		_failureReason += "Not on dirt or other Mill. ";
-		return false;
+		else
+		{
+			_failureReason += "Not on dirt or other Mill. ";
+			isValid = false;
+		}
+
+
+		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
+		{
+			//
+		}
+		else
+		{
+			_failureReason += "Population can't sustain this. ";
+			isValid = false;
+		}
+		return isValid;
 	}
 }
 

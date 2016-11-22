@@ -25,11 +25,16 @@ public class TileResidence : Tile
 	// called on prefab
 	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
 	{
+		bool isValid = true;
 		if (_myCoordinate.y < _tileGrid.GetNumRowsSky())
 		{
-			return true;
+			//
 		}
-		_failureReason += "Not Above Ground. ";
-		return false;
+		else
+		{
+			_failureReason += "Not Above Ground. ";
+			isValid = false;
+		}
+		return isValid;
 	}
 }

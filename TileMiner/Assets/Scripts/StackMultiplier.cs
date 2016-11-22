@@ -30,7 +30,7 @@ public class StackMultiplier
 		}
 		else
 		{
-			// I'm the base Mill, so call recursively upward
+			// I'm the base of the stack, so call recursively upward
 			float untruncatedMultipliedValue = MultiplyStackValue((float)baseValue);
 			returnValue = (int)untruncatedMultipliedValue;
 		}

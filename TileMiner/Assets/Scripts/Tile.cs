@@ -13,6 +13,8 @@ public abstract class Tile : MonoBehaviour
 	[SerializeField] protected int mineralAdjustmentToBuild = 0;
 	public bool isStructure = false;
 
+	[SerializeField] protected int populationAdjustment = 0;
+
 	public enum TileType
 	{
 		EMPTY,
@@ -86,5 +88,10 @@ public abstract class Tile : MonoBehaviour
 	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
 	{
 		return true;
+	}
+
+	public int GetPopulationAdjustment()
+	{
+		return populationAdjustment;
 	}
 }

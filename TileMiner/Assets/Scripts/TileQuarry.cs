@@ -7,15 +7,19 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 {
 	[SerializeField] private int baseMineralEarnPerPlayerAction = 1;
 	[SerializeField] protected float stackMultiplierValue = 1.25f;
-	private StackMultiplier stackMultiplier;
+	private StackMultiplier stackMultiplierPrimary;
+	private StackMultiplier stackMultiplierSecondary;
+	[SerializeField] private int mineralEarnPerStoneCollection = 5;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
 		base.Initialize(_tileGrid, _coordinate);
 
 		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
+		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_STONE, this);
 
-		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerAction, stackMultiplierValue);
+		stackMultiplierPrimary = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerAction, stackMultiplierValue);
+		stackMultiplierSecondary = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), mineralEarnPerStoneCollection, stackMultiplierValue);
 	}
 
 	protected override void PlayerClick()
@@ -39,29 +43,51 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	{
 		if (_event == EventBroadcast.Event.PLAYER_ACTION)
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetMineralAmountToAdd()));
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplierPrimary.GetMineralAmountToAdd()));
+			actionAdjustResources.Execute();
+		}
+		else if (_event == EventBroadcast.Event.PLAYER_COLLECTED_STONE)
+		{
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplierSecondary.GetMineralAmountToAdd()));
 			actionAdjustResources.Execute();
 		}
 	}
 
 	public float MultiplyStackValue(float f)
 	{
-		return stackMultiplier.MultiplyStackValue(f);
+		return stackMultiplierPrimary.MultiplyStackValue(f);
 	}
 
 	// called on prefab
 	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
 	{
+		bool isValid = true;
+
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
 			&& (tileBelow.GetType() == typeof(TileQuarry)
 				|| (tileBelow.GetType() == typeof(TileStone))))
 		{
-			return true;
+			//
 		}
-		_failureReason += "Not on stone or other Quarry. ";
-		return false;
+		else
+		{
+			_failureReason += "Not on stone or other Quarry. ";
+			isValid = false;
+		}
+
+
+		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
+		{
+			//
+		}
+		else
+		{
+			_failureReason += "Population can't sustain this. ";
+			isValid = false;
+		}
+		return isValid;
 	}
 }
 

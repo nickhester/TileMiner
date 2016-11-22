@@ -9,7 +9,8 @@ public class EventBroadcast : MonoBehaviour
 	public enum Event
 	{
 		PLAYER_ACTION,
-		PLAYER_COLLECTED_MINERAL,
+		PLAYER_COLLECTED_DIRT,
+		PLAYER_COLLECTED_STONE,
 		RESOURCE_VALUES_UPDATED
 	}
 
@@ -30,7 +31,16 @@ public class EventBroadcast : MonoBehaviour
 			int numLoops = subscriptions[_event].Count;
 			for (int i = 0; i < numLoops; i++)
 			{
-				subscriptions[_event][i].InformOfEvent(_event);
+				IEventSubscriber s = subscriptions[_event][i];
+				MonoBehaviour m = s as MonoBehaviour;
+				if (s != null && m != null)
+				{
+					s.InformOfEvent(_event);
+				}
+				else
+				{
+					subscriptions[_event].RemoveAt(i);
+				}
 			}
 		}
 	}
