@@ -6,6 +6,12 @@ public static class WeightAnalyzer
 {
 	public static bool CanTileBeRemoved(Tile t)
 	{
+		Tile upperNeighbor = t.GetTileGrid().GetTileNeighbor(TileGrid.Direction.UP, t.GetCoordinate());
+		if (upperNeighbor.isStructure)
+		{
+			return false;
+		}
+
 		List<Tile> remainingColumn = GetContiguousTileColumn(t, TileGrid.Direction.UP);
 		int weightTotal = 0;
 		for (int i = 0; i < remainingColumn.Count; i++)
