@@ -24,7 +24,8 @@ public abstract class Tile : MonoBehaviour
 		RESIDENCE,
 		MILL,
 		REFINERY,
-		QUARRY
+		QUARRY,
+		MINE
 	}
 
 	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate)

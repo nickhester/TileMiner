@@ -46,6 +46,14 @@ public class TileEmpty : Tile
 		namedActionSet.Add(new NamedActionSet("Build Quarry", actions));
 
 		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.MINE));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MINE).GetMineralAdjustmentToBuild())));
+		namedActionSet.Add(new NamedActionSet("Build Mine", actions));
+
+		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.RESIDENCE));
 		actions.Add(
 			new ActionAdjustResources(

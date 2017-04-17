@@ -22,6 +22,8 @@ public class ActionBuild : IAction
 
 	public bool IsActionValid(ref string _failureReason)
 	{
+		bool result = true;
+
 		Tile tilePrefab = MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(newType);
 
 		// check weight
@@ -33,9 +35,10 @@ public class ActionBuild : IAction
 
 		if (!passesWeightCheck)
 		{
+			result = false;
 			_failureReason += "Can't support weight. ";
 		}
 
-		return (passesWeightCheck && passesClassValidation);
+		return (result && passesClassValidation);
 	}
 }

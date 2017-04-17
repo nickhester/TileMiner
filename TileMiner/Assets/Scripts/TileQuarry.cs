@@ -66,10 +66,9 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
-			&& (tileBelow.GetType() == typeof(TileQuarry)
-				|| (tileBelow.GetType() == typeof(TileStone))))
+			&& (tileBelow.GetType() == typeof(TileStone)))
 		{
-			//
+			// valid
 		}
 		else
 		{
@@ -77,6 +76,14 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 			isValid = false;
 		}
 
+		// check mine range
+		bool passesMineProximityCheck = BuildRequirementsAnalyzer.IsWithinRangeOfMine(_myCoordinate, _tileGrid);
+
+		if (!passesMineProximityCheck)
+		{
+			isValid = false;
+			_failureReason += "Not close enough to mine. ";
+		}
 
 		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
 		{

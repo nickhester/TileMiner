@@ -57,17 +57,24 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
-			&& (tileBelow.GetType() == typeof(TileMill)
-				|| (tileBelow.GetType() == typeof(TileDirt))))
+			&& tileBelow.GetType() == typeof(TileDirt))
 		{
-			//
+			// valid
 		}
 		else
 		{
-			_failureReason += "Not on dirt or other Mill. ";
+			_failureReason += "Not on dirt. ";
 			isValid = false;
 		}
+		
+		// check mine range
+		bool passesMineProximityCheck = BuildRequirementsAnalyzer.IsWithinRangeOfMine(_myCoordinate, _tileGrid);
 
+		if (!passesMineProximityCheck)
+		{
+			isValid = false;
+			_failureReason += "Not close enough to mine. ";
+		}
 
 		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
 		{
