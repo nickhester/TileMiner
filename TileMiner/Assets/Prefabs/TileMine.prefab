@@ -71,7 +71,11 @@ MonoBehaviour:
   mineralAdjustmentToBuild: -50
   isStructure: 1
   populationAdjustment: -1
-  radiusToSupport: 5
+  baseProbability: 0
+  increaseProbabilityPerRow: 0
+  depthRangeStart: 0
+  depthRangeEnd: 999
+  radiusToSupport: 8
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

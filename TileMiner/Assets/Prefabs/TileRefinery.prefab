@@ -71,7 +71,11 @@ MonoBehaviour:
   mineralAdjustmentToBuild: -80
   isStructure: 1
   populationAdjustment: -1
-  baseMineralEarnPerPlayerCollect: 4
+  baseProbability: 0
+  increaseProbabilityPerRow: 0
+  depthRangeStart: 0
+  depthRangeEnd: 999
+  baseMineralEarnPerPlayerCollect: 1
   stackMultiplierValue: 1.25
 --- !u!212 &212000012871114896
 SpriteRenderer:

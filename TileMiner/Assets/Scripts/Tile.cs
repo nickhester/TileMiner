@@ -15,11 +15,19 @@ public abstract class Tile : MonoBehaviour
 
 	[SerializeField] protected int populationAdjustment = 0;
 
+	[Header("Level Generation")]
+	public float baseProbability;
+	public float increaseProbabilityPerRow;
+	public int depthRangeStart = 0;
+	public int depthRangeEnd = 999;
+
 	public enum TileType
 	{
 		EMPTY,
 		DIRT,
+		DIRT2,
 		STONE,
+		STONE2,
 		DIAMOND,
 		RESIDENCE,
 		MILL,

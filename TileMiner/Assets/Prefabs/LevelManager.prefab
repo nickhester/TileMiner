@@ -75,19 +75,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae58b65900487774ebfcf6a02eb64274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapHeight: 28
+  mapHeight: 60
   mapWidth: 8
-  numSkyTiles: 10
+  numSkyTiles: 14
   tileSpacing: 1
   tilePrefabs:
-  - {fileID: 1000013142335594, guid: 4b1548e09706123468fec6ad3a4fac20, type: 2}
-  - {fileID: 1000013142335594, guid: 1b94c5e2589d9c644ab7328b1ae5321e, type: 2}
-  - {fileID: 1000013142335594, guid: afc491fce90967b43b438c938e24ec83, type: 2}
-  - {fileID: 1000013142335594, guid: f491731473c3f7a4db0c20fc9eeb1552, type: 2}
-  - {fileID: 1000013142335594, guid: 52f4e28124da0b34dac0f0c3fd56a79c, type: 2}
-  - {fileID: 1000013142335594, guid: 7abcfbb0384cf1c4ab9a57144a46925e, type: 2}
-  - {fileID: 1000013142335594, guid: d93e107e577b5154c8388835c758d628, type: 2}
-  - {fileID: 1000013142335594, guid: 8b85a5bb764c37944a6c4f72ecefb94d, type: 2}
-  - {fileID: 1000013142335594, guid: fcc27622fae4d1241baf6d2ddc69bb27, type: 2}
-  baseStoneChance: 0.1
+  - {fileID: 114000011162575676, guid: 4b1548e09706123468fec6ad3a4fac20, type: 2}
+  - {fileID: 114000011861431814, guid: 1b94c5e2589d9c644ab7328b1ae5321e, type: 2}
+  - {fileID: 114000011861431814, guid: 939baf510d3640e4b8e72a8eba7d3e7f, type: 2}
+  - {fileID: 114000011730084088, guid: afc491fce90967b43b438c938e24ec83, type: 2}
+  - {fileID: 114000011730084088, guid: 579283a3556ee67489f5b787bbe92dfc, type: 2}
+  - {fileID: 114000012595420102, guid: f491731473c3f7a4db0c20fc9eeb1552, type: 2}
+  - {fileID: 114000010450595140, guid: 52f4e28124da0b34dac0f0c3fd56a79c, type: 2}
+  - {fileID: 114000011321865328, guid: 7abcfbb0384cf1c4ab9a57144a46925e, type: 2}
+  - {fileID: 114000013363495946, guid: d93e107e577b5154c8388835c758d628, type: 2}
+  - {fileID: 114000014244536640, guid: 8b85a5bb764c37944a6c4f72ecefb94d, type: 2}
+  - {fileID: 114216816326092304, guid: fcc27622fae4d1241baf6d2ddc69bb27, type: 2}
+  dirt2BaseChance: 0.95
+  dirt3BaseChance: 0.99
+  rowIncreaseDirt2Chance: 0.009
+  rowIncreaseDirt3Chance: 0.002
+  baseStoneChance: 0.9
   rowIncreaseStoneChance: 0.01
+  stone2BaseChance: 0.98
+  stone3BaseChance: 0.99
+  rowIncreaseStone2Chance: 0.006
+  rowIncreaseStone3Chance: 0.002

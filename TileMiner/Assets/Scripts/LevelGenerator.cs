@@ -10,12 +10,8 @@ public class LevelGenerator : MonoBehaviour
 	[SerializeField] private int numSkyTiles = 2;
 
 	[SerializeField] private float tileSpacing = 1.0f;
-	[SerializeField] private List<GameObject> tilePrefabs = new List<GameObject>();
+	[SerializeField] private List<Tile> tilePrefabs = new List<Tile>();
 	private TileGrid tileGrid;
-
-	// level generation
-	[SerializeField] private float baseStoneChance = 0.1f;
-	[SerializeField] private float rowIncreaseStoneChance = 0.05f;
 
 	void Start ()
 	{
@@ -48,16 +44,35 @@ public class LevelGenerator : MonoBehaviour
 	{
 		if (dimY >= numSkyTiles)
 		{
-			if (UnityEngine.Random.Range(0.0f, 1.0f) < (baseStoneChance + (rowIncreaseStoneChance * dimY)))
+			int depth = dimY - numSkyTiles;
+
+			List<TileProbability> tileProbabilities = new List<TileProbability>();
+			for (int i = 0; i < tilePrefabs.Count; i++)
 			{
-				return Tile.TileType.STONE;
+				TileProbability tp = new TileProbability((Tile.TileType)i, tilePrefabs[i].baseProbability, tilePrefabs[i].increaseProbabilityPerRow, tilePrefabs[i].depthRangeStart, tilePrefabs[i].depthRangeEnd);
+				tileProbabilities.Add(tp);
 			}
-			else
-			{
-				return Tile.TileType.DIRT;
-			}
+
+			ProbabilitySelector probabilitySelector = new ProbabilitySelector(tileProbabilities);
+			return probabilitySelector.GetTileType(depth);
 		}
 		return Tile.TileType.EMPTY;
+	}
+
+	int ChooseTileAtDepth(int depth, float[] probabilitiesBase, float[] probabilitiesIncreaseWithDepth)
+	{
+		float rand = UnityEngine.Random.Range(0.0f, 1.0f);
+
+		float aggregateValue = 0.0f;
+		for (int i = 0; i < probabilitiesBase.Length; i++)
+		{
+			aggregateValue = probabilitiesBase[i] - (probabilitiesIncreaseWithDepth[i] * depth);
+			if (rand - aggregateValue < 0.0f)
+			{
+				return i - 1;
+			}
+		}
+		return probabilitiesBase.Length - 1;
 	}
 
 	public Tile CreateOneTile(Coordinate _coordinate, Tile.TileType _type)
@@ -65,7 +80,7 @@ public class LevelGenerator : MonoBehaviour
 		float verticalOffset = ((numSkyTiles) * tileSpacing);				// offset to make ground appear in the middle
 		float horizontalOffset = ((mapWidth - 1) * tileSpacing) / 2.0f;		// offset to center left-right
 
-		GameObject go = Instantiate(tilePrefabs[(int)_type], new Vector2((_coordinate.x * tileSpacing) - horizontalOffset, (-_coordinate.y * tileSpacing) + verticalOffset), Quaternion.identity) as GameObject;
+		GameObject go = Instantiate(tilePrefabs[(int)_type].gameObject, new Vector2((_coordinate.x * tileSpacing) - horizontalOffset, (-_coordinate.y * tileSpacing) + verticalOffset), Quaternion.identity) as GameObject;
 		Tile t = go.GetComponent<Tile>();
 
 		t.transform.SetParent(transform);

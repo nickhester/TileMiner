@@ -22,8 +22,7 @@ public class TileDirt : Tile
 		actions.Add(new ActionDestroy(this));
 		actions.Add(
 			new ActionAdjustResources(
-				new ResourceMineral(
-					MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.DIRT).GetMineralAdjustmentToBuild())));
+				new ResourceMineral(GetMineralAdjustmentToBuild())));
 		namedActionSet.Add(new NamedActionSet("Collect Mineral", actions, true));
 		ProposeActions(namedActionSet);
 	}
