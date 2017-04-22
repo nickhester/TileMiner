@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae58b65900487774ebfcf6a02eb64274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapHeight: 60
+  mapHeight: 100
   mapWidth: 8
   numSkyTiles: 14
   tileSpacing: 1
@@ -91,13 +91,5 @@ MonoBehaviour:
   - {fileID: 114000013363495946, guid: d93e107e577b5154c8388835c758d628, type: 2}
   - {fileID: 114000014244536640, guid: 8b85a5bb764c37944a6c4f72ecefb94d, type: 2}
   - {fileID: 114216816326092304, guid: fcc27622fae4d1241baf6d2ddc69bb27, type: 2}
-  dirt2BaseChance: 0.95
-  dirt3BaseChance: 0.99
-  rowIncreaseDirt2Chance: 0.009
-  rowIncreaseDirt3Chance: 0.002
-  baseStoneChance: 0.9
-  rowIncreaseStoneChance: 0.01
-  stone2BaseChance: 0.98
-  stone3BaseChance: 0.99
-  rowIncreaseStone2Chance: 0.006
-  rowIncreaseStone3Chance: 0.002
+  - {fileID: 114430248588178596, guid: c4fc48d7b056b6c4f9b6162db1e71b2d, type: 2}
+  - {fileID: 114918573165789414, guid: 0aeffd301782a8541861899cb0162fb9, type: 2}

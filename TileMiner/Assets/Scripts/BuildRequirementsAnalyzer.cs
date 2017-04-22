@@ -20,4 +20,19 @@ public static class BuildRequirementsAnalyzer
 
 		return false;
 	}
+
+	public static bool IsWithinRangeOfTile(Coordinate c, TileGrid tileGrid, System.Type type, float distance)
+	{
+		float distanceToNearest = -1.0f;
+		Tile t = tileGrid.FindNearestTileOfType(c, type, ref distanceToNearest);
+		if (t)
+		{
+			if (distanceToNearest < distance)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

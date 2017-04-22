@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4000012868189612}
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
-  - component: {fileID: 114000011321865328}
+  - component: {fileID: 114918573165789414}
   m_Layer: 0
-  m_Name: TileMill
+  m_Name: TileEnergyRelay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ BoxCollider2D:
   m_Offset: {x: 0.000000014901161, y: 0.00064821297}
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
---- !u!114 &114000011321865328
+--- !u!114 &114918573165789414
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -64,19 +64,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013142335594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06ba43586ffee12419b5342ef11919cc, type: 3}
+  m_Script: {fileID: 11500000, guid: ede43109772642e42924c91b7cea10a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: -1
-  mineralAdjustmentToBuild: -60
+  mineralAdjustmentToBuild: -250
   isStructure: 1
-  populationAdjustment: -1
+  populationAdjustment: 0
   baseProbability: 0
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
-  baseMineralEarnPerPlayerAction: 2
-  stackMultiplierValue: 1.25
+  distanceToEnergySource: 10
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -108,7 +107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a278a842d481810419ef42df195adffb, type: 3}
-  m_Color: {r: 0.4705882, g: 0.12916777, b: 0.322, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6bb8f15fffc4f5c4c8a29ebe23c7f764, type: 3}
+  m_Color: {r: 0.2205882, g: 1, b: 0.7097362, a: 1}
   m_FlipX: 0
   m_FlipY: 0

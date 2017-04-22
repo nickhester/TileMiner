@@ -33,7 +33,9 @@ public abstract class Tile : MonoBehaviour
 		MILL,
 		REFINERY,
 		QUARRY,
-		MINE
+		MINE,
+		ENERGY_WELL,
+		ENERGY_RELAY
 	}
 
 	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
