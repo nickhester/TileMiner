@@ -11,6 +11,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	private StackMultiplier stackMultiplierPrimary;
 	private StackMultiplier stackMultiplierSecondary;
 	[SerializeField] private int mineralEarnPerStoneCollection = 5;
+	[SerializeField] protected float stackMultiplierCost = 2.0f;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
@@ -97,6 +98,11 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 			isValid = false;
 		}
 		return isValid;
+	}
+
+	public override int GetMineralAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	{
+		return GetMineralAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}
 }
 

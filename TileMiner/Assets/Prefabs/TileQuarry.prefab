@@ -80,6 +80,7 @@ MonoBehaviour:
   baseMineralEarnPerPlayerAction: 1
   stackMultiplierValue: 2.5
   mineralEarnPerStoneCollection: 2
+  stackMultiplierCost: 3
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

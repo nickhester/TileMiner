@@ -26,7 +26,7 @@ public class TileEmpty : Tile
 		actions.Add(
 			new ActionAdjustResources(
 				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.RESIDENCE).GetMineralAdjustmentToBuild())));
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.RESIDENCE).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
 		namedActionSet.Add(new NamedActionSet("Build Residence", actions));
 
 		actions = new List<IAction>();
@@ -34,7 +34,7 @@ public class TileEmpty : Tile
 		actions.Add(
 			new ActionAdjustResources(
 				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MINE).GetMineralAdjustmentToBuild())));
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MINE).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
 		namedActionSet.Add(new NamedActionSet("Build Mine", actions));
 
 		actions = new List<IAction>();
@@ -42,7 +42,7 @@ public class TileEmpty : Tile
 		actions.Add(
 			new ActionAdjustResources(
 				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.REFINERY).GetMineralAdjustmentToBuild())));
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.REFINERY).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
 		namedActionSet.Add(new NamedActionSet("Build Refinery", actions));
 
 		actions = new List<IAction>();
@@ -50,7 +50,7 @@ public class TileEmpty : Tile
 		actions.Add(
 			new ActionAdjustResources(
 				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MILL).GetMineralAdjustmentToBuild())));
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MILL).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
 		namedActionSet.Add(new NamedActionSet("Build Mill", actions));
 
 		actions = new List<IAction>();
@@ -58,7 +58,7 @@ public class TileEmpty : Tile
 		actions.Add(
 			new ActionAdjustResources(
 				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.QUARRY).GetMineralAdjustmentToBuild())));
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.QUARRY).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
 		namedActionSet.Add(new NamedActionSet("Build Quarry", actions));
 
 		actions = new List<IAction>();
@@ -66,7 +66,7 @@ public class TileEmpty : Tile
 		actions.Add(
 			new ActionAdjustResources(
 				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.ENERGY_RELAY).GetMineralAdjustmentToBuild())));
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.ENERGY_RELAY).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
 		namedActionSet.Add(new NamedActionSet("Build Energy Relay", actions));
 
 		actions = new List<IAction>();
@@ -74,7 +74,7 @@ public class TileEmpty : Tile
 		actions.Add(
 			new ActionAdjustResources(
 				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.DIAMOND).GetMineralAdjustmentToBuild())));
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.DIAMOND).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
 		namedActionSet.Add(new NamedActionSet("Build Diamond Monument", actions));
 
 		ProposeActions(namedActionSet);

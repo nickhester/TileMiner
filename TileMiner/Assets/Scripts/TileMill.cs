@@ -9,6 +9,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 	[SerializeField] private int baseMineralEarnPerPlayerAction = 1;
 	[SerializeField] protected float stackMultiplierValue = 1.25f;
 	private StackMultiplier stackMultiplier;
+	[SerializeField] protected float stackMultiplierCost = 1.25f;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
@@ -88,6 +89,11 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 			isValid = false;
 		}
 		return isValid;
+	}
+
+	public override int GetMineralAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	{
+		return GetMineralAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}
 }
 

@@ -93,9 +93,31 @@ public abstract class Tile : MonoBehaviour
 		return weightSupportValue;
 	}
 
-	public int GetMineralAdjustmentToBuild()
+	public virtual int GetMineralAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
 	{
 		return mineralAdjustmentToBuild;
+	}
+
+	protected int GetMineralAdjustmentToBuild_stacked(TileGrid _tileGrid, Coordinate buildTarget, float multiplier)
+	{
+		Tile targetTile = _tileGrid.GetTileAt(buildTarget);
+		Tile currentTileDown = targetTile;
+		int numLikeTilesBelow = 0;
+		while (true)
+		{
+			Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, currentTileDown.GetCoordinate());
+			if (tileBelow.GetType() == this.GetType())
+			{
+				currentTileDown = tileBelow;
+				numLikeTilesBelow++;
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+		return (int)(mineralAdjustmentToBuild * Mathf.Pow(multiplier, numLikeTilesBelow));
 	}
 
 	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)

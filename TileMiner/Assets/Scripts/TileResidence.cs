@@ -5,6 +5,9 @@ using System;
 
 public class TileResidence : Tile
 {
+	[Header("Type-Specific Properties")]
+	[SerializeField] protected float stackMultiplierCost = 2.0f;
+
 	protected override void PlayerClick()
 	{
 		Activate();
@@ -52,5 +55,10 @@ public class TileResidence : Tile
 		}
 
 		return isValid;
+	}
+
+	public override int GetMineralAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	{
+		return GetMineralAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}
 }
