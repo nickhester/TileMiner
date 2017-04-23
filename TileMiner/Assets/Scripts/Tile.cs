@@ -20,6 +20,8 @@ public abstract class Tile : MonoBehaviour
 	public float increaseProbabilityPerRow;
 	public int depthRangeStart = 0;
 	public int depthRangeEnd = 999;
+	public int guaranteeOneOnRow = -1;
+	public int guaranteeColumn = -1;
 
 	public enum TileType
 	{

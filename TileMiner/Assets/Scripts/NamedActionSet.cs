@@ -28,4 +28,19 @@ public class NamedActionSet
 		name = _name;
 		actions = a;
 	}
+
+	public bool DoesActionSetHaveCost(ref int cost)
+	{
+		bool retVal = false;
+		foreach (IAction action in actions)
+		{
+			ActionAdjustResources aar = action as ActionAdjustResources;
+			if (aar != null)
+			{
+				retVal = true;
+				cost += aar.GetResourceAdjustmentAmount();
+			}
+		}
+		return retVal;
+	}
 }

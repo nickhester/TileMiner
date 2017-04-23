@@ -20,7 +20,23 @@ public class TileEmpty : Tile
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
 		List<IAction> actions = new List<IAction>();
-		
+
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.RESIDENCE));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.RESIDENCE).GetMineralAdjustmentToBuild())));
+		namedActionSet.Add(new NamedActionSet("Build Residence", actions));
+
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.MINE));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MINE).GetMineralAdjustmentToBuild())));
+		namedActionSet.Add(new NamedActionSet("Build Mine", actions));
+
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.REFINERY));
 		actions.Add(
@@ -46,28 +62,20 @@ public class TileEmpty : Tile
 		namedActionSet.Add(new NamedActionSet("Build Quarry", actions));
 
 		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.MINE));
-		actions.Add(
-			new ActionAdjustResources(
-				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.MINE).GetMineralAdjustmentToBuild())));
-		namedActionSet.Add(new NamedActionSet("Build Mine", actions));
-
-		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.RESIDENCE));
-		actions.Add(
-			new ActionAdjustResources(
-				new ResourceMineral(
-					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.RESIDENCE).GetMineralAdjustmentToBuild())));
-		namedActionSet.Add(new NamedActionSet("Build Residence", actions));
-
-		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.ENERGY_RELAY));
 		actions.Add(
 			new ActionAdjustResources(
 				new ResourceMineral(
 					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.ENERGY_RELAY).GetMineralAdjustmentToBuild())));
 		namedActionSet.Add(new NamedActionSet("Build Energy Relay", actions));
+
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.DIAMOND));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.DIAMOND).GetMineralAdjustmentToBuild())));
+		namedActionSet.Add(new NamedActionSet("Build Diamond Monument", actions));
 
 		ProposeActions(namedActionSet);
 	}

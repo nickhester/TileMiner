@@ -26,7 +26,7 @@ public class TileResidence : Tile
 	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
 	{
 		bool isValid = true;
-		if (_myCoordinate.y < _tileGrid.GetNumRowsSky())
+		if (_tileGrid.GetDepth(_myCoordinate) < 0)
 		{
 			//
 		}
@@ -35,6 +35,22 @@ public class TileResidence : Tile
 			_failureReason += "Not Above Ground. ";
 			isValid = false;
 		}
+
+		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
+
+		if (tileBelow
+			&& (tileBelow.GetType() == typeof(TileDirt)
+				|| tileBelow.GetType() == typeof(TileStone)
+				|| tileBelow.GetType() == typeof(TileResidence)))
+		{
+			// valid
+		}
+		else
+		{
+			_failureReason += "Not on ground or other Residence. ";
+			isValid = false;
+		}
+
 		return isValid;
 	}
 }

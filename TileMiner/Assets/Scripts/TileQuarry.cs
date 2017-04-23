@@ -5,6 +5,7 @@ using System;
 
 public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 {
+	[Header("Type-Specific Properties")]
 	[SerializeField] private int baseMineralEarnPerPlayerAction = 1;
 	[SerializeField] protected float stackMultiplierValue = 1.25f;
 	private StackMultiplier stackMultiplierPrimary;
@@ -64,9 +65,10 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		bool isValid = true;
 
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
-
+		
 		if (tileBelow
-			&& (tileBelow.GetType() == typeof(TileStone)))
+			&& (tileBelow.GetType() == typeof(TileStone)
+				|| tileBelow.GetType() == typeof(TileQuarry)))
 		{
 			// valid
 		}

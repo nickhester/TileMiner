@@ -5,6 +5,7 @@ using System;
 
 public class TileMill : Tile, IEventSubscriber, IStackableTile
 {
+	[Header("Type-Specific Properties")]
 	[SerializeField] private int baseMineralEarnPerPlayerAction = 1;
 	[SerializeField] protected float stackMultiplierValue = 1.25f;
 	private StackMultiplier stackMultiplier;
@@ -57,13 +58,14 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
-			&& tileBelow.GetType() == typeof(TileDirt))
+			&& (tileBelow.GetType() == typeof(TileDirt)
+				|| tileBelow.GetType() == typeof(TileMill)))
 		{
 			// valid
 		}
 		else
 		{
-			_failureReason += "Not on dirt. ";
+			_failureReason += "Not on dirt or other Mill. ";
 			isValid = false;
 		}
 		

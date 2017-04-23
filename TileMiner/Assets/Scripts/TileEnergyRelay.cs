@@ -36,13 +36,13 @@ public class TileEnergyRelay : Tile
 		bool isValid = true;
 
 		// check if is near energy well, or another energy relay
-		bool passesMineProximityCheck = (BuildRequirementsAnalyzer.IsWithinRangeOfTile(_myCoordinate, _tileGrid, typeof(TileEnergyWell), distanceToEnergySource)
+		bool passesProximityCheck = (BuildRequirementsAnalyzer.IsWithinRangeOfTile(_myCoordinate, _tileGrid, typeof(TileEnergyWell), distanceToEnergySource)
 									|| BuildRequirementsAnalyzer.IsWithinRangeOfTile(_myCoordinate, _tileGrid, typeof(TileEnergyRelay), distanceToEnergySource));
 
-		if (!passesMineProximityCheck)
+		if (!passesProximityCheck)
 		{
 			isValid = false;
-			_failureReason += "Not close enough to mine. ";
+			_failureReason += "Not close enough to energy source. ";
 		}
 
 		return isValid;

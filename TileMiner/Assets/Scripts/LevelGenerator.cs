@@ -49,10 +49,16 @@ public class LevelGenerator : MonoBehaviour
 			List<TileProbability> tileProbabilities = new List<TileProbability>();
 			for (int i = 0; i < tilePrefabs.Count; i++)
 			{
+				// check if guaranteed tile is this tile
+				if (tilePrefabs[i].guaranteeOneOnRow == depth && tilePrefabs[i].guaranteeColumn == dimX)
+				{
+					return (Tile.TileType)i;
+				}
+
 				TileProbability tp = new TileProbability((Tile.TileType)i, tilePrefabs[i].baseProbability, tilePrefabs[i].increaseProbabilityPerRow, tilePrefabs[i].depthRangeStart, tilePrefabs[i].depthRangeEnd);
 				tileProbabilities.Add(tp);
 			}
-
+			
 			ProbabilitySelector probabilitySelector = new ProbabilitySelector(tileProbabilities);
 			return probabilitySelector.GetTileType(depth);
 		}

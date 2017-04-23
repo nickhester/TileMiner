@@ -33,4 +33,10 @@ public class ActionAdjustResources : IAction
 
 		return isAdjustmentPossible;
 	}
+
+	public int GetResourceAdjustmentAmount()
+	{
+		// TODO: this assumes only one type of resource for action value
+		return resource.GetAmount();
+	}
 }

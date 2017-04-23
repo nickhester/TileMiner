@@ -116,11 +116,6 @@ public class TileGrid
 		return returnTile;
 	}
 
-	public int GetNumRowsSky()
-	{
-		return numRowsSky;
-	}
-
 	public Tile[,] GetRawGrid()
 	{
 		return grid;
@@ -164,6 +159,11 @@ public class TileGrid
 
 		distance = shortestDistance;
 		return returnTile;
+	}
+
+	public int GetDepth(Coordinate c)
+	{
+		return c.y - numRowsSky;
 	}
 }
 

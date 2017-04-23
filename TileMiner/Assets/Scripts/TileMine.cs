@@ -5,6 +5,7 @@ using System;
 
 public class TileMine : Tile
 {
+	[Header("Type-Specific Properties")]
 	public float radiusToSupport;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
@@ -26,7 +27,21 @@ public class TileMine : Tile
 	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
 	{
 		bool isValid = true;
-		
+
+		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
+
+		if (tileBelow
+			&& (tileBelow.GetType() == typeof(TileDirt)
+				|| tileBelow.GetType() == typeof(TileStone)))
+		{
+			// valid
+		}
+		else
+		{
+			_failureReason += "Not on ground. ";
+			isValid = false;
+		}
+
 		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
 		{
 			//

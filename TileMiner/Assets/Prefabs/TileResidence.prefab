@@ -68,13 +68,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: -1
-  mineralAdjustmentToBuild: -80
+  mineralAdjustmentToBuild: -60
   isStructure: 1
   populationAdjustment: 4
   baseProbability: 0
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
+  guaranteeOneOnRow: -1
+  guaranteeColumn: -1
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

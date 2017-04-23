@@ -19,7 +19,15 @@ public class ActionOptionMenu : MonoBehaviour
 			GameObject buttonObject = Instantiate(singleButton.gameObject) as GameObject;
 			buttonObject.transform.SetParent(layout.transform);
 			Text buttonText = buttonObject.GetComponentInChildren<Text>();
-			buttonText.text = _actionSets[i].name;
+
+			string buttonTextString = _actionSets[i].name;
+			int costAmount = 0;
+			if (_actionSets[i].DoesActionSetHaveCost(ref costAmount))
+			{
+				buttonTextString += " - Cost: " + (-costAmount);
+			}
+
+			buttonText.text = buttonTextString;
 			int currentIteration = i;
 			Button buttonComponent = buttonObject.GetComponent<Button>();
 			buttonComponent.onClick.AddListener(delegate { _player.ExecuteAction(currentIteration, _actionSets); });
