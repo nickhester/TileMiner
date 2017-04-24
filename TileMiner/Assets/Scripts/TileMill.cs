@@ -39,7 +39,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 
 	public void InformOfEvent(EventBroadcast.Event _event)
 	{
-		if (_event == EventBroadcast.Event.PLAYER_ACTION)
+		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT || _event == EventBroadcast.Event.PLAYER_COLLECTED_STONE)
 		{
 			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetMineralAmountToAdd()));
 			actionAdjustResources.Execute();

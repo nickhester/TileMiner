@@ -35,6 +35,20 @@ public class TileEnergyRelay : Tile
 	{
 		bool isValid = true;
 
+		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
+
+		if (tileBelow
+			&& (tileBelow.GetType() == typeof(TileDirt)
+				|| tileBelow.GetType() == typeof(TileStone)))
+		{
+			// valid
+		}
+		else
+		{
+			_failureReason += "Not on ground. ";
+			isValid = false;
+		}
+
 		// check if is near energy well, or another energy relay
 		bool passesProximityCheck = (BuildRequirementsAnalyzer.IsWithinRangeOfTile(_myCoordinate, _tileGrid, typeof(TileEnergyWell), distanceToEnergySource)
 									|| BuildRequirementsAnalyzer.IsWithinRangeOfTile(_myCoordinate, _tileGrid, typeof(TileEnergyRelay), distanceToEnergySource));

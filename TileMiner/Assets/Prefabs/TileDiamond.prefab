@@ -78,6 +78,7 @@ MonoBehaviour:
   guaranteeOneOnRow: -1
   guaranteeColumn: -1
   distanceToEnergySource: 10
+  heightRequiredToBuild: 4
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

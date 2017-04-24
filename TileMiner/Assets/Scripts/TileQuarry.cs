@@ -43,7 +43,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 
 	public void InformOfEvent(EventBroadcast.Event _event)
 	{
-		if (_event == EventBroadcast.Event.PLAYER_ACTION)
+		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT)
 		{
 			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplierPrimary.GetMineralAmountToAdd()));
 			actionAdjustResources.Execute();

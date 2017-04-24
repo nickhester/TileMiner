@@ -22,8 +22,30 @@ public class TileDirt : Tile
 		actions.Add(new ActionDestroy(this));
 		actions.Add(
 			new ActionAdjustResources(
-				new ResourceMineral(GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
+				new ResourceMineral(GetMineralAdjustmentToDestroy())));
 		namedActionSet.Add(new NamedActionSet("Collect Mineral", actions, true));
 		ProposeActions(namedActionSet);
+	}
+
+	// called on prefab
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	{
+		bool isValid = true;
+
+		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
+
+		if (tileBelow
+			&& (tileBelow.GetType() == typeof(TileDirt)
+				|| tileBelow.GetType() == typeof(TileStone)))
+		{
+			// valid
+		}
+		else
+		{
+			_failureReason += "Not on ground. ";
+			isValid = false;
+		}
+		
+		return isValid;
 	}
 }

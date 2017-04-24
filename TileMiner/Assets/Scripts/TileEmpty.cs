@@ -77,6 +77,14 @@ public class TileEmpty : Tile
 					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.DIAMOND).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
 		namedActionSet.Add(new NamedActionSet("Build Diamond Monument", actions));
 
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.DIRT));
+		actions.Add(
+			new ActionAdjustResources(
+				new ResourceMineral(
+					FindObjectOfType<LevelGenerator>().GetTilePrefab(TileType.DIRT).GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
+		namedActionSet.Add(new NamedActionSet("Fill With Dirt", actions));
+
 		ProposeActions(namedActionSet);
 	}
 }

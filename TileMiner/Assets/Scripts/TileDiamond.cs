@@ -46,7 +46,7 @@ public class TileDiamond : Tile
 			_failureReason += "Not close enough to energy source. ";
 		}
 
-		if (_tileGrid.GetDepth(_myCoordinate) < -heightRequiredToBuild)
+		if (_tileGrid.GetDepth(_myCoordinate) > -heightRequiredToBuild)
 		{
 			isValid = false;
 			_failureReason += "Not high enough. ";

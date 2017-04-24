@@ -18,6 +18,7 @@ public class ActionOptionMenu : MonoBehaviour
 		{
 			GameObject buttonObject = Instantiate(singleButton.gameObject) as GameObject;
 			buttonObject.transform.SetParent(layout.transform);
+			buttonObject.transform.localScale = Vector3.one;
 			Text buttonText = buttonObject.GetComponentInChildren<Text>();
 
 			string buttonTextString = _actionSets[i].name;

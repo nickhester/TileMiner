@@ -8,9 +8,11 @@ public abstract class Tile : MonoBehaviour
 	protected TileGrid tileGrid;
 	protected Coordinate myCoordinate;
 	protected EventBroadcast eventBroadcast;
+	private CameraControl cameraControl;
 
 	[SerializeField] protected int weightSupportValue = 0;
 	[SerializeField] protected int mineralAdjustmentToBuild = 0;
+	[SerializeField] protected int mineralAdjustmentToDestroy = 0;
 	public bool isStructure = false;
 
 	[SerializeField] protected int populationAdjustment = 0;
@@ -45,13 +47,20 @@ public abstract class Tile : MonoBehaviour
 		tileGrid = _tileGrid;
 		myCoordinate = _coordinate;
 		eventBroadcast = FindObjectOfType<EventBroadcast>();
+		cameraControl = FindObjectOfType<CameraControl>();
 	}
 	
-	void OnMouseDown()
+	void OnMouseUpAsButton()
 	{
 		if (FindObjectOfType<ActionOptionMenu>() == null)
 		{
-			PlayerClick();
+			bool isCameraDragging = false;
+			float timeSinceCameraDragEnded = -1.0f;
+			cameraControl.GetDraggingStatus(ref isCameraDragging, ref timeSinceCameraDragEnded);
+			if (!isCameraDragging || timeSinceCameraDragEnded > 0.001f)
+			{
+				PlayerClick();
+			}
 		}
 	}
 
@@ -97,7 +106,6 @@ public abstract class Tile : MonoBehaviour
 	{
 		return mineralAdjustmentToBuild;
 	}
-
 	protected int GetMineralAdjustmentToBuild_stacked(TileGrid _tileGrid, Coordinate buildTarget, float multiplier)
 	{
 		Tile targetTile = _tileGrid.GetTileAt(buildTarget);
@@ -119,6 +127,12 @@ public abstract class Tile : MonoBehaviour
 		
 		return (int)(mineralAdjustmentToBuild * Mathf.Pow(multiplier, numLikeTilesBelow));
 	}
+
+	public int GetMineralAdjustmentToDestroy()
+	{
+		return mineralAdjustmentToDestroy;
+	}
+
 
 	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
 	{
