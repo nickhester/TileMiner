@@ -32,7 +32,7 @@ public class TileDiamond : Tile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
 	{
 		bool isValid = true;
 
@@ -43,13 +43,13 @@ public class TileDiamond : Tile
 		if (!passesProximityCheck)
 		{
 			isValid = false;
-			_failureReason += "Not close enough to energy source. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_NEARBY_TILE, (int)Tile.TileType.ENERGY_RELAY, "Not close enough to energy source."));
 		}
 
 		if (_tileGrid.GetDepth(_myCoordinate) > -heightRequiredToBuild)
 		{
 			isValid = false;
-			_failureReason += "Not high enough. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_HEIGHT, heightRequiredToBuild));
 		}
 
 		return isValid;

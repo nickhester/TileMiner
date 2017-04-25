@@ -24,11 +24,11 @@ public class ActionAdjustResources : IAction
 		inventory.AddResource(resource);
 	}
 
-	public bool IsActionValid(ref string _failureReason)
+	public bool IsActionValid(ref List<Requirements> _failureReason)
 	{
 		if (!isAdjustmentPossible)
 		{
-			_failureReason += "Not Enough Resources. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_RESOURCES));
 		}
 
 		return isAdjustmentPossible;

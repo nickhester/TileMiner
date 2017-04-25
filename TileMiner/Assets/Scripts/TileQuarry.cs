@@ -17,7 +17,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	{
 		base.Initialize(_tileGrid, _coordinate);
 
-		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
+		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT, this);
 		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_STONE, this);
 
 		stackMultiplierPrimary = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerAction, stackMultiplierValue);
@@ -61,7 +61,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
 	{
 		bool isValid = true;
 
@@ -75,7 +75,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		}
 		else
 		{
-			_failureReason += "Not on stone or other Quarry. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.STONE, "Not on stone or other Quarry."));
 			isValid = false;
 		}
 
@@ -85,7 +85,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		if (!passesMineProximityCheck)
 		{
 			isValid = false;
-			_failureReason += "Not close enough to mine. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_NEARBY_TILE, (int)Tile.TileType.MINE));
 		}
 
 		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
@@ -94,7 +94,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		}
 		else
 		{
-			_failureReason += "Population can't sustain this. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_POPULATION));
 			isValid = false;
 		}
 		return isValid;

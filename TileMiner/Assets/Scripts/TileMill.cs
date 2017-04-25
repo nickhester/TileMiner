@@ -15,7 +15,8 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 	{
 		base.Initialize(_tileGrid, _coordinate);
 
-		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
+		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT, this);
+		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_STONE, this);
 
 		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerAction, stackMultiplierValue);
 	}
@@ -52,7 +53,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
 	{
 		bool isValid = true;
 
@@ -66,7 +67,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 		}
 		else
 		{
-			_failureReason += "Not on dirt or other Mill. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on dirt or other Mill."));
 			isValid = false;
 		}
 		
@@ -76,7 +77,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 		if (!passesMineProximityCheck)
 		{
 			isValid = false;
-			_failureReason += "Not close enough to mine. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_NEARBY_TILE, (int)Tile.TileType.MINE));
 		}
 
 		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
@@ -85,7 +86,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 		}
 		else
 		{
-			_failureReason += "Population can't sustain this. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_POPULATION));
 			isValid = false;
 		}
 		return isValid;

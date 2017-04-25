@@ -26,7 +26,7 @@ public class TileResidence : Tile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
 	{
 		bool isValid = true;
 		if (_tileGrid.GetDepth(_myCoordinate) < 0)
@@ -35,7 +35,7 @@ public class TileResidence : Tile
 		}
 		else
 		{
-			_failureReason += "Not Above Ground. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_HEIGHT, 1, "Not Above Ground."));
 			isValid = false;
 		}
 
@@ -50,7 +50,7 @@ public class TileResidence : Tile
 		}
 		else
 		{
-			_failureReason += "Not on ground or other Residence. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on ground or other Residence."));
 			isValid = false;
 		}
 

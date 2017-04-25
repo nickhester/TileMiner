@@ -134,7 +134,7 @@ public abstract class Tile : MonoBehaviour
 	}
 
 
-	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
 	{
 		return true;
 	}
@@ -142,5 +142,40 @@ public abstract class Tile : MonoBehaviour
 	public int GetPopulationAdjustment()
 	{
 		return populationAdjustment;
+	}
+
+	public static string GetTileNameByEnum(TileType type)
+	{
+		switch (type)
+		{
+			case TileType.EMPTY:
+				return "Empty";
+			case TileType.DIRT:
+				return "Dirt";
+			case TileType.DIRT2:
+				return "Dirt 2";
+			case TileType.STONE:
+				return "Stone";
+			case TileType.STONE2:
+				return "Stone 2";
+			case TileType.DIAMOND:
+				return "Diamond";
+			case TileType.RESIDENCE:
+				return "Residence";
+			case TileType.MILL:
+				return "Mill";
+			case TileType.REFINERY:
+				return "Refinery";
+			case TileType.QUARRY:
+				return "Quarry";
+			case TileType.MINE:
+				return "Mine";
+			case TileType.ENERGY_WELL:
+				return "Energy Well";
+			case TileType.ENERGY_RELAY:
+				return "Energy Relay";
+			default:
+				return "ERROR OUT OF RANGE";
+		}
 	}
 }

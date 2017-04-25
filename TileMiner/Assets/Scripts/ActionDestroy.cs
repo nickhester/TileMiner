@@ -27,13 +27,13 @@ public class ActionDestroy : IAction
 		MonoBehaviour.FindObjectOfType<LevelGenerator>().CreateOneTile(tileToDestroy.GetCoordinate(), Tile.TileType.EMPTY);
 	}
 
-	public bool IsActionValid(ref string _failureReason)
+	public bool IsActionValid(ref List<Requirements> _failureReason)
 	{
 		bool retVal = WeightAnalyzer.CanTileBeRemoved(tileToDestroy);
 
 		if (!retVal)
 		{
-			_failureReason += "Structures Rely on this. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.STRUCTURE_REQUIRED_FOR_WEIGHT));
 		}
 
 		return retVal;

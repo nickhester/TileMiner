@@ -31,7 +31,7 @@ public class TileEnergyRelay : Tile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
 	{
 		bool isValid = true;
 
@@ -45,7 +45,7 @@ public class TileEnergyRelay : Tile
 		}
 		else
 		{
-			_failureReason += "Not on ground. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on ground."));
 			isValid = false;
 		}
 
@@ -56,7 +56,7 @@ public class TileEnergyRelay : Tile
 		if (!passesProximityCheck)
 		{
 			isValid = false;
-			_failureReason += "Not close enough to energy source. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_NEARBY_TILE, (int)Tile.TileType.ENERGY_RELAY, "Not close enough to energy source."));
 		}
 
 		return isValid;

@@ -20,7 +20,7 @@ public class ActionBuild : IAction
 		MonoBehaviour.FindObjectOfType<LevelGenerator>().CreateOneTile(tileToReplace.GetCoordinate(), newType);
 	}
 
-	public bool IsActionValid(ref string _failureReason)
+	public bool IsActionValid(ref List<Requirements> _failureReason)
 	{
 		bool result = true;
 
@@ -36,7 +36,7 @@ public class ActionBuild : IAction
 		if (!passesWeightCheck)
 		{
 			result = false;
-			_failureReason += "Can't support weight. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.TILE_BELOW_MUST_SUPPORT_WEIGHT));
 		}
 
 		return (result && passesClassValidation);

@@ -52,7 +52,7 @@ public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref string _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
 	{
 		bool isValid = true;
 
@@ -67,7 +67,7 @@ public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 		}
 		else
 		{
-			_failureReason += "Not on ground or other Refinery. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on ground or other Refinery."));
 			isValid = false;
 		}
 
@@ -77,7 +77,7 @@ public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 		}
 		else
 		{
-			_failureReason += "Population can't sustain this. ";
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_POPULATION));
 			isValid = false;
 		}
 		return isValid;

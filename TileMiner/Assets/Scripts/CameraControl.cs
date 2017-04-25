@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class CameraControl : MonoBehaviour
 {
 	[SerializeField] private float cameraScrollAmount = 0.1f;
-	private EventBroadcast eventBroadcast;
 
 	// camera dragging
 	private bool isDragging = false;
@@ -16,11 +15,9 @@ public class CameraControl : MonoBehaviour
 	[SerializeField] private float timeToDrag = 0.1f;
 	private float timeToDragCounter = 0.0f;
 	[SerializeField] private float distanceToDrag = 0.1f;
-	private float distanceToDragCounter = 0.0f;
 
 	void Start ()
 	{
-		eventBroadcast = GameObject.FindObjectOfType<EventBroadcast>();
 	}
 	
 	void Update ()
@@ -28,7 +25,6 @@ public class CameraControl : MonoBehaviour
 		if (Input.GetMouseButtonDown(0))
 		{
 			timeToDragCounter = 0.0f;
-			distanceToDragCounter = 0.0f;
 			anchoredPointOnScreen = Input.mousePosition;
 			isMouseDown = true;
 		}

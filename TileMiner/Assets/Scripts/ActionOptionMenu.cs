@@ -34,14 +34,18 @@ public class ActionOptionMenu : MonoBehaviour
 			buttonComponent.onClick.AddListener(delegate { _player.ExecuteAction(currentIteration, _actionSets); });
 
 			// check if button should be disabled
+			buttonText.text += "\n";
 			for (int j = 0; j < _actionSets[i].actions.Count; j++)
 			{
-				string reason = "";
-				if (!_actionSets[i].actions[j].IsActionValid(ref reason))
+				List<Requirements> failureReasons = new List<Requirements>();
+				if (!_actionSets[i].actions[j].IsActionValid(ref failureReasons))
 				{
 					buttonComponent.interactable = false;
 					atLeastOneActionIsInvalid = true;
-					buttonText.text += "\n(" + reason.Trim() + ")";
+					foreach (Requirements req in failureReasons)
+					{
+						buttonText.text += " (" + req.ToString() + ") ";
+					}
 				}
 			}
 		}
