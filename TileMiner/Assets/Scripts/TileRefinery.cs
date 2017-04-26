@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileRefinery : Tile, IEventSubscriber, IStackableTile
+public class TileRefinery : Tile, IStackableTile
 {
 	[Header("Type-Specific Properties")]
-	[SerializeField] private int baseMineralEarnPerPlayerCollect = 1;
-	[SerializeField] protected float stackMultiplierValue = 1.25f;
+	[SerializeField] private int mineralEarnPerInterval = 1;
+	[SerializeField] private int mineralEarnBaseInterval = 1;
+	private float intervalCounter = 0.0f;
+	[SerializeField] protected float stackMultiplierInterval;
 	private StackMultiplier stackMultiplier;
 	[SerializeField] protected float stackMultiplierCost = 2.0f;
 
@@ -15,9 +17,19 @@ public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 	{
 		base.Initialize(_tileGrid, _coordinate);
 
-		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT, this);
+		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), 1.0f/mineralEarnBaseInterval, stackMultiplierInterval);
+	}
 
-		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerCollect, stackMultiplierValue);
+	private void Update()
+	{
+		intervalCounter += Time.deltaTime;
+		float stackedAmount = stackMultiplier.GetStackedAmount_float();
+		if (stackedAmount != 0.0f && intervalCounter > (1.0f/stackedAmount))
+		{
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(mineralEarnPerInterval));
+			actionAdjustResources.Execute();
+			intervalCounter = 0.0f;
+		}
 	}
 
 	protected override void PlayerClick()
@@ -35,15 +47,6 @@ public class TileRefinery : Tile, IEventSubscriber, IStackableTile
 		namedActionSet.Add(new NamedActionSet("Destroy", actions));
 
 		ProposeActions(namedActionSet);
-	}
-
-	public void InformOfEvent(EventBroadcast.Event _event)
-	{
-		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT)
-		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetMineralAmountToAdd()));
-			actionAdjustResources.Execute();
-		}
 	}
 
 	public float MultiplyStackValue(float f)

@@ -68,7 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: -1
-  mineralAdjustmentToBuild: -50
+  mineralAdjustmentToBuild: -60
+  mineralAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: -1
   baseProbability: 0
@@ -77,9 +78,10 @@ MonoBehaviour:
   depthRangeEnd: 999
   guaranteeOneOnRow: -1
   guaranteeColumn: -1
-  baseMineralEarnPerPlayerCollect: 1
-  stackMultiplierValue: 2.5
-  stackMultiplierCost: 2.5
+  mineralEarnPerInterval: 1
+  mineralEarnBaseInterval: 3
+  stackMultiplierInterval: 2.4
+  stackMultiplierCost: 2.6
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

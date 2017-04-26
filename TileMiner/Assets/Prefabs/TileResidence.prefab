@@ -68,7 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: -1
-  mineralAdjustmentToBuild: -60
+  mineralAdjustmentToBuild: -40
+  mineralAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: 4
   baseProbability: 0
@@ -77,7 +78,7 @@ MonoBehaviour:
   depthRangeEnd: 999
   guaranteeOneOnRow: -1
   guaranteeColumn: -1
-  stackMultiplierCost: 1.5
+  stackMultiplierCost: 1.4
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -6,11 +6,11 @@ public class StackMultiplier
 {
 	TileGrid tileGrid;
 	Coordinate myCoordinate;
-	int baseValue;
+	float baseValue;
 	float stackMultiplier;
 	System.Type myType;
 
-	public StackMultiplier(TileGrid _tileGrid, Coordinate _myCoordinate, System.Type _myType, int _baseValue, float _stackMultiplier)
+	public StackMultiplier(TileGrid _tileGrid, Coordinate _myCoordinate, System.Type _myType, float _baseValue, float _stackMultiplier)
 	{
 		tileGrid = _tileGrid;
 		myCoordinate = _myCoordinate;
@@ -19,9 +19,14 @@ public class StackMultiplier
 		baseValue = _baseValue;
 	}
 
-	public int GetMineralAmountToAdd()
+	public int GetStackedAmount()
 	{
-		int returnValue = 0;
+		return (int)GetStackedAmount_float();
+	}
+
+	public float GetStackedAmount_float()
+	{
+		float returnValue = 0;
 
 		if (tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, myCoordinate).GetType() == myType)
 		{
@@ -31,8 +36,8 @@ public class StackMultiplier
 		else
 		{
 			// I'm the base of the stack, so call recursively upward
-			float untruncatedMultipliedValue = MultiplyStackValue((float)baseValue);
-			returnValue = (int)untruncatedMultipliedValue;
+			float untruncatedMultipliedValue = MultiplyStackValue(baseValue);
+			returnValue = untruncatedMultipliedValue;
 		}
 		return returnValue;
 	}

@@ -18,7 +18,11 @@ public class Player : MonoBehaviour
 	
 	void Update ()
 	{
-
+		// HACK
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			GetInventory().AddResource(new ResourceMineral(100));
+		}
 	}
 
 	public Inventory GetInventory()

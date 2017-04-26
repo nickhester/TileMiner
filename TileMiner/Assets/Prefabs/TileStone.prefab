@@ -73,7 +73,7 @@ MonoBehaviour:
   isStructure: 0
   populationAdjustment: 0
   baseProbability: 0.2
-  increaseProbabilityPerRow: 0.05
+  increaseProbabilityPerRow: 0.04
   depthRangeStart: 2
   depthRangeEnd: 999
   guaranteeOneOnRow: -1

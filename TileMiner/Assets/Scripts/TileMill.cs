@@ -42,7 +42,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 	{
 		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT || _event == EventBroadcast.Event.PLAYER_COLLECTED_STONE)
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetMineralAmountToAdd()));
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetStackedAmount()));
 			actionAdjustResources.Execute();
 		}
 	}

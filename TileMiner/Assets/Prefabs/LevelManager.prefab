@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae58b65900487774ebfcf6a02eb64274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapHeight: 100
+  mapHeight: 70
   mapWidth: 8
   numSkyTiles: 14
   tileSpacing: 1

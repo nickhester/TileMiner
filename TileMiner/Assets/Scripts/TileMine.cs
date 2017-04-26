@@ -17,10 +17,19 @@ public class TileMine : Tile
 	{
 		Activate();
 	}
-
+	
 	public override void Activate()
 	{
+		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
+		List<IAction> actions = new List<IAction>();
+
 		// TODO: destroying mines will require checking that nothing in its range relies on its existence
+
+		actions = new List<IAction>();
+		actions.Add(new ActionDestroy(this));
+		namedActionSet.Add(new NamedActionSet("Destroy", actions));
+
+		ProposeActions(namedActionSet);
 	}
 
 	// called on prefab
