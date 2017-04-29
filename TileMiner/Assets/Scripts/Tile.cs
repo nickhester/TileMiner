@@ -9,6 +9,7 @@ public abstract class Tile : MonoBehaviour
 	protected Coordinate myCoordinate;
 	protected EventBroadcast eventBroadcast;
 	private CameraControl cameraControl;
+	protected Player player;
 
 	[SerializeField] protected int weightSupportValue = 0;
 	[SerializeField] protected int mineralAdjustmentToBuild = 0;
@@ -48,6 +49,7 @@ public abstract class Tile : MonoBehaviour
 		myCoordinate = _coordinate;
 		eventBroadcast = FindObjectOfType<EventBroadcast>();
 		cameraControl = FindObjectOfType<CameraControl>();
+		player = FindObjectOfType<Player>();
 	}
 	
 	void OnMouseUpAsButton()
@@ -89,7 +91,7 @@ public abstract class Tile : MonoBehaviour
 
 	protected void ProposeActions(List<NamedActionSet> _actions)
 	{
-		FindObjectOfType<Player>().ProposeActions(_actions);
+		player.ProposeActions(_actions);
 	}
 
 	public TileGrid GetTileGrid()
@@ -128,7 +130,7 @@ public abstract class Tile : MonoBehaviour
 		return (int)(mineralAdjustmentToBuild * Mathf.Pow(multiplier, numLikeTilesBelow));
 	}
 
-	public int GetMineralAdjustmentToDestroy()
+	public virtual int GetMineralAdjustmentToDestroy()
 	{
 		return mineralAdjustmentToDestroy;
 	}

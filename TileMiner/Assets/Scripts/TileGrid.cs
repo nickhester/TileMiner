@@ -10,6 +10,9 @@ public class TileGrid
 	private Tile[,] grid;
 	private int numRowsSky;
 
+	private int currentStoneCollectAdjustmentValue = 0;
+	private EventBroadcast eventBroadcast;
+
 	public enum Direction
 	{
 		UP,
@@ -24,6 +27,8 @@ public class TileGrid
 		dimY = _dimY;
 		grid = new Tile[dimY, dimX];
 		numRowsSky = _numRowsSky;
+
+		eventBroadcast = MonoBehaviour.FindObjectOfType<EventBroadcast>();
 	}
 
 	public void AddTile(Coordinate _coordinate, Tile _tile)
@@ -164,6 +169,19 @@ public class TileGrid
 	public int GetDepth(Coordinate c)
 	{
 		return c.y - numRowsSky;
+	}
+
+	public void ReportStoneCollectAdjustmentValue(int v)
+	{
+		currentStoneCollectAdjustmentValue += v;
+	}
+
+	public int GetStoneCollectAdjustmentValue()
+	{
+		currentStoneCollectAdjustmentValue = 0;
+		eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_SELECTED_STONE);
+		// subscribers should update currentStoneRebateValue at this point
+		return currentStoneCollectAdjustmentValue;
 	}
 }
 

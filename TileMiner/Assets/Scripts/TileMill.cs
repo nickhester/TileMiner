@@ -16,7 +16,6 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 		base.Initialize(_tileGrid, _coordinate);
 
 		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT, this);
-		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_STONE, this);
 
 		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerAction, stackMultiplierValue);
 	}
@@ -40,7 +39,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 
 	public void InformOfEvent(EventBroadcast.Event _event)
 	{
-		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT || _event == EventBroadcast.Event.PLAYER_COLLECTED_STONE)
+		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT)
 		{
 			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetStackedAmount()));
 			actionAdjustResources.Execute();

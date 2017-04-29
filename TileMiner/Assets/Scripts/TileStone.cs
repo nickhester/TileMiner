@@ -26,4 +26,9 @@ public class TileStone : Tile
 		namedActionSet.Add(new NamedActionSet("Destroy Stone", actions));
 		ProposeActions(namedActionSet);
 	}
+
+	public override int GetMineralAdjustmentToDestroy()
+	{
+		return mineralAdjustmentToDestroy + tileGrid.GetStoneCollectAdjustmentValue();
+	}
 }
