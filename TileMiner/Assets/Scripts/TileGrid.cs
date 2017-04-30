@@ -180,7 +180,7 @@ public class TileGrid
 	{
 		currentStoneCollectAdjustmentValue = 0;
 		eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_SELECTED_STONE);
-		// subscribers should update currentStoneRebateValue at this point
+		// subscribers update currentStoneRebateValue at this point
 		return currentStoneCollectAdjustmentValue;
 	}
 }

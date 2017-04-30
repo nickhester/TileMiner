@@ -23,8 +23,7 @@ public abstract class Tile : MonoBehaviour
 	public float increaseProbabilityPerRow;
 	public int depthRangeStart = 0;
 	public int depthRangeEnd = 999;
-	public int guaranteeOneOnRow = -1;
-	public int guaranteeColumn = -1;
+	public int guaranteeAtLeast = 0;
 
 	public enum TileType
 	{
@@ -39,8 +38,7 @@ public abstract class Tile : MonoBehaviour
 		REFINERY,
 		QUARRY,
 		MINE,
-		ENERGY_WELL,
-		ENERGY_RELAY
+		ENERGY_WELL
 	}
 
 	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
@@ -81,7 +79,9 @@ public abstract class Tile : MonoBehaviour
 		for (int i = 0; i < numDirections; i++)
 		{
 			Tile neighborTile = tileGrid.GetTileNeighbor((TileGrid.Direction)i, GetCoordinate());       // TODO: make "null" neighbors not count toward being exposed
-			if (neighborTile && neighborTile.GetComponent<TileEmpty>() != null)
+			if (neighborTile && 
+				(neighborTile.GetComponent<TileEmpty>() != null
+					|| neighborTile.isStructure))
 			{
 				return true;
 			}
@@ -103,12 +103,12 @@ public abstract class Tile : MonoBehaviour
 	{
 		return weightSupportValue;
 	}
-
-	public virtual int GetMineralAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	
+	public virtual Resource GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
 	{
-		return mineralAdjustmentToBuild;
+		return new Resource(mineralAdjustmentToBuild, Resource.ResourceType.MINERAL);
 	}
-	protected int GetMineralAdjustmentToBuild_stacked(TileGrid _tileGrid, Coordinate buildTarget, float multiplier)
+	protected Resource GetMineralAdjustmentToBuild_stacked(TileGrid _tileGrid, Coordinate buildTarget, float multiplier)
 	{
 		Tile targetTile = _tileGrid.GetTileAt(buildTarget);
 		Tile currentTileDown = targetTile;
@@ -127,7 +127,7 @@ public abstract class Tile : MonoBehaviour
 			}
 		}
 		
-		return (int)(mineralAdjustmentToBuild * Mathf.Pow(multiplier, numLikeTilesBelow));
+		return new Resource((int)(mineralAdjustmentToBuild * Mathf.Pow(multiplier, numLikeTilesBelow)), Resource.ResourceType.MINERAL);
 	}
 
 	public virtual int GetMineralAdjustmentToDestroy()
@@ -174,8 +174,6 @@ public abstract class Tile : MonoBehaviour
 				return "Mine";
 			case TileType.ENERGY_WELL:
 				return "Energy Well";
-			case TileType.ENERGY_RELAY:
-				return "Energy Relay";
 			default:
 				return "ERROR OUT OF RANGE";
 		}

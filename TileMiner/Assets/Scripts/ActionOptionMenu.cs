@@ -23,9 +23,10 @@ public class ActionOptionMenu : MonoBehaviour
 
 			string buttonTextString = _actionSets[i].name;
 			int costAmount = 0;
-			if (_actionSets[i].DoesActionSetHaveCost(ref costAmount))
+			string costResourceName = "";
+			if (_actionSets[i].DoesActionSetHaveCost(ref costAmount, ref costResourceName))
 			{
-				buttonTextString += " - Cost: " + (-costAmount);
+				buttonTextString += " - Cost: " + (-costAmount) + " " + costResourceName.ToLower();
 			}
 
 			buttonText.text = buttonTextString;

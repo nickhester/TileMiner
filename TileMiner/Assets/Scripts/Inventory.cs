@@ -9,35 +9,39 @@ public class Inventory
 
 	public Inventory()
 	{
-		resourceList.Add(new ResourceMineral(0));
 		eventBroadcast = GameObject.FindObjectOfType<EventBroadcast>();
 	}
 
 	public void AddResource(Resource _resource)
 	{
+		bool foundResource = false;
 		for (int i = 0; i < resourceList.Count; i++)
 		{
-			if (resourceList[i].GetType() == _resource.GetType())
+			if (resourceList[i].GetResourceType() == _resource.GetResourceType())
 			{
+				foundResource = true;
 				resourceList[i].Add(_resource.GetAmount());
-				//MonoBehaviour.print(resourceList[i].GetName() + ": " + resourceList[i].GetAmount());
 			}
+		}
+
+		if (!foundResource)
+		{
+			resourceList.Add(new Resource(_resource.GetAmount(), _resource.GetResourceType()));
 		}
 
 		eventBroadcast.TriggerEvent(EventBroadcast.Event.RESOURCE_VALUES_UPDATED);
 	}
 
-	public int GetResource(System.Type _resourceType)
+	public int GetResource(Resource.ResourceType _resourceType)
 	{
 		for (int i = 0; i < resourceList.Count; i++)
 		{
-			if (resourceList[i].GetType() == _resourceType)
+			if (resourceList[i].GetResourceType() == _resourceType)
 			{
 				return resourceList[i].GetAmount();
 			}
 		}
 
-		Debug.LogError("Attempted to get resource from inventory that doesn't exist");
-		return -1;
+		return 0;
 	}
 }

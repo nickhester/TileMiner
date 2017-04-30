@@ -78,9 +78,9 @@ MonoBehaviour:
   depthRangeEnd: 999
   guaranteeOneOnRow: -1
   guaranteeColumn: -1
-  stackMultiplierValue: 2.9
+  stackMultiplierValue: 2.8
   mineralEarnPerStoneCollection: 2
-  stackMultiplierCost: 2.5
+  stackMultiplierCost: 2.6
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

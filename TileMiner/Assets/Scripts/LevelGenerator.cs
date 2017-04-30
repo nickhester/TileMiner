@@ -29,13 +29,53 @@ public class LevelGenerator : MonoBehaviour
 
 	void CreateTiles()
 	{
+		Dictionary<Tile.TileType, int> tileCount = new Dictionary<Tile.TileType, int>();
+		Dictionary<Tile.TileType, int> tileMinimumGuarantees = new Dictionary<Tile.TileType, int>();
+		for (int i = 0; i < tilePrefabs.Count; i++)
+		{
+			tileMinimumGuarantees.Add((Tile.TileType)i, tilePrefabs[i].guaranteeAtLeast);
+			tileCount.Add((Tile.TileType)i, 0);
+		}
+
 		for (int i = 0; i < mapHeight; i++)
 		{
 			for (int j = 0; j < mapWidth; j++)
 			{
-				CreateOneTile(
-					new Coordinate(j, i),
-					ChooseNextTileType(j, i));
+				Tile.TileType _type = ChooseNextTileType(j, i);
+				CreateOneTile(new Coordinate(j, i), _type);
+
+				tileCount[_type]++;
+			}
+		}
+
+		// check if guaranteed tile quantities were met, and add more if not
+		foreach (var minGuarantee in tileMinimumGuarantees)
+		{
+			if (minGuarantee.Value > 0)
+			{
+				while (minGuarantee.Value > tileCount[minGuarantee.Key])
+				{
+					// choose a place in the grid to add one
+					int randX = UnityEngine.Random.Range(0, mapWidth);
+					int randY = UnityEngine.Random.Range(GetTilePrefab(minGuarantee.Key).depthRangeStart + numSkyTiles, 
+						Mathf.Min(GetTilePrefab(minGuarantee.Key).depthRangeEnd + numSkyTiles, mapHeight - 1));
+
+					// verify that you're not replacing another tile with a minimum guarantee
+					Tile tileBeingReplaced = tileGrid.GetTileAt(new Coordinate(randX, randY));
+					if (tileBeingReplaced.guaranteeAtLeast > 0)
+						continue;
+
+					// increase tile count for tile added
+					tileCount[minGuarantee.Key]++;
+
+					// decrease tile count for tile removed
+					tileCount[TileTypeToEnumTileType(tileGrid.GetTileAt(new Coordinate(randX, randY)).GetType())]--;
+
+					// replace the tile
+					ReplaceOneTile(new Coordinate(randX, randY), minGuarantee.Key);
+
+					print("adding 1");
+				}
 			}
 		}
 	}
@@ -49,12 +89,6 @@ public class LevelGenerator : MonoBehaviour
 			List<TileProbability> tileProbabilities = new List<TileProbability>();
 			for (int i = 0; i < tilePrefabs.Count; i++)
 			{
-				// check if guaranteed tile is this tile
-				if (tilePrefabs[i].guaranteeOneOnRow == depth && tilePrefabs[i].guaranteeColumn == dimX)
-				{
-					return (Tile.TileType)i;
-				}
-
 				TileProbability tp = new TileProbability((Tile.TileType)i, tilePrefabs[i].baseProbability, tilePrefabs[i].increaseProbabilityPerRow, tilePrefabs[i].depthRangeStart, tilePrefabs[i].depthRangeEnd);
 				tileProbabilities.Add(tp);
 			}
@@ -96,8 +130,33 @@ public class LevelGenerator : MonoBehaviour
 		return t;
 	}
 
+	public Tile ReplaceOneTile(Coordinate _coordinate, Tile.TileType _newType)
+	{
+		Destroy(tileGrid.GetTileAt(_coordinate).gameObject);
+		return CreateOneTile(_coordinate, _newType);
+	}
+
 	public Tile GetTilePrefab(Tile.TileType _type)
 	{
 		return tilePrefabs[(int)_type].GetComponent<Tile>();
+	}
+
+	public Tile.TileType TileTypeToEnumTileType(System.Type t)
+	{
+		for (int i = 0; i < tilePrefabs.Count; i++)
+		{
+			System.Type t2 = tilePrefabs[i].GetType();
+			if (t2 == t)
+			{
+				return (Tile.TileType)i;
+			}
+		}
+		Debug.LogError("TileToEnumTileType didn't find the tile type");
+		return Tile.TileType.EMPTY;
+	}
+
+	public System.Type TileTypeEnumToTileType(Tile.TileType t)
+	{
+		return tilePrefabs[(int)t].GetType();
 	}
 }

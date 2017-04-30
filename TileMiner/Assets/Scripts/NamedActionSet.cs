@@ -29,7 +29,7 @@ public class NamedActionSet
 		actions = a;
 	}
 
-	public bool DoesActionSetHaveCost(ref int cost)
+	public bool DoesActionSetHaveCost(ref int cost, ref string nameOfResource)
 	{
 		bool retVal = false;
 		foreach (IAction action in actions)
@@ -39,6 +39,7 @@ public class NamedActionSet
 			{
 				retVal = true;
 				cost += aar.GetResourceAdjustmentAmount();
+				nameOfResource = aar.GetResourceAdjustmentName();	// NOTE: this will only use the name of the last resource if there are more than one!
 			}
 		}
 		return retVal;

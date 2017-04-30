@@ -22,7 +22,7 @@ public class TileStone : Tile
 		actions.Add(new ActionDestroy(this));
 		actions.Add(
 			new ActionAdjustResources(
-				new ResourceMineral(GetMineralAdjustmentToDestroy())));
+				new Resource(GetMineralAdjustmentToDestroy(), Resource.ResourceType.MINERAL)));
 		namedActionSet.Add(new NamedActionSet("Destroy Stone", actions));
 		ProposeActions(namedActionSet);
 	}

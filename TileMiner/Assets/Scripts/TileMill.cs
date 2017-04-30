@@ -41,7 +41,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 	{
 		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT)
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetStackedAmount()));
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(stackMultiplier.GetStackedAmount(), Resource.ResourceType.MINERAL));
 			actionAdjustResources.Execute();
 		}
 	}
@@ -91,7 +91,7 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 		return isValid;
 	}
 
-	public override int GetMineralAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	public override Resource GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
 	{
 		return GetMineralAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}

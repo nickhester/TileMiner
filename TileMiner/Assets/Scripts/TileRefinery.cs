@@ -26,7 +26,7 @@ public class TileRefinery : Tile, IStackableTile
 		float stackedAmount = stackMultiplier.GetStackedAmount_float();
 		if (stackedAmount != 0.0f && intervalCounter > (1.0f/stackedAmount))
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(mineralEarnPerInterval));
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(mineralEarnPerInterval, Resource.ResourceType.MINERAL));
 			actionAdjustResources.Execute();
 			intervalCounter = 0.0f;
 		}
@@ -74,6 +74,15 @@ public class TileRefinery : Tile, IStackableTile
 			isValid = false;
 		}
 
+		// check mine range
+		bool passesMineProximityCheck = BuildRequirementsAnalyzer.IsWithinRangeOfMine(_myCoordinate, _tileGrid);
+
+		if (!passesMineProximityCheck)
+		{
+			isValid = false;
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_NEARBY_TILE, (int)Tile.TileType.MINE));
+		}
+
 		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
 		{
 			//
@@ -86,7 +95,7 @@ public class TileRefinery : Tile, IStackableTile
 		return isValid;
 	}
 
-	public override int GetMineralAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	public override Resource GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
 	{
 		return GetMineralAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}

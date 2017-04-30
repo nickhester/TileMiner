@@ -22,8 +22,8 @@ public class TileEnergyWell : Tile
 		actions.Add(new ActionDestroy(this));
 		actions.Add(
 			new ActionAdjustResources(
-				new ResourceMineral(GetMineralAdjustmentToBuild(tileGrid, GetCoordinate()))));
-		namedActionSet.Add(new NamedActionSet("Destroy Energy Well", actions));
+				new Resource(1, Resource.ResourceType.ENERGY)));
+		namedActionSet.Add(new NamedActionSet("Collect Energy Well", actions));
 		ProposeActions(namedActionSet);
 	}
 }

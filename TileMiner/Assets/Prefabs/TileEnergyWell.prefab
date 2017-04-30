@@ -74,10 +74,9 @@ MonoBehaviour:
   populationAdjustment: 0
   baseProbability: 0.1
   increaseProbabilityPerRow: 0.02
-  depthRangeStart: 50
-  depthRangeEnd: 999
-  guaranteeOneOnRow: 50
-  guaranteeColumn: 2
+  depthRangeStart: 45
+  depthRangeEnd: 55
+  guaranteeAtLeast: 5
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

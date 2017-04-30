@@ -22,7 +22,7 @@ public class TileDirt : Tile
 		actions.Add(new ActionDestroy(this));
 		actions.Add(
 			new ActionAdjustResources(
-				new ResourceMineral(GetMineralAdjustmentToDestroy())));
+				new Resource(GetMineralAdjustmentToDestroy(), Resource.ResourceType.MINERAL)));
 		namedActionSet.Add(new NamedActionSet("Collect Mineral", actions, true));
 		ProposeActions(namedActionSet);
 	}

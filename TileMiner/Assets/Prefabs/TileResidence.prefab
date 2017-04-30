@@ -78,7 +78,7 @@ MonoBehaviour:
   depthRangeEnd: 999
   guaranteeOneOnRow: -1
   guaranteeColumn: -1
-  stackMultiplierCost: 1.4
+  stackMultiplierCost: 1.6
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

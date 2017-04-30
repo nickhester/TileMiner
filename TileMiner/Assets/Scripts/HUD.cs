@@ -27,7 +27,7 @@ public class HUD : MonoBehaviour, IEventSubscriber
 
 	void UpdateResourceValues()
 	{
-		int numMinerals = player.GetInventory().GetResource(typeof(ResourceMineral));
+		int numMinerals = player.GetInventory().GetResource(Resource.ResourceType.MINERAL);
 		mineralCount.text = numMinerals.ToString();
 	}
 }

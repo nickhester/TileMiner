@@ -80,7 +80,7 @@ MonoBehaviour:
   guaranteeColumn: -1
   baseMineralEarnPerPlayerAction: 4
   stackMultiplierValue: 2.5
-  stackMultiplierCost: 2.5
+  stackMultiplierCost: 2.7
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -16,7 +16,7 @@ public class ActionAdjustResources : IAction
 		// check if enough resources
 		Player player = MonoBehaviour.FindObjectOfType<Player>();
 		inventory = player.GetInventory();
-		isAdjustmentPossible = ((inventory.GetResource(typeof(ResourceMineral)) + resource.GetAmount()) >= 0);
+		isAdjustmentPossible = ((inventory.GetResource(resource.GetResourceType()) + resource.GetAmount()) >= 0);
 	}
 
 	public void Execute()
@@ -36,7 +36,11 @@ public class ActionAdjustResources : IAction
 
 	public int GetResourceAdjustmentAmount()
 	{
-		// TODO: this assumes only one type of resource for action value
 		return resource.GetAmount();
+	}
+
+	public string GetResourceAdjustmentName()
+	{
+		return resource.GetName();
 	}
 }

@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 		// HACK
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			GetInventory().AddResource(new ResourceMineral(100));
+			GetInventory().AddResource(new Resource(100, Resource.ResourceType.MINERAL));
 		}
 	}
 

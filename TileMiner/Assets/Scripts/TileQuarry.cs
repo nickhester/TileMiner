@@ -42,12 +42,12 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	{
 		if (_event == EventBroadcast.Event.PLAYER_SELECTED_STONE)
 		{
-			ResourceMineral resourceMineral = new ResourceMineral(stackMultiplier.GetStackedAmount());
-			tileGrid.ReportStoneCollectAdjustmentValue(resourceMineral.GetAmount());
+			Resource resource = new Resource(stackMultiplier.GetStackedAmount(), Resource.ResourceType.MINERAL);
+			tileGrid.ReportStoneCollectAdjustmentValue(resource.GetAmount());
 		}
 		else if (_event == EventBroadcast.Event.PLAYER_COLLECTED_STONE)
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new ResourceMineral(stackMultiplier.GetStackedAmount()));
+			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(stackMultiplier.GetStackedAmount(), Resource.ResourceType.MINERAL));
 			actionAdjustResources.Execute();
 		}
 	}
@@ -97,7 +97,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		return isValid;
 	}
 
-	public override int GetMineralAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	public override Resource GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
 	{
 		return GetMineralAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}
