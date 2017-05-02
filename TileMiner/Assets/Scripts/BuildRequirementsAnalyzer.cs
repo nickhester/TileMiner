@@ -35,4 +35,28 @@ public static class BuildRequirementsAnalyzer
 
 		return false;
 	}
+
+	public static bool IsNotPastHeightLimit(Coordinate c, TileGrid tileGrid, Tile.TileType tileType, int limit)
+	{
+		Tile currentTile = tileGrid.GetTileAt(c);
+		int foundOfType = 0;
+		while (true)
+		{
+			currentTile = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, currentTile.GetCoordinate());
+			if (currentTile.GetTileType() == tileType)
+			{
+				foundOfType++;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		if (foundOfType < limit)
+		{
+			return true;
+		}
+		return false;
+	}
 }

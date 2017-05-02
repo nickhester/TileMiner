@@ -69,15 +69,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weightSupportValue: 0
   mineralAdjustmentToBuild: -1000
+  mineralAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: 0
   baseProbability: 0
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
-  guaranteeOneOnRow: -1
-  guaranteeColumn: -1
-  distanceToEnergySource: 10
+  guaranteeAtLeast: 0
+  energyAdjustmentToBuild: -5
   heightRequiredToBuild: 4
 --- !u!212 &212000012871114896
 SpriteRenderer:

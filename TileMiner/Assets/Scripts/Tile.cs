@@ -10,6 +10,7 @@ public abstract class Tile : MonoBehaviour
 	protected EventBroadcast eventBroadcast;
 	private CameraControl cameraControl;
 	protected Player player;
+	protected bool hasBeenInitialized = false;
 
 	[SerializeField] protected int weightSupportValue = 0;
 	[SerializeField] protected int mineralAdjustmentToBuild = 0;
@@ -40,6 +41,7 @@ public abstract class Tile : MonoBehaviour
 		MINE,
 		ENERGY_WELL
 	}
+	private TileType myTileType;
 
 	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
 	{
@@ -48,6 +50,7 @@ public abstract class Tile : MonoBehaviour
 		eventBroadcast = FindObjectOfType<EventBroadcast>();
 		cameraControl = FindObjectOfType<CameraControl>();
 		player = FindObjectOfType<Player>();
+		hasBeenInitialized = true;
 	}
 	
 	void OnMouseUpAsButton()
@@ -177,5 +180,19 @@ public abstract class Tile : MonoBehaviour
 			default:
 				return "ERROR OUT OF RANGE";
 		}
+	}
+	
+	public void SetTileType(TileType t)
+	{
+		myTileType = t;
+	}
+
+	public TileType GetTileType()
+	{
+		if (!hasBeenInitialized)
+		{
+			Debug.LogError("Cannot get myTileType on prefab - not instantiated yet.");
+		}
+		return myTileType;
 	}
 }

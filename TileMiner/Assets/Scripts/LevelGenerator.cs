@@ -73,8 +73,6 @@ public class LevelGenerator : MonoBehaviour
 
 					// replace the tile
 					ReplaceOneTile(new Coordinate(randX, randY), minGuarantee.Key);
-
-					print("adding 1");
 				}
 			}
 		}
@@ -125,6 +123,7 @@ public class LevelGenerator : MonoBehaviour
 
 		t.transform.SetParent(transform);
 		t.Initialize(tileGrid, _coordinate);
+		t.SetTileType(_type);
 		tileGrid.AddTile(_coordinate, t);
 		
 		return t;

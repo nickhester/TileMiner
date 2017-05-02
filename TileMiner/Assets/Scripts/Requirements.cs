@@ -12,7 +12,8 @@ public class Requirements
 		REQUIRES_NEARBY_TILE,										// type based on tile type enum
 		REQUIRES_CERTAIN_HEIGHT,									// height required, negative being underground
 		REQUIRES_BEING_ON_CERTAIN_TILE,								// tile based on tile type enum
-		REQUIRES_ENOUGH_POPULATION									// n/a
+		REQUIRES_ENOUGH_POPULATION,									// n/a
+		REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT						// height max
 	}
 
 	public BuildRequirement requirement;
@@ -57,6 +58,8 @@ public class Requirements
 					return "Must be built on a " + Tile.GetTileNameByEnum((Tile.TileType)detail);
 				case BuildRequirement.REQUIRES_ENOUGH_POPULATION:
 					return "Population can't sustain this.";
+				case BuildRequirement.REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT:
+					return "Can't be taller than " + detail;
 				default:
 					return "*REQUIREMENT ERROR: description not found!*";
 			}

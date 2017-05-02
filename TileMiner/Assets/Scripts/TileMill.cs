@@ -79,6 +79,15 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_NEARBY_TILE, (int)Tile.TileType.MINE));
 		}
 
+		// check structure height
+		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.MILL, 3);
+
+		if (!passesHeightLimitCheck)
+		{
+			isValid = false;
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT, 3));
+		}
+
 		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
 		{
 			//
