@@ -11,9 +11,9 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	[SerializeField] private int mineralEarnPerStoneCollection = 5;
 	[SerializeField] protected float stackMultiplierCost = 2.0f;
 
-	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
+	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
-		base.Initialize(_tileGrid, _coordinate);
+		base.Initialize(_tileGrid, _coordinate, _type);
 		
 		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_STONE, this);
 		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_SELECTED_STONE, this);

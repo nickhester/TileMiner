@@ -11,9 +11,9 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 	private StackMultiplier stackMultiplier;
 	[SerializeField] protected float stackMultiplierCost = 1.25f;
 
-	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
+	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
-		base.Initialize(_tileGrid, _coordinate);
+		base.Initialize(_tileGrid, _coordinate, _type);
 
 		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT, this);
 

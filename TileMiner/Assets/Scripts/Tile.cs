@@ -43,13 +43,24 @@ public abstract class Tile : MonoBehaviour
 	}
 	private TileType myTileType;
 
-	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
+	private int brightnessLevel = 0;
+	public int maxBrightness = 5;
+	private Color originalColor;
+	private SpriteRenderer spriteRenderer;
+
+	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _tileType)
 	{
 		tileGrid = _tileGrid;
 		myCoordinate = _coordinate;
 		eventBroadcast = FindObjectOfType<EventBroadcast>();
 		cameraControl = FindObjectOfType<CameraControl>();
 		player = FindObjectOfType<Player>();
+		myTileType = _tileType;
+
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		originalColor = spriteRenderer.color;
+		UpdateBrightness();
+
 		hasBeenInitialized = true;
 	}
 	
@@ -137,8 +148,7 @@ public abstract class Tile : MonoBehaviour
 	{
 		return mineralAdjustmentToDestroy;
 	}
-
-
+	
 	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
 	{
 		return true;
@@ -182,11 +192,6 @@ public abstract class Tile : MonoBehaviour
 		}
 	}
 	
-	public void SetTileType(TileType t)
-	{
-		myTileType = t;
-	}
-
 	public TileType GetTileType()
 	{
 		if (!hasBeenInitialized)
@@ -194,5 +199,37 @@ public abstract class Tile : MonoBehaviour
 			Debug.LogError("Cannot get myTileType on prefab - not instantiated yet.");
 		}
 		return myTileType;
+	}
+
+	public void Brighten()
+	{
+		Brighten(1);
+	}
+
+	public void Brighten(int _amount)
+	{
+		brightnessLevel += _amount;
+		brightnessLevel = Mathf.Min(brightnessLevel, maxBrightness);
+		UpdateBrightness();
+	}
+
+	private void UpdateBrightness()
+	{
+		if (myTileType != TileType.EMPTY)
+		{
+			Color currentColor = Color.Lerp(Color.black, originalColor, (brightnessLevel / (float)maxBrightness));
+
+			spriteRenderer.color = currentColor;
+		}
+	}
+
+	public int GetBrightnessLevel()
+	{
+		return brightnessLevel;
+	}
+
+	public bool IsIlluminated()
+	{
+		return (GetBrightnessLevel() > 0);
 	}
 }

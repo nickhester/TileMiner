@@ -13,9 +13,9 @@ public class TileRefinery : Tile, IStackableTile
 	private StackMultiplier stackMultiplier;
 	[SerializeField] protected float stackMultiplierCost = 2.0f;
 
-	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
+	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
-		base.Initialize(_tileGrid, _coordinate);
+		base.Initialize(_tileGrid, _coordinate, _type);
 
 		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), 1.0f/mineralEarnBaseInterval, stackMultiplierInterval);
 	}

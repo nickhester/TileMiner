@@ -13,6 +13,8 @@ public class LevelGenerator : MonoBehaviour
 	[SerializeField] private List<Tile> tilePrefabs = new List<Tile>();
 	private TileGrid tileGrid;
 
+	[SerializeField] private int depthOfSkylight = 12;
+
 	void Start ()
 	{
 		// check tile types vs prefabs
@@ -42,7 +44,11 @@ public class LevelGenerator : MonoBehaviour
 			for (int j = 0; j < mapWidth; j++)
 			{
 				Tile.TileType _type = ChooseNextTileType(j, i);
-				CreateOneTile(new Coordinate(j, i), _type);
+				Coordinate coordinateToCreate = new Coordinate(j, i);
+				Tile t = CreateOneTile(coordinateToCreate, _type);
+
+				// illuminate
+				t.Brighten(LightSource.IlluminateDownward(depthOfSkylight, coordinateToCreate.y - numSkyTiles));
 
 				tileCount[_type]++;
 			}
@@ -122,8 +128,7 @@ public class LevelGenerator : MonoBehaviour
 		Tile t = go.GetComponent<Tile>();
 
 		t.transform.SetParent(transform);
-		t.Initialize(tileGrid, _coordinate);
-		t.SetTileType(_type);
+		t.Initialize(tileGrid, _coordinate, _type);
 		tileGrid.AddTile(_coordinate, t);
 		
 		return t;

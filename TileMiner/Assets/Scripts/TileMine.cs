@@ -8,9 +8,9 @@ public class TileMine : Tile
 	[Header("Type-Specific Properties")]
 	public float radiusToSupport;
 
-	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate)
+	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
-		base.Initialize(_tileGrid, _coordinate);
+		base.Initialize(_tileGrid, _coordinate, _type);
 	}
 
 	protected override void PlayerClick()

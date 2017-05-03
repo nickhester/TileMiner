@@ -7,7 +7,7 @@ public class TileDirt : Tile
 {
 	protected override void PlayerClick()
 	{
-		if (GetIsExposed())
+		if (GetIsExposed() && IsIlluminated())
 		{
 			Activate();
 		}

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
   - component: {fileID: 114216816326092304}
+  - component: {fileID: 114661213862354680}
   m_Layer: 0
   m_Name: TileMine
   m_TagString: Untagged
@@ -69,13 +70,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weightSupportValue: -1
   mineralAdjustmentToBuild: -50
+  mineralAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: -1
   baseProbability: 0
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
+  guaranteeAtLeast: 0
+  maxBrightness: 5
   radiusToSupport: 8
+--- !u!114 &114661213862354680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013142335594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9a3b38a53e501448ebac52f7cb1c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 12
+  isIlluminateOnStart: 1
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
