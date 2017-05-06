@@ -16,16 +16,29 @@ public class LightSource : MonoBehaviour
 		myTile.Brighten();
 		tileGrid = myTile.GetTileGrid();
 
+		FindObjectOfType<LightManager>().RegisterLightSource(this);
+
+		/*
 		if (isIlluminateOnStart)
-			IlluminateRadial(radius);
+			IlluminateRadial();
+			*/
+	}
+
+	void OnDestroy()
+	{
+		TurnOffLightInMyRange();
+
+		LightManager lm = FindObjectOfType<LightManager>();
+		if (lm != null)
+			lm.UnregisterLightSource(this);
 	}
 	
-	void IlluminateRadial(int _radius)
+	public void IlluminateRadial()
 	{
-		for (int i = -_radius; i < _radius; i++)
+		for (int i = -radius; i < radius; i++)
 		{
 			Coordinate coordinate;
-			for (int j = -_radius; j < _radius; j++)
+			for (int j = -radius; j < radius; j++)
 			{
 				coordinate.x = i + myTile.GetCoordinate().x;
 				coordinate.y = j + myTile.GetCoordinate().y;
@@ -41,10 +54,22 @@ public class LightSource : MonoBehaviour
 		}
 	}
 
-	// this is for skylight
-	public static int IlluminateDownward(int _maxDistance, int _currentDepth)
+	public void TurnOffLightInMyRange()
 	{
-		// truncate and negate
-		return -(_currentDepth - _maxDistance);
+		for (int i = -radius; i < radius; i++)
+		{
+			Coordinate coordinate;
+			for (int j = -radius; j < radius; j++)
+			{
+				coordinate.x = i + myTile.GetCoordinate().x;
+				coordinate.y = j + myTile.GetCoordinate().y;
+				
+				Tile targetTile = tileGrid.GetTileAt(coordinate);
+				if (targetTile != null && targetTile.GetBrightnessLevel() > 0)
+				{
+					targetTile.SetBrightnessLevel(0);
+				}
+			}
+		}
 	}
 }

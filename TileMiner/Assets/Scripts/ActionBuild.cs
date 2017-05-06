@@ -16,8 +16,7 @@ public class ActionBuild : IAction
 
 	public void Execute()
 	{
-		MonoBehaviour.Destroy(tileToReplace.gameObject);
-		MonoBehaviour.FindObjectOfType<LevelGenerator>().CreateOneTile(tileToReplace.GetCoordinate(), newType);
+		MonoBehaviour.FindObjectOfType<LevelGenerator>().ReplaceOneTile(tileToReplace.GetCoordinate(), newType);
 	}
 
 	public bool IsActionValid(ref List<Requirements> _failureReason)

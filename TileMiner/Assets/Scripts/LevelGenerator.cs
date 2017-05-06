@@ -7,14 +7,12 @@ public class LevelGenerator : MonoBehaviour
 {
 	[SerializeField] private int mapHeight = 20;
 	[SerializeField] private int mapWidth = 10;
-	[SerializeField] private int numSkyTiles = 2;
+	[SerializeField] private int numSkyTiles = 14;
 
 	[SerializeField] private float tileSpacing = 1.0f;
 	[SerializeField] private List<Tile> tilePrefabs = new List<Tile>();
 	private TileGrid tileGrid;
-
-	[SerializeField] private int depthOfSkylight = 12;
-
+	
 	void Start ()
 	{
 		// check tile types vs prefabs
@@ -27,6 +25,7 @@ public class LevelGenerator : MonoBehaviour
 		CreateTiles();
 
 		GetComponent<LevelManager>().Initialize(tileGrid);
+		GetComponent<LightManager>().Initialize(tileGrid);
 	}
 
 	void CreateTiles()
@@ -46,9 +45,6 @@ public class LevelGenerator : MonoBehaviour
 				Tile.TileType _type = ChooseNextTileType(j, i);
 				Coordinate coordinateToCreate = new Coordinate(j, i);
 				Tile t = CreateOneTile(coordinateToCreate, _type);
-
-				// illuminate
-				t.Brighten(LightSource.IlluminateDownward(depthOfSkylight, coordinateToCreate.y - numSkyTiles));
 
 				tileCount[_type]++;
 			}
@@ -136,8 +132,23 @@ public class LevelGenerator : MonoBehaviour
 
 	public Tile ReplaceOneTile(Coordinate _coordinate, Tile.TileType _newType)
 	{
-		Destroy(tileGrid.GetTileAt(_coordinate).gameObject);
-		return CreateOneTile(_coordinate, _newType);
+		Tile oldTile = tileGrid.GetTileAt(_coordinate);
+		
+		// get some attributes to pass from old tile to new tile
+		int illuminationLevel = oldTile.GetBrightnessLevel();
+		
+		Destroy(oldTile.gameObject);
+		Tile newTile = CreateOneTile(_coordinate, _newType);
+
+		// set passed attributes
+		newTile.SetBrightnessLevel(illuminationLevel);
+
+		return newTile;
+	}
+
+	public void DestroyOneTile(Coordinate _coordinate)
+	{
+		ReplaceOneTile(_coordinate, Tile.TileType.EMPTY);
 	}
 
 	public Tile GetTilePrefab(Tile.TileType _type)
@@ -162,5 +173,15 @@ public class LevelGenerator : MonoBehaviour
 	public System.Type TileTypeEnumToTileType(Tile.TileType t)
 	{
 		return tilePrefabs[(int)t].GetType();
+	}
+
+	public int GetNumSkyTiles()
+	{
+		return numSkyTiles;
+	}
+
+	public int GetMapWidth()
+	{
+		return mapWidth;
 	}
 }

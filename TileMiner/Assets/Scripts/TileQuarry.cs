@@ -42,13 +42,11 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	{
 		if (_event == EventBroadcast.Event.PLAYER_SELECTED_STONE)
 		{
-			Resource resource = new Resource(stackMultiplier.GetStackedAmount(), Resource.ResourceType.MINERAL);
-			tileGrid.ReportStoneCollectAdjustmentValue(resource.GetAmount());
-		}
-		else if (_event == EventBroadcast.Event.PLAYER_COLLECTED_STONE)
-		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(stackMultiplier.GetStackedAmount(), Resource.ResourceType.MINERAL));
-			actionAdjustResources.Execute();
+			if (isStructureActive)
+			{
+				Resource resource = new Resource(stackMultiplier.GetStackedAmount(), Resource.ResourceType.MINERAL);
+				tileGrid.ReportStoneCollectAdjustmentValue(resource.GetAmount());
+			}
 		}
 	}
 

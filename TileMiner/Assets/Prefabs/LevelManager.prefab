@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114000013763861318}
   - component: {fileID: 114000012674200780}
   - component: {fileID: 114000012802151692}
+  - component: {fileID: 114660150146618520}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -92,3 +93,15 @@ MonoBehaviour:
   - {fileID: 114000014244536640, guid: 8b85a5bb764c37944a6c4f72ecefb94d, type: 2}
   - {fileID: 114216816326092304, guid: fcc27622fae4d1241baf6d2ddc69bb27, type: 2}
   - {fileID: 114430248588178596, guid: c4fc48d7b056b6c4f9b6162db1e71b2d, type: 2}
+--- !u!114 &114660150146618520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014006765804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cfcceaf7bb54f443b9c1ba75b535723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  depthOfSkylight: 12

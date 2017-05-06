@@ -23,8 +23,7 @@ public class ActionDestroy : IAction
 			GameObject.FindObjectOfType<EventBroadcast>().TriggerEvent(EventBroadcast.Event.PLAYER_COLLECTED_STONE);
 		}
 
-		MonoBehaviour.Destroy(tileToDestroy.gameObject);
-		MonoBehaviour.FindObjectOfType<LevelGenerator>().CreateOneTile(tileToDestroy.GetCoordinate(), Tile.TileType.EMPTY);
+		MonoBehaviour.FindObjectOfType<LevelGenerator>().DestroyOneTile(tileToDestroy.GetCoordinate());
 	}
 
 	public bool IsActionValid(ref List<Requirements> _failureReason)

@@ -22,13 +22,16 @@ public class TileRefinery : Tile, IStackableTile
 
 	private void Update()
 	{
-		intervalCounter += Time.deltaTime;
-		float stackedAmount = stackMultiplier.GetStackedAmount_float();
-		if (stackedAmount != 0.0f && intervalCounter > (1.0f/stackedAmount))
+		if (isStructureActive)
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(mineralEarnPerInterval, Resource.ResourceType.MINERAL));
-			actionAdjustResources.Execute();
-			intervalCounter = 0.0f;
+			intervalCounter += Time.deltaTime;
+			float stackedAmount = stackMultiplier.GetStackedAmount_float();		// TODO: Great place to optimize here - don't do this every update loop
+			if (stackedAmount != 0.0f && intervalCounter > (1.0f / stackedAmount))
+			{
+				ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(mineralEarnPerInterval, Resource.ResourceType.MINERAL));
+				actionAdjustResources.Execute();
+				intervalCounter = 0.0f;
+			}
 		}
 	}
 

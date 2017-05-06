@@ -16,6 +16,7 @@ public abstract class Tile : MonoBehaviour
 	[SerializeField] protected int mineralAdjustmentToBuild = 0;
 	[SerializeField] protected int mineralAdjustmentToDestroy = 0;
 	public bool isStructure = false;
+	protected bool isStructureActive = true;
 
 	[SerializeField] protected int populationAdjustment = 0;
 
@@ -208,9 +209,7 @@ public abstract class Tile : MonoBehaviour
 
 	public void Brighten(int _amount)
 	{
-		brightnessLevel += _amount;
-		brightnessLevel = Mathf.Min(brightnessLevel, maxBrightness);
-		UpdateBrightness();
+		SetBrightnessLevel(_amount + GetBrightnessLevel());
 	}
 
 	private void UpdateBrightness()
@@ -226,6 +225,15 @@ public abstract class Tile : MonoBehaviour
 	public int GetBrightnessLevel()
 	{
 		return brightnessLevel;
+	}
+
+	public void SetBrightnessLevel(int _level)
+	{
+		brightnessLevel = _level;
+		brightnessLevel = Mathf.Min(brightnessLevel, maxBrightness);
+		UpdateBrightness();
+
+		isStructureActive = (brightnessLevel > 0 ? true : false);
 	}
 
 	public bool IsIlluminated()

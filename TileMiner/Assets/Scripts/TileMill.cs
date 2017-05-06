@@ -41,8 +41,11 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 	{
 		if (_event == EventBroadcast.Event.PLAYER_COLLECTED_DIRT)
 		{
-			ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(stackMultiplier.GetStackedAmount(), Resource.ResourceType.MINERAL));
-			actionAdjustResources.Execute();
+			if (isStructureActive)
+			{
+				ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(stackMultiplier.GetStackedAmount(), Resource.ResourceType.MINERAL));
+				actionAdjustResources.Execute();
+			}
 		}
 	}
 
