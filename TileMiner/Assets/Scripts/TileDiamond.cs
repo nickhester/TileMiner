@@ -25,12 +25,13 @@ public class TileDiamond : Tile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
 		
 		if (_tileGrid.GetDepth(_myCoordinate) > -heightRequiredToBuild)
 		{
+			isExcludedFromPlayerSelection = true;
 			isValid = false;
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_HEIGHT, heightRequiredToBuild));
 		}

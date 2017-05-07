@@ -56,7 +56,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
 
@@ -71,6 +71,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		else
 		{
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.STONE, "Not on stone or other Quarry."));
+			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
 
@@ -88,6 +89,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 
 		if (!passesHeightLimitCheck)
 		{
+			isExcludedFromPlayerSelection = true;
 			isValid = false;
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT, 3));
 		}

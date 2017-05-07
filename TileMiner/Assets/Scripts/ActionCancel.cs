@@ -10,7 +10,7 @@ public class ActionCancel : IAction
 		// do nothing, just pass through!
 	}
 
-	public bool IsActionValid(ref List<Requirements> _failureReason)
+	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		return true;
 	}

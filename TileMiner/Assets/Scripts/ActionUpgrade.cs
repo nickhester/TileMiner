@@ -10,7 +10,7 @@ public class ActionUpgrade : IAction
 		throw new NotImplementedException();
 	}
 
-	public bool IsActionValid(ref List<Requirements> _failureReason)
+	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		return true;
 	}

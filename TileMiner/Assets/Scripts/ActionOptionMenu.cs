@@ -16,11 +16,7 @@ public class ActionOptionMenu : MonoBehaviour
 		bool atLeastOneActionIsInvalid = false;
 		for (int i = 0; i < _actionSets.Count; i++)
 		{
-			GameObject buttonObject = Instantiate(singleButton.gameObject) as GameObject;
-			buttonObject.transform.SetParent(layout.transform);
-			buttonObject.transform.localScale = Vector3.one;
-			Text buttonText = buttonObject.GetComponentInChildren<Text>();
-
+			// build string description on button
 			string buttonTextString = _actionSets[i].name;
 			int costAmount = 0;
 			string costResourceName = "";
@@ -29,26 +25,41 @@ public class ActionOptionMenu : MonoBehaviour
 				buttonTextString += " - Cost: " + (-costAmount) + " " + costResourceName.ToLower();
 			}
 
+			// check if button should be disabled
+			buttonTextString += "\n";
+			bool shouldButtonBeInteractable = true;
+			bool isExcludedFromPlayerSelection = false;
+			for (int j = 0; j < _actionSets[i].actions.Count; j++)
+			{
+				List<Requirements> failureReasons = new List<Requirements>();
+				if (!_actionSets[i].actions[j].IsActionValid(ref failureReasons, ref isExcludedFromPlayerSelection))
+				{
+					shouldButtonBeInteractable = false;
+					atLeastOneActionIsInvalid = true;
+					foreach (Requirements req in failureReasons)
+					{
+						buttonTextString += " (" + req.ToString() + ") ";
+					}
+				}
+			}
+
+			if (isExcludedFromPlayerSelection)
+			{
+				continue;
+			}
+
+			// actually instantiate the object
+			GameObject buttonObject = Instantiate(singleButton.gameObject) as GameObject;
+			buttonObject.transform.SetParent(layout.transform);
+			buttonObject.transform.localScale = Vector3.one;
+			Text buttonText = buttonObject.GetComponentInChildren<Text>();
+			
 			buttonText.text = buttonTextString;
 			int currentIteration = i;
 			Button buttonComponent = buttonObject.GetComponent<Button>();
 			buttonComponent.onClick.AddListener(delegate { _player.ExecuteAction(currentIteration, _actionSets); });
 
-			// check if button should be disabled
-			buttonText.text += "\n";
-			for (int j = 0; j < _actionSets[i].actions.Count; j++)
-			{
-				List<Requirements> failureReasons = new List<Requirements>();
-				if (!_actionSets[i].actions[j].IsActionValid(ref failureReasons))
-				{
-					buttonComponent.interactable = false;
-					atLeastOneActionIsInvalid = true;
-					foreach (Requirements req in failureReasons)
-					{
-						buttonText.text += " (" + req.ToString() + ") ";
-					}
-				}
-			}
+			buttonComponent.interactable = shouldButtonBeInteractable;
 		}
 
 		// determine if it can just do an automatic action

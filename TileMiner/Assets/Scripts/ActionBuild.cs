@@ -19,7 +19,7 @@ public class ActionBuild : IAction
 		MonoBehaviour.FindObjectOfType<LevelGenerator>().ReplaceOneTile(tileToReplace.GetCoordinate(), newType);
 	}
 
-	public bool IsActionValid(ref List<Requirements> _failureReason)
+	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool result = true;
 
@@ -30,7 +30,7 @@ public class ActionBuild : IAction
 		bool passesWeightCheck = WeightAnalyzer.CanStructureBeAddedHere(tileToReplace, weightValue);
 
 		// check with tile for validation
-		bool passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason);
+		bool passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection);
 
 		if (!passesWeightCheck)
 		{

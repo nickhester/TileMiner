@@ -27,7 +27,7 @@ public class TileEmpty : Tile
 
 	public override void Activate()
 	{
-		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
+		List<NamedActionSet> namedActionSets = new List<NamedActionSet>();
 		List<IAction> actions = new List<IAction>();
 
 		actions = new List<IAction>();
@@ -35,50 +35,50 @@ public class TileEmpty : Tile
 		actions.Add(
 			new ActionAdjustResources(
 					levelGenerator.GetTilePrefab(TileType.RESIDENCE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSet.Add(new NamedActionSet("Build Residence", actions));
+		namedActionSets.Add(new NamedActionSet("Build Residence", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.MINE));
 		actions.Add(
 			new ActionAdjustResources(
 					levelGenerator.GetTilePrefab(TileType.MINE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSet.Add(new NamedActionSet("Build Mine", actions));
+		namedActionSets.Add(new NamedActionSet("Build Mine", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.REFINERY));
 		actions.Add(
 			new ActionAdjustResources(
 					levelGenerator.GetTilePrefab(TileType.REFINERY).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSet.Add(new NamedActionSet("Build Refinery", actions));
+		namedActionSets.Add(new NamedActionSet("Build Refinery", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.MILL));
 		actions.Add(
 			new ActionAdjustResources(
 					levelGenerator.GetTilePrefab(TileType.MILL).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSet.Add(new NamedActionSet("Build Mill", actions));
+		namedActionSets.Add(new NamedActionSet("Build Mill", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.QUARRY));
 		actions.Add(
 			new ActionAdjustResources(
 					levelGenerator.GetTilePrefab(TileType.QUARRY).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSet.Add(new NamedActionSet("Build Quarry", actions));
+		namedActionSets.Add(new NamedActionSet("Build Quarry", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.DIAMOND));
 		actions.Add(
 			new ActionAdjustResources(
 					levelGenerator.GetTilePrefab(TileType.DIAMOND).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSet.Add(new NamedActionSet("Build Diamond Monument", actions));
+		namedActionSets.Add(new NamedActionSet("Build Diamond Monument", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.DIRT));
 		actions.Add(
 			new ActionAdjustResources(
 					levelGenerator.GetTilePrefab(TileType.DIRT).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSet.Add(new NamedActionSet("Fill With Dirt", actions));
+		namedActionSets.Add(new NamedActionSet("Fill With Dirt", actions));
 
-		ProposeActions(namedActionSet);
+		ProposeActions(namedActionSets);
 	}
 }

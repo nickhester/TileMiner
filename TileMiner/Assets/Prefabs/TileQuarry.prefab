@@ -76,11 +76,11 @@ MonoBehaviour:
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
-  guaranteeOneOnRow: -1
-  guaranteeColumn: -1
-  stackMultiplierValue: 2.8
-  mineralEarnPerStoneCollection: 2
-  stackMultiplierCost: 2.6
+  guaranteeAtLeast: 0
+  maxBrightness: 5
+  stackMultiplierValue: 2.4
+  mineralEarnPerStoneCollection: 3
+  stackMultiplierCost: 2.7
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

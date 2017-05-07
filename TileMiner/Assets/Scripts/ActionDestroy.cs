@@ -26,7 +26,7 @@ public class ActionDestroy : IAction
 		MonoBehaviour.FindObjectOfType<LevelGenerator>().DestroyOneTile(tileToDestroy.GetCoordinate());
 	}
 
-	public bool IsActionValid(ref List<Requirements> _failureReason)
+	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool retVal = WeightAnalyzer.CanTileBeRemoved(tileToDestroy);
 

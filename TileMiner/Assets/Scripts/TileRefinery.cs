@@ -58,7 +58,7 @@ public class TileRefinery : Tile, IStackableTile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
 
@@ -74,6 +74,7 @@ public class TileRefinery : Tile, IStackableTile
 		else
 		{
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on ground or other Refinery."));
+			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
 
@@ -91,6 +92,7 @@ public class TileRefinery : Tile, IStackableTile
 
 		if (!passesHeightLimitCheck)
 		{
+			isExcludedFromPlayerSelection = true;
 			isValid = false;
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT, 3));
 		}

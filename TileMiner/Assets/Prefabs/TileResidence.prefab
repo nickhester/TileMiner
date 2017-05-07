@@ -71,14 +71,14 @@ MonoBehaviour:
   mineralAdjustmentToBuild: -40
   mineralAdjustmentToDestroy: 0
   isStructure: 1
-  populationAdjustment: 4
+  populationAdjustment: 5
   baseProbability: 0
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
-  guaranteeOneOnRow: -1
-  guaranteeColumn: -1
-  stackMultiplierCost: 1.6
+  guaranteeAtLeast: 0
+  maxBrightness: 5
+  stackMultiplierCost: 1.8
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

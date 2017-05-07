@@ -76,10 +76,10 @@ MonoBehaviour:
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
-  guaranteeOneOnRow: -1
-  guaranteeColumn: -1
+  guaranteeAtLeast: 0
+  maxBrightness: 5
   baseMineralEarnPerPlayerAction: 4
-  stackMultiplierValue: 2.5
+  stackMultiplierValue: 2.1
   stackMultiplierCost: 2.7
 --- !u!212 &212000012871114896
 SpriteRenderer:

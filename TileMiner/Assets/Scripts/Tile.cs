@@ -150,7 +150,7 @@ public abstract class Tile : MonoBehaviour
 		return mineralAdjustmentToDestroy;
 	}
 	
-	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason)
+	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		return true;
 	}

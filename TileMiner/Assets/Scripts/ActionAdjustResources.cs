@@ -24,7 +24,7 @@ public class ActionAdjustResources : IAction
 		inventory.AddResource(resource);
 	}
 
-	public bool IsActionValid(ref List<Requirements> _failureReason)
+	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		if (!isAdjustmentPossible)
 		{
