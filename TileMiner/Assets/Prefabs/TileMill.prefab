@@ -79,8 +79,8 @@ MonoBehaviour:
   guaranteeAtLeast: 0
   maxBrightness: 5
   baseMineralEarnPerPlayerAction: 4
-  stackMultiplierValue: 2.1
-  stackMultiplierCost: 2.7
+  stackMultiplierValue: 2
+  stackMultiplierCost: 3
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -58,8 +58,12 @@ public class LevelGenerator : MonoBehaviour
 				while (minGuarantee.Value > tileCount[minGuarantee.Key])
 				{
 					// choose a place in the grid to add one
+					if ((GetTilePrefab(minGuarantee.Key).depthRangeStart + numSkyTiles) >= mapHeight)
+						Debug.LogError("Tile Depth Range Start set to beyond depth of grid");
+
 					int randX = UnityEngine.Random.Range(0, mapWidth);
-					int randY = UnityEngine.Random.Range(GetTilePrefab(minGuarantee.Key).depthRangeStart + numSkyTiles, 
+					int randY = UnityEngine.Random.Range(
+						GetTilePrefab(minGuarantee.Key).depthRangeStart + numSkyTiles, 
 						Mathf.Min(GetTilePrefab(minGuarantee.Key).depthRangeEnd + numSkyTiles, mapHeight - 1));
 
 					// verify that you're not replacing another tile with a minimum guarantee

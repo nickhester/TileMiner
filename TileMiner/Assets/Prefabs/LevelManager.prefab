@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapHeight: 70
   mapWidth: 8
-  numSkyTiles: 14
+  numSkyTiles: 12
   tileSpacing: 1
   tilePrefabs:
   - {fileID: 114000011162575676, guid: 4b1548e09706123468fec6ad3a4fac20, type: 2}
