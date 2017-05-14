@@ -79,7 +79,6 @@ MonoBehaviour:
   depthRangeEnd: 999
   guaranteeAtLeast: 0
   maxBrightness: 5
-  radiusToSupport: 8
 --- !u!114 &114661213862354680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9a3b38a53e501448ebac52f7cb1c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 18
+  radius: 15
   isIlluminateOnStart: 1
 --- !u!212 &212000012871114896
 SpriteRenderer:

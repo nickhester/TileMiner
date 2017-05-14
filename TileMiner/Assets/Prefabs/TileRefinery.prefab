@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: -1
-  mineralAdjustmentToBuild: -70
+  mineralAdjustmentToBuild: -60
   mineralAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: -1
@@ -81,7 +81,7 @@ MonoBehaviour:
   mineralEarnPerInterval: 1
   mineralEarnBaseInterval: 2
   stackMultiplierInterval: 2
-  stackMultiplierCost: 2.9
+  stackMultiplierCost: 2.7
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -437,7 +437,7 @@ Prefab:
     - target: {fileID: 114000011730084088, guid: afc491fce90967b43b438c938e24ec83,
         type: 2}
       propertyPath: increaseProbabilityPerRow
-      value: 0.04
+      value: 0.045
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: afc491fce90967b43b438c938e24ec83, type: 2}
@@ -753,7 +753,7 @@ Prefab:
     - target: {fileID: 114000011730084088, guid: 579283a3556ee67489f5b787bbe92dfc,
         type: 2}
       propertyPath: increaseProbabilityPerRow
-      value: 0.082
+      value: 0.085
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 579283a3556ee67489f5b787bbe92dfc, type: 2}

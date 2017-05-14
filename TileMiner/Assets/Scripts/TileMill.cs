@@ -73,15 +73,6 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
-		
-		// check mine range
-		bool passesMineProximityCheck = BuildRequirementsAnalyzer.IsWithinRangeOfMine(_myCoordinate, _tileGrid);
-
-		if (!passesMineProximityCheck)
-		{
-			isValid = false;
-			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_NEARBY_TILE, (int)Tile.TileType.MINE));
-		}
 
 		// check structure height
 		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.MILL, 3);

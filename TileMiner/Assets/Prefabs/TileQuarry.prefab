@@ -78,9 +78,9 @@ MonoBehaviour:
   depthRangeEnd: 999
   guaranteeAtLeast: 0
   maxBrightness: 5
-  stackMultiplierValue: 2.4
+  stackMultiplierValue: 2.2
   mineralEarnPerStoneCollection: 3
-  stackMultiplierCost: 2.7
+  stackMultiplierCost: 2.2
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
