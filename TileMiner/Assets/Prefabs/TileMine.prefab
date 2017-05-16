@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weightSupportValue: -1
   mineralAdjustmentToBuild: -50
-  mineralAdjustmentToDestroy: 0
+  mineralAdjustmentToDestroy: 10
   isStructure: 1
   populationAdjustment: -1
   baseProbability: 0

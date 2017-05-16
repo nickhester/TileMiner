@@ -3,21 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileResidence : Tile
+public class TileDrill : Tile
 {
 	[Header("Type-Specific Properties")]
-	[SerializeField] protected float stackMultiplierCost = 2.0f;
+	[SerializeField] private float intervalToDrillTile = 20.0f;
+	private float counterToDrillDrill = 0.0f;
+
+	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
+	{
+		base.Initialize(_tileGrid, _coordinate, _type);
+	}
+
+	private void Update()
+	{
+		if (isStructureActive)
+		{
+			counterToDrillDrill += Time.deltaTime;
+			if (counterToDrillDrill > intervalToDrillTile)
+			{
+				// drill
+				// destroy tile below
+				// move drill down one
+				// check tile below that
+				// remove self if no ground
+
+				counterToDrillDrill = 0.0f;
+			}
+		}
+	}
 
 	protected override void PlayerClick()
 	{
 		Activate();
 	}
-
+	
 	public override void Activate()
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
 		List<IAction> actions = new List<IAction>();
-
+		
 		actions = new List<IAction>();
 		actions.Add(new ActionDestroy(this));
 		actions.Add(
@@ -32,38 +56,21 @@ public class TileResidence : Tile
 	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
-		if (_tileGrid.GetDepth(_myCoordinate) < 0)
-		{
-			//
-		}
-		else
-		{
-			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_HEIGHT, 1, "Not Above Ground."));
-			isExcludedFromPlayerSelection = true;
-			isValid = false;
-		}
-
+		
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
 			&& (tileBelow.GetType() == typeof(TileDirt)
-				|| tileBelow.GetType() == typeof(TileStone)
-				|| tileBelow.GetType() == typeof(TileResidence)))
+				|| tileBelow.GetType() == typeof(TileStone)))
 		{
 			// valid
 		}
 		else
 		{
-			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on ground or other Residence."));
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on ground."));
 			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
-
 		return isValid;
-	}
-
-	public override Resource GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
-	{
-		return GetMineralAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}
 }

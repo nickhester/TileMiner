@@ -155,6 +155,11 @@ public class LevelGenerator : MonoBehaviour
 		ReplaceOneTile(_coordinate, Tile.TileType.EMPTY);
 	}
 
+	public void MoveOneTile(Coordinate _coordinate, TileGrid.Direction _direction, Tile.TileType _tileToLeaveBehind)
+	{
+		// TODO
+	}
+
 	public Tile GetTilePrefab(Tile.TileType _type)
 	{
 		return tilePrefabs[(int)_type].GetComponent<Tile>();

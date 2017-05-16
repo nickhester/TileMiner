@@ -32,6 +32,9 @@ public class TileMill : Tile, IEventSubscriber, IStackableTile
 
 		actions = new List<IAction>();
 		actions.Add(new ActionDestroy(this));
+		actions.Add(
+			new ActionAdjustResources(
+				new Resource(GetMineralAdjustmentToDestroy(), Resource.ResourceType.MINERAL)));
 		namedActionSet.Add(new NamedActionSet("Destroy", actions));
 
 		ProposeActions(namedActionSet);
