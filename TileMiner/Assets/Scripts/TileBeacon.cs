@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileDiamond : Tile
+public class TileBeacon : Tile
 {
 	[Header("Type-Specific Properties")]
 	[SerializeField] private int energyAdjustmentToBuild;
-	[SerializeField] private int heightRequiredToBuild;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
@@ -29,11 +28,15 @@ public class TileDiamond : Tile
 	{
 		bool isValid = true;
 		
-		if (_tileGrid.GetDepth(_myCoordinate) > -heightRequiredToBuild)
+		if (_tileGrid.GetDepth(_myCoordinate) < 0)
 		{
+			//
+		}
+		else
+		{
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_HEIGHT, 1, "Not Above Ground."));
 			isExcludedFromPlayerSelection = true;
 			isValid = false;
-			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_HEIGHT, heightRequiredToBuild));
 		}
 
 		return isValid;

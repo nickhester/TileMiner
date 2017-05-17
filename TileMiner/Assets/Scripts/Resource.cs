@@ -9,7 +9,8 @@ public class Resource
 	public enum ResourceType
 	{
 		MINERAL,
-		ENERGY
+		ENERGY,
+		GOLD
 	}
 	private ResourceType resourceType;
 

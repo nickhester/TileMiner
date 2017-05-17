@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 	
 	void Update ()
 	{
-		// HACK
+		// HACK: Mineral Earn Cheat
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			GetInventory().AddResource(new Resource(100, Resource.ResourceType.MINERAL));

@@ -34,12 +34,12 @@ public abstract class Tile : MonoBehaviour
 		DIRT2,
 		STONE,
 		STONE2,
-		DIAMOND,
+		BEACON,
 		RESIDENCE,
-		MILL,
+		MINE,
 		REFINERY,
 		QUARRY,
-		MINE,
+		STATION,
 		ENERGY_WELL
 	}
 	private TileType myTileType;
@@ -174,17 +174,17 @@ public abstract class Tile : MonoBehaviour
 				return "Stone";
 			case TileType.STONE2:
 				return "Stone 2";
-			case TileType.DIAMOND:
-				return "Diamond";
+			case TileType.BEACON:
+				return "Beacon";
 			case TileType.RESIDENCE:
 				return "Residence";
-			case TileType.MILL:
-				return "Mill";
+			case TileType.MINE:
+				return "Mine";
 			case TileType.REFINERY:
 				return "Refinery";
 			case TileType.QUARRY:
 				return "Quarry";
-			case TileType.MINE:
+			case TileType.STATION:
 				return "Mine";
 			case TileType.ENERGY_WELL:
 				return "Energy Well";

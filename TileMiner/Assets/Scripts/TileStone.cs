@@ -29,6 +29,6 @@ public class TileStone : Tile
 
 	public override int GetMineralAdjustmentToDestroy()
 	{
-		return mineralAdjustmentToDestroy + tileGrid.GetStoneCollectAdjustmentValue();
+		return Mathf.Min(mineralAdjustmentToDestroy + tileGrid.GetStoneCollectAdjustmentValue(), 0);
 	}
 }

@@ -38,11 +38,11 @@ public class TileEmpty : Tile
 		namedActionSets.Add(new NamedActionSet("Build Residence", actions));
 
 		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.MINE));
+		actions.Add(new ActionBuild(this, Tile.TileType.STATION));
 		actions.Add(
 			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.MINE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSets.Add(new NamedActionSet("Build Mine", actions));
+					levelGenerator.GetTilePrefab(TileType.STATION).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		namedActionSets.Add(new NamedActionSet("Build Station", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.REFINERY));
@@ -52,11 +52,11 @@ public class TileEmpty : Tile
 		namedActionSets.Add(new NamedActionSet("Build Refinery", actions));
 
 		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.MILL));
+		actions.Add(new ActionBuild(this, Tile.TileType.MINE));
 		actions.Add(
 			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.MILL).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSets.Add(new NamedActionSet("Build Mill", actions));
+					levelGenerator.GetTilePrefab(TileType.MINE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		namedActionSets.Add(new NamedActionSet("Build Mine", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.QUARRY));
@@ -66,11 +66,11 @@ public class TileEmpty : Tile
 		namedActionSets.Add(new NamedActionSet("Build Quarry", actions));
 
 		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.DIAMOND));
+		actions.Add(new ActionBuild(this, Tile.TileType.BEACON));
 		actions.Add(
 			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.DIAMOND).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
-		namedActionSets.Add(new NamedActionSet("Build Diamond Monument", actions));
+					levelGenerator.GetTilePrefab(TileType.BEACON).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		namedActionSets.Add(new NamedActionSet("Build Beacon", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.DIRT));

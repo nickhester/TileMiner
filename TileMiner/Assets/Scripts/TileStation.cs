@@ -3,34 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileDrill : Tile
+public class TileStation : Tile
 {
-	[Header("Type-Specific Properties")]
-	[SerializeField] private float intervalToDrillTile = 20.0f;
-	private float counterToDrillDrill = 0.0f;
-
+	
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
 		base.Initialize(_tileGrid, _coordinate, _type);
-	}
-
-	private void Update()
-	{
-		if (isStructureActive)
-		{
-			counterToDrillDrill += Time.deltaTime;
-			if (counterToDrillDrill > intervalToDrillTile)
-			{
-				// drill
-				// destroy tile below
-				
-				// move drill down one
-				// check tile below that
-				// remove self if no ground
-
-				counterToDrillDrill = 0.0f;
-			}
-		}
 	}
 
 	protected override void PlayerClick()
@@ -42,7 +20,9 @@ public class TileDrill : Tile
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
 		List<IAction> actions = new List<IAction>();
-		
+
+		// TODO: destroying mines will require checking that nothing in its range relies on its existence
+
 		actions = new List<IAction>();
 		actions.Add(new ActionDestroy(this));
 		actions.Add(
@@ -57,7 +37,7 @@ public class TileDrill : Tile
 	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
-		
+
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
@@ -70,6 +50,16 @@ public class TileDrill : Tile
 		{
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on ground."));
 			isExcludedFromPlayerSelection = true;
+			isValid = false;
+		}
+
+		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
+		{
+			//
+		}
+		else
+		{
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_POPULATION));
 			isValid = false;
 		}
 		return isValid;

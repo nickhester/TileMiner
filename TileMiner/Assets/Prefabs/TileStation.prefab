@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4000012868189612}
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
-  - component: {fileID: 114000012595420102}
+  - component: {fileID: 114216816326092304}
+  - component: {fileID: 114661213862354680}
   m_Layer: 0
-  m_Name: TileDiamond
+  m_Name: TileStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +57,7 @@ BoxCollider2D:
   m_Offset: {x: 0.000000014901161, y: 0.00064821297}
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
---- !u!114 &114000012595420102
+--- !u!114 &114216816326092304
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -64,21 +65,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013142335594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e8273ccb5d9e14d8531525dca5b7e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 9533f36ca39cdf7419f17076c62d0c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weightSupportValue: 0
-  mineralAdjustmentToBuild: -1000
-  mineralAdjustmentToDestroy: 0
+  weightSupportValue: -1
+  mineralAdjustmentToBuild: -50
+  mineralAdjustmentToDestroy: 10
   isStructure: 1
-  populationAdjustment: 0
+  populationAdjustment: -1
   baseProbability: 0
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
   guaranteeAtLeast: 0
-  energyAdjustmentToBuild: -5
-  heightRequiredToBuild: 4
+  maxBrightness: 5
+--- !u!114 &114661213862354680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013142335594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9a3b38a53e501448ebac52f7cb1c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 15
+  isIlluminateOnStart: 1
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -110,7 +123,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6bb8f15fffc4f5c4c8a29ebe23c7f764, type: 3}
-  m_Color: {r: 0.741, g: 0.80636257, b: 0.816, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 12d9cb3ff663cee439515282b9c9f342, type: 3}
+  m_Color: {r: 0.88457537, g: 0.65916955, b: 0.9338235, a: 1}
   m_FlipX: 0
   m_FlipY: 0
