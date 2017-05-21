@@ -22,8 +22,12 @@ public class TileStone : Tile
 		ProposeActions(namedActionSet);
 	}
 
-	public override Resource GetResourceAdjustmentToDestroy()
+	public override List<Resource> GetResourceAdjustmentToDestroy()
 	{
-		return new Resource(Mathf.Min(mineralAdjustmentToDestroy + tileGrid.GetStoneCollectAdjustmentValue(), 0), Resource.ResourceType.MINERAL);
+		List<Resource> resources = new List<Resource>();
+		resources.Add(new Resource(Mathf.Min(mineralAdjustmentToDestroy + tileGrid.GetStoneCollectAdjustmentValue(), 0), Resource.ResourceType.MINERAL));
+		resources.Add(new Resource(goldAdjustmentToDestroy, Resource.ResourceType.GOLD));
+		resources.Add(new Resource(energyAdjustmentToDestroy, Resource.ResourceType.ENERGY));
+		return resources;
 	}
 }

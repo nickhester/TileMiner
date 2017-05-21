@@ -18,11 +18,10 @@ public class ActionOptionMenu : MonoBehaviour
 		{
 			// build string description on button
 			string buttonTextString = _actionSets[i].name;
-			int costAmount = 0;
-			string costResourceName = "";
-			if (_actionSets[i].DoesActionSetHaveCost(ref costAmount, ref costResourceName))
+			string costDescription = "";
+			if (_actionSets[i].DoesActionSetHaveCost(ref costDescription))
 			{
-				buttonTextString += " - Cost: " + (-costAmount) + " " + costResourceName.ToLower();
+				buttonTextString += " - Cost: " + costDescription;
 			}
 
 			// check if button should be disabled

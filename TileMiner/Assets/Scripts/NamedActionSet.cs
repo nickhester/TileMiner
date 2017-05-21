@@ -29,7 +29,7 @@ public class NamedActionSet
 		actions = a;
 	}
 
-	public bool DoesActionSetHaveCost(ref int cost, ref string nameOfResource)
+	public bool DoesActionSetHaveCost(ref string costDescription)
 	{
 		bool retVal = false;
 		foreach (IAction action in actions)
@@ -37,9 +37,11 @@ public class NamedActionSet
 			ActionAdjustResources aar = action as ActionAdjustResources;
 			if (aar != null)
 			{
-				retVal = true;
-				cost += aar.GetResourceAdjustmentAmount();
-				nameOfResource = aar.GetResourceAdjustmentName();	// NOTE: this will only use the name of the last resource if there are more than one!
+				if (aar.GetResourceAdjustmentAmount() < 0)
+				{
+					retVal = true;
+					costDescription += -aar.GetResourceAdjustmentAmount() + " " + aar.GetResourceAdjustmentName().ToLower() + " ";
+				}
 			}
 		}
 		return retVal;

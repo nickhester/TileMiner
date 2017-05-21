@@ -5,6 +5,9 @@ using System;
 
 public class TileDirt : Tile
 {
+	[Header("Type-Specific Properties")]
+	[SerializeField] private float chanceToDropGold = 0.2f;
+
 	protected override void PlayerClick()
 	{
 		if (GetIsExposed() && IsIlluminated())
@@ -43,5 +46,17 @@ public class TileDirt : Tile
 		}
 		
 		return isValid;
+	}
+	
+	public override List<Resource> GetResourceAdjustmentToDestroy()
+	{
+		List<Resource> resources = new List<Resource>();
+		resources.Add(new Resource(mineralAdjustmentToDestroy, Resource.ResourceType.MINERAL));
+
+		if (UnityEngine.Random.Range(0.0f, 1.0f) < chanceToDropGold)
+			resources.Add(new Resource(goldAdjustmentToDestroy, Resource.ResourceType.GOLD));
+
+		resources.Add(new Resource(energyAdjustmentToDestroy, Resource.ResourceType.ENERGY));
+		return resources;
 	}
 }

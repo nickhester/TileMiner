@@ -70,14 +70,19 @@ MonoBehaviour:
   weightSupportValue: 1
   mineralAdjustmentToBuild: -250
   mineralAdjustmentToDestroy: 10
+  goldAdjustmentToBuild: 0
+  goldAdjustmentToDestroy: 1
+  energyAdjustmentToBuild: 0
+  energyAdjustmentToDestroy: 0
   isStructure: 0
   populationAdjustment: 0
   baseProbability: 1
   increaseProbabilityPerRow: 0
   depthRangeStart: 0
   depthRangeEnd: 999
-  guaranteeOneOnRow: -1
-  guaranteeColumn: -1
+  guaranteeAtLeast: 0
+  maxBrightness: 5
+  chanceToDropGold: 0.2
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

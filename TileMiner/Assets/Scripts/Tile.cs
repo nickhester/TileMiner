@@ -96,7 +96,10 @@ public abstract class Tile : MonoBehaviour
 
 		actions = new List<IAction>();
 		actions.Add(new ActionDestroy(this));
-		actions.Add(new ActionAdjustResources(GetResourceAdjustmentToDestroy()));
+		foreach (Resource res in GetResourceAdjustmentToDestroy())
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		return actions;
 	}
 
@@ -170,7 +173,7 @@ public abstract class Tile : MonoBehaviour
 	}
 
 	// stack cost increases only apply to mineral adjustments right now
-	protected List<Resource> GetMineralAdjustmentToBuild_stacked(TileGrid _tileGrid, Coordinate buildTarget, float multiplier)
+	protected List<Resource> GetResourceAdjustmentToBuild_stacked(TileGrid _tileGrid, Coordinate buildTarget, float multiplier)
 	{
 		List<Resource> resources = new List<Resource>();
 
@@ -201,9 +204,13 @@ public abstract class Tile : MonoBehaviour
 		return resources;
 	}
 
-	public virtual Resource GetResourceAdjustmentToDestroy()
+	public virtual List<Resource> GetResourceAdjustmentToDestroy()
 	{
-		return new Resource(mineralAdjustmentToDestroy, Resource.ResourceType.MINERAL);
+		List<Resource> resources = new List<Resource>();
+		resources.Add(new Resource(mineralAdjustmentToDestroy, Resource.ResourceType.MINERAL));
+		resources.Add(new Resource(goldAdjustmentToDestroy, Resource.ResourceType.GOLD));
+		resources.Add(new Resource(energyAdjustmentToDestroy, Resource.ResourceType.ENERGY));
+		return resources;
 	}
 	
 	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)

@@ -70,6 +70,10 @@ MonoBehaviour:
   weightSupportValue: 3
   mineralAdjustmentToBuild: 0
   mineralAdjustmentToDestroy: -200
+  goldAdjustmentToBuild: 0
+  goldAdjustmentToDestroy: 12
+  energyAdjustmentToBuild: 0
+  energyAdjustmentToDestroy: 0
   isStructure: 0
   populationAdjustment: 0
   baseProbability: 0.05
