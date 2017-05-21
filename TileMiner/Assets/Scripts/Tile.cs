@@ -49,7 +49,9 @@ public abstract class Tile : MonoBehaviour
 		ENERGY_WELL,
 		DRILL_RIG,
 		BOMB,
-		MINERAL_FARM
+		MINERAL_FARM,
+		GOLD_VEIN,
+		GOLD_MINE
 	}
 	private TileType myTileType;
 
@@ -259,6 +261,10 @@ public abstract class Tile : MonoBehaviour
 				return "Bomb";
 			case TileType.MINERAL_FARM:
 				return "Mineral Farm";
+			case TileType.GOLD_VEIN:
+				return "Gold Vein";
+			case TileType.GOLD_MINE:
+				return "Gold Mine";
 			default:
 				return "ERROR: TILE CASE MISSING DESCRIPTION";
 		}

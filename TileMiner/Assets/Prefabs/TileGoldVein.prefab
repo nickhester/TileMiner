@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4000012868189612}
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
-  - component: {fileID: 114814773029628214}
+  - component: {fileID: 114000011730084088}
   m_Layer: 0
-  m_Name: TileMineralFarm
+  m_Name: TileGoldVein
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ BoxCollider2D:
   m_Offset: {x: 0.000000014901161, y: 0.00064821297}
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
---- !u!114 &114814773029628214
+--- !u!114 &114000011730084088
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -64,25 +64,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013142335594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3a022535be433a4b8c9576333ad902f, type: 3}
+  m_Script: {fileID: 11500000, guid: a69cbc2e92d6cc549af7ea88ce57f789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weightSupportValue: -1
+  weightSupportValue: 2
   mineralAdjustmentToBuild: 0
   mineralAdjustmentToDestroy: 0
-  goldAdjustmentToBuild: -50
-  goldAdjustmentToDestroy: 0
+  goldAdjustmentToBuild: 0
+  goldAdjustmentToDestroy: 50
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
-  isStructure: 1
-  populationAdjustment: -1
-  baseProbability: 0
-  increaseProbabilityPerRow: 0
-  depthRangeStart: 0
+  isStructure: 0
+  populationAdjustment: 0
+  baseProbability: 0.02
+  increaseProbabilityPerRow: 0.01
+  depthRangeStart: 10
   depthRangeEnd: 999
   guaranteeAtLeast: 0
   maxBrightness: 5
-  intervalToFarm: 15
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -115,6 +114,6 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6bb8f15fffc4f5c4c8a29ebe23c7f764, type: 3}
-  m_Color: {r: 1, g: 0.928, b: 0.034, a: 1}
+  m_Color: {r: 0.99264705, g: 0.6704898, b: 0.26275954, a: 1}
   m_FlipX: 0
   m_FlipY: 0

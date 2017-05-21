@@ -71,8 +71,7 @@ public class TileMineralFarm : Tile
 		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
 
 		if (tileBelow
-			&& (tileBelow.GetType() == typeof(TileDirt)
-				|| tileBelow.GetType() == typeof(TileStone)))
+			&& (tileBelow.GetType() == typeof(TileDirt)))
 		{
 			// valid
 		}
