@@ -3,49 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileDrillRig : Tile
+public class TileMineralFarm : Tile
 {
 	[Header("Type-Specific Properties")]
-	[SerializeField] private float intervalToDrillTile = 20.0f;
-	private float counterToDrillTile = 0.0f;
-	[SerializeField] private int numTilesLifetime = 5;
+	[SerializeField] private float intervalToFarm = 20.0f;
+	private float counterToFarm = 0.0f;
 
 	private LevelGenerator levelGenerator;
+	private LightManager lightManager;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
 		base.Initialize(_tileGrid, _coordinate, _type);
 
 		levelGenerator = FindObjectOfType<LevelGenerator>();
+		lightManager = FindObjectOfType<LightManager>();
 	}
 
 	private void Update()
 	{
 		if (isStructureActive)
 		{
-			counterToDrillTile += Time.deltaTime;
-			if (counterToDrillTile > intervalToDrillTile)
+			counterToFarm += Time.deltaTime;
+			if (counterToFarm > intervalToFarm)
 			{
-				// destroy tile below
-				Tile tileBelow = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate());
-				if (tileBelow != null)
-					tileBelow.DestroyImmediate(false);
+				// this is the pattern that tile spaces will choose to fill
+				int[] patternX = { 0, -1, 1, -1, 1 };
+				int[] patternY = { -1, 0, 0, -1, -1 };
 
-				// move drill down one
-				levelGenerator.MoveTile(GetCoordinate(), tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate()).GetCoordinate(), TileType.EMPTY);
-
-				// check tile below that
-				Tile nextTileDown = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate());
-				// remove self if no ground, or if lifetime is up
-				numTilesLifetime--;
-				if (numTilesLifetime <= 0
-					|| nextTileDown.GetTileType() == TileType.EMPTY
-					|| nextTileDown.GetTileType() == TileType.ENERGY_WELL)
+				for (int i = 0; i < patternX.Length; i++)
 				{
-					levelGenerator.DestroyOneTile(GetCoordinate());
+					Coordinate target = GetCoordinate() + new Coordinate(patternX[i], patternY[i]);
+					Tile tileAtTarget = tileGrid.GetTileAt(target);
+					if (tileAtTarget != null && tileAtTarget.GetTileType() == TileType.EMPTY)
+					{
+						// spawn dirt
+						levelGenerator.ReplaceOneTile(target, TileType.DIRT);
+						break;
+					}
 				}
 
-				counterToDrillTile = 0.0f;
+				lightManager.RecalculateIllumination();
+				counterToFarm = 0.0f;
 			}
 		}
 	}

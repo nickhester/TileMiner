@@ -46,16 +46,6 @@ public class TileStation : Tile
 			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
-
-		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
-		{
-			//
-		}
-		else
-		{
-			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_POPULATION));
-			isValid = false;
-		}
 		return isValid;
 	}
 }

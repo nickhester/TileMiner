@@ -104,6 +104,14 @@ public class TileEmpty : Tile
 		}
 		namedActionSets.Add(new NamedActionSet("Place Bomb", actions));
 
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.MINERAL_FARM));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.MINERAL_FARM).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
+		namedActionSets.Add(new NamedActionSet("Build Mineral Farm", actions));
+
 		ProposeActions(namedActionSets);
 	}
 }

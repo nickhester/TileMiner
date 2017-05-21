@@ -81,17 +81,6 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 			isValid = false;
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT, 3));
 		}
-
-
-		if (PopulationAnalyzer.CanStructureBeAdded(this, _tileGrid))
-		{
-			//
-		}
-		else
-		{
-			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_POPULATION));
-			isValid = false;
-		}
 		return isValid;
 	}
 

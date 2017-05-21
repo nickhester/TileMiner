@@ -33,10 +33,7 @@ public class TileBomb : Tile
 					{
 						if (!(i == 0 && j == 0))	// don't destroy self yet
 						{
-							Coordinate c = GetCoordinate();
-							c.x += i;
-							c.y += j;
-							Tile tileToDestroy = tileGrid.GetTileAt(c);
+							Tile tileToDestroy = tileGrid.GetTileAt(GetCoordinate() + new Coordinate(i, j));
 							if (tileToDestroy != null)
 								tileToDestroy.DestroyImmediate(false);
 						}

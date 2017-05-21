@@ -28,6 +28,16 @@ public class ActionBuild : IAction
 		// check weight
 		int weightValue = tilePrefab.GetWeightSupportValue();
 		bool passesWeightCheck = WeightAnalyzer.CanStructureBeAddedHere(tileToReplace, weightValue);
+		
+		if (PopulationAnalyzer.CanStructureBeAdded(tilePrefab, tileToReplace.GetTileGrid()))
+		{
+			//
+		}
+		else
+		{
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_POPULATION));
+			result = false;
+		}
 
 		// check with tile for validation
 		bool passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection);

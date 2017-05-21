@@ -28,8 +28,7 @@ public class LightManager : MonoBehaviour
 		{
 			for (int j = 0; j < mapWidth; j++)
 			{
-				coordinate.x = j;
-				coordinate.y = i;
+				coordinate = new Coordinate(j, i);
 
 				int lightValue = 0;
 				Tile t = tileGrid.GetTileAt(coordinate);
@@ -87,7 +86,7 @@ public class LightManager : MonoBehaviour
 		RecalculateIllumination();
 	}
 
-	void RecalculateIllumination()
+	public void RecalculateIllumination()
 	{
 		TurnOffSkylight();
 
