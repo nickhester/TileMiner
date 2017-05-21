@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileDrillRig : Tile
+public class TileBomb : Tile
 {
 	[Header("Type-Specific Properties")]
-	[SerializeField] private float intervalToDrillTile = 20.0f;
-	private float counterToDrillTile = 0.0f;
-	[SerializeField] private int numTilesLifetime = 5;
+	[SerializeField] private float intervalToExplode = 20.0f;
+	private float counterToExplode = 0.0f;
+	[SerializeField] private int numTilesRadiusExplosion = 1;
 
 	private LevelGenerator levelGenerator;
 
@@ -23,29 +23,27 @@ public class TileDrillRig : Tile
 	{
 		if (isStructureActive)
 		{
-			counterToDrillTile += Time.deltaTime;
-			if (counterToDrillTile > intervalToDrillTile)
+			counterToExplode += Time.deltaTime;
+			if (counterToExplode > intervalToExplode)
 			{
-				// destroy tile below
-				Tile tileBelow = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate());
-				if (tileBelow != null)
-					tileBelow.DestroyImmediate(false);
-
-				// move drill down one
-				levelGenerator.MoveTile(GetCoordinate(), tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate()).GetCoordinate(), TileType.EMPTY);
-
-				// check tile below that
-				Tile nextTileDown = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate());
-				// remove self if no ground, or if lifetime is up
-				numTilesLifetime--;
-				if (numTilesLifetime <= 0
-					|| nextTileDown.GetTileType() == TileType.EMPTY
-					|| nextTileDown.GetTileType() == TileType.ENERGY_WELL)
+				// explode - remove all tiles around self, except self
+				for (int i = -numTilesRadiusExplosion; i <= numTilesRadiusExplosion; i++)
 				{
-					levelGenerator.DestroyOneTile(GetCoordinate());
+					for (int j = -numTilesRadiusExplosion; j <= numTilesRadiusExplosion; j++)
+					{
+						if (!(i == 0 && j == 0))	// don't destroy self yet
+						{
+							Coordinate c = GetCoordinate();
+							c.x += i;
+							c.y += j;
+							Tile tileToDestroy = tileGrid.GetTileAt(c);
+							if (tileToDestroy != null)
+								tileToDestroy.DestroyImmediate(false);
+						}
+					}
 				}
-				
-				counterToDrillTile = 0.0f;
+				// destroy self
+				levelGenerator.DestroyOneTile(GetCoordinate());
 			}
 		}
 	}
@@ -57,11 +55,7 @@ public class TileDrillRig : Tile
 	
 	public override void Activate()
 	{
-		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
-
-		namedActionSet.Add(new NamedActionSet("Destroy", GetDestroyAction()));
-
-		ProposeActions(namedActionSet);
+		// can't be destroyed
 	}
 
 	// called on prefab

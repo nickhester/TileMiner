@@ -96,6 +96,14 @@ public class TileEmpty : Tile
 		}
 		namedActionSets.Add(new NamedActionSet("Build Drill Rig", actions));
 
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.BOMB));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.BOMB).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
+		namedActionSets.Add(new NamedActionSet("Place Bomb", actions));
+
 		ProposeActions(namedActionSets);
 	}
 }

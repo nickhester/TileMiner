@@ -33,14 +33,25 @@ public class EventBroadcast : MonoBehaviour
 			for (int i = 0; i < numLoops; i++)
 			{
 				IEventSubscriber s = subscriptions[_event][i];
-				MonoBehaviour m = s as MonoBehaviour;
-				if (s != null && m != null)
+				bool isEventValid = true;
+				if (s != null)
 				{
-					s.InformOfEvent(_event);
+					MonoBehaviour m = s as MonoBehaviour;
+
+					if (s != null && m != null)
+						s.InformOfEvent(_event);
+					else
+						isEventValid = false;
 				}
 				else
+					isEventValid = false;
+
+				if (!isEventValid)
 				{
 					subscriptions[_event].RemoveAt(i);
+
+					i--;
+					numLoops--;
 				}
 			}
 		}

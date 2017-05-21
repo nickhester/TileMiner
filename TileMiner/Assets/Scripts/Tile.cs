@@ -47,7 +47,8 @@ public abstract class Tile : MonoBehaviour
 		QUARRY,
 		STATION,
 		ENERGY_WELL,
-		DRILL_RIG
+		DRILL_RIG,
+		BOMB
 	}
 	private TileType myTileType;
 
@@ -253,6 +254,8 @@ public abstract class Tile : MonoBehaviour
 				return "Energy Well";
 			case TileType.DRILL_RIG:
 				return "Drill Rig";
+			case TileType.BOMB:
+				return "Bomb";
 			default:
 				return "ERROR: TILE CASE MISSING DESCRIPTION";
 		}
