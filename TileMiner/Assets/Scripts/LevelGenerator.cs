@@ -12,7 +12,17 @@ public class LevelGenerator : MonoBehaviour
 	[SerializeField] private float tileSpacing = 1.0f;
 	[SerializeField] private List<Tile> tilePrefabs = new List<Tile>();
 	private TileGrid tileGrid;
-	
+
+	private float verticalOffset {
+		get { return ((numSkyTiles) * tileSpacing); }             // offset to make ground appear in the middle
+		set { }
+	}
+	private float horizontalOffset
+	{
+		get { return ((mapWidth - 1) * tileSpacing) / 2.0f; }             // offset to center left-right
+		set { }
+	}
+
 	void Start ()
 	{
 		// check tile types vs prefabs
@@ -121,9 +131,6 @@ public class LevelGenerator : MonoBehaviour
 
 	public Tile CreateOneTile(Coordinate _coordinate, Tile.TileType _type)
 	{
-		float verticalOffset = ((numSkyTiles) * tileSpacing);				// offset to make ground appear in the middle
-		float horizontalOffset = ((mapWidth - 1) * tileSpacing) / 2.0f;		// offset to center left-right
-
 		GameObject go = Instantiate(tilePrefabs[(int)_type].gameObject, new Vector2((_coordinate.x * tileSpacing) - horizontalOffset, (-_coordinate.y * tileSpacing) + verticalOffset), Quaternion.identity) as GameObject;
 		Tile t = go.GetComponent<Tile>();
 
@@ -154,10 +161,30 @@ public class LevelGenerator : MonoBehaviour
 	{
 		ReplaceOneTile(_coordinate, Tile.TileType.EMPTY);
 	}
-
-	public void MoveOneTile(Coordinate _coordinate, TileGrid.Direction _direction, Tile.TileType _tileToLeaveBehind)
+	
+	public bool MoveTile(Coordinate _coordMoveStart, Coordinate _coordMoveEnd, Tile.TileType _typeToLeaveBehind)
 	{
-		// TODO
+		Tile tileAtEnd = tileGrid.GetTileAt(_coordMoveEnd);
+		Tile tileToMove = tileGrid.GetTileAt(_coordMoveStart);
+
+		if (tileAtEnd == null || tileToMove == null)
+			return false;
+
+		if (tileAtEnd.GetTileType() != Tile.TileType.EMPTY)
+			Debug.LogError("Trying to move tile to non-empty location");
+
+		// replace in tileGrid
+		Destroy(tileAtEnd.gameObject);
+		tileGrid.AddTile(_coordMoveEnd, tileToMove);
+
+		// update transform of existing tile
+		Vector2 newPosition = new Vector2((_coordMoveEnd.x * tileSpacing) - horizontalOffset, (-_coordMoveEnd.y * tileSpacing) + verticalOffset);
+		tileToMove.transform.position = newPosition;
+		tileToMove.UpdateCoordinates(_coordMoveEnd);
+
+		// create new tile to leave behind
+		CreateOneTile(_coordMoveStart, _typeToLeaveBehind);
+		return true;
 	}
 
 	public Tile GetTilePrefab(Tile.TileType _type)

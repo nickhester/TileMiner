@@ -23,6 +23,9 @@ public class Resource
 
 	public void Add(int _amountChange)
 	{
+		if (amount + _amountChange < 0)
+			Debug.LogError("Resource less than zero");
+
 		amount += _amountChange;
 	}
 

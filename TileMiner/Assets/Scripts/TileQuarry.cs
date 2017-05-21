@@ -31,12 +31,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
 		List<IAction> actions = new List<IAction>();
 
-		actions = new List<IAction>();
-		actions.Add(new ActionDestroy(this));
-		actions.Add(
-			new ActionAdjustResources(
-				new Resource(GetMineralAdjustmentToDestroy(), Resource.ResourceType.MINERAL)));
-		namedActionSet.Add(new NamedActionSet("Destroy", actions));
+		namedActionSet.Add(new NamedActionSet("Destroy", GetDestroyAction()));
 
 		ProposeActions(namedActionSet);
 	}

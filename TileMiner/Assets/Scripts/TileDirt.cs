@@ -16,14 +16,9 @@ public class TileDirt : Tile
 	public override void Activate()
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
-		List<IAction> actions = new List<IAction>();
 
-		actions = new List<IAction>();
-		actions.Add(new ActionDestroy(this));
-		actions.Add(
-			new ActionAdjustResources(
-				new Resource(GetMineralAdjustmentToDestroy(), Resource.ResourceType.MINERAL)));
-		namedActionSet.Add(new NamedActionSet("Collect Mineral", actions, true));
+		namedActionSet.Add(new NamedActionSet("Collect Mineral", GetDestroyAction(), true));
+
 		ProposeActions(namedActionSet);
 	}
 

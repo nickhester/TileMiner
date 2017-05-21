@@ -93,6 +93,7 @@ MonoBehaviour:
   - {fileID: 114000014244536640, guid: 8b85a5bb764c37944a6c4f72ecefb94d, type: 2}
   - {fileID: 114216816326092304, guid: fcc27622fae4d1241baf6d2ddc69bb27, type: 2}
   - {fileID: 114430248588178596, guid: c4fc48d7b056b6c4f9b6162db1e71b2d, type: 2}
+  - {fileID: 114632796715846388, guid: f930f1e0406efed419db4ddd54b2b743, type: 2}
 --- !u!114 &114660150146618520
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -40,7 +40,8 @@ public abstract class Tile : MonoBehaviour
 		REFINERY,
 		QUARRY,
 		STATION,
-		ENERGY_WELL
+		ENERGY_WELL,
+		DRILL_RIG
 	}
 	private TileType myTileType;
 
@@ -82,10 +83,39 @@ public abstract class Tile : MonoBehaviour
 	protected abstract void PlayerClick();
 
 	public abstract void Activate();
+	
+	protected virtual List<IAction> GetDestroyAction()
+	{
+		List<IAction> actions = new List<IAction>();
 
+		actions = new List<IAction>();
+		actions.Add(new ActionDestroy(this));
+		actions.Add(new ActionAdjustResources(GetResourceAdjustmentToDestroy()));
+		return actions;
+	}
+
+	public bool DestroyImmediate(bool isCollectingResources)
+	{
+		List<IAction> actions = GetDestroyAction();
+		foreach (var action in actions)
+		{
+			// if "isCollectingResources" is false, then only execute the destroy action
+			if (isCollectingResources || (action as ActionDestroy) != null)
+			{
+				action.Execute();
+			}
+		}
+		return true;
+	}
+	
 	public Coordinate GetCoordinate()
 	{
 		return myCoordinate;
+	}
+
+	public void UpdateCoordinates(Coordinate c)
+	{
+		myCoordinate = c;
 	}
 
 	public bool GetIsExposed()
@@ -145,9 +175,9 @@ public abstract class Tile : MonoBehaviour
 		return new Resource((int)(mineralAdjustmentToBuild * Mathf.Pow(multiplier, numLikeTilesBelow)), Resource.ResourceType.MINERAL);
 	}
 
-	public virtual int GetMineralAdjustmentToDestroy()
+	public virtual Resource GetResourceAdjustmentToDestroy()
 	{
-		return mineralAdjustmentToDestroy;
+		return new Resource(mineralAdjustmentToDestroy, Resource.ResourceType.MINERAL);
 	}
 	
 	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
@@ -169,11 +199,11 @@ public abstract class Tile : MonoBehaviour
 			case TileType.DIRT:
 				return "Dirt";
 			case TileType.DIRT2:
-				return "Dirt 2";
+				return "Rich Dirt";
 			case TileType.STONE:
 				return "Stone";
 			case TileType.STONE2:
-				return "Stone 2";
+				return "Dense Stone";
 			case TileType.BEACON:
 				return "Beacon";
 			case TileType.RESIDENCE:
@@ -188,8 +218,10 @@ public abstract class Tile : MonoBehaviour
 				return "Mine";
 			case TileType.ENERGY_WELL:
 				return "Energy Well";
+			case TileType.DRILL_RIG:
+				return "Drill Rig";
 			default:
-				return "ERROR OUT OF RANGE";
+				return "ERROR: TILE CASE MISSING DESCRIPTION";
 		}
 	}
 	

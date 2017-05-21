@@ -3,32 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TileDrill : Tile
+public class TileDrillRig : Tile
 {
 	[Header("Type-Specific Properties")]
 	[SerializeField] private float intervalToDrillTile = 20.0f;
-	private float counterToDrillDrill = 0.0f;
+	private float counterToDrillTile = 0.0f;
+	[SerializeField] private int numTilesLifetime = 5;
+
+	private LevelGenerator levelGenerator;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
 		base.Initialize(_tileGrid, _coordinate, _type);
+
+		levelGenerator = FindObjectOfType<LevelGenerator>();
 	}
 
 	private void Update()
 	{
 		if (isStructureActive)
 		{
-			counterToDrillDrill += Time.deltaTime;
-			if (counterToDrillDrill > intervalToDrillTile)
+			counterToDrillTile += Time.deltaTime;
+			if (counterToDrillTile > intervalToDrillTile)
 			{
-				// drill
 				// destroy tile below
-				
-				// move drill down one
-				// check tile below that
-				// remove self if no ground
+				Tile tileBelow = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate());
+				tileBelow.DestroyImmediate(false);
 
-				counterToDrillDrill = 0.0f;
+				// move drill down one
+				levelGenerator.MoveTile(GetCoordinate(), tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate()).GetCoordinate(), TileType.EMPTY);
+
+				// check tile below that
+				Tile nextTileDown = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate());
+				// remove self if no ground, or if lifetime is up
+				numTilesLifetime--;
+				if (numTilesLifetime <= 0
+					|| nextTileDown.GetTileType() == TileType.EMPTY
+					|| nextTileDown.GetTileType() == TileType.ENERGY_WELL)
+				{
+					levelGenerator.DestroyOneTile(GetCoordinate());
+				}
+				
+				counterToDrillTile = 0.0f;
 			}
 		}
 	}
@@ -41,14 +57,8 @@ public class TileDrill : Tile
 	public override void Activate()
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
-		List<IAction> actions = new List<IAction>();
-		
-		actions = new List<IAction>();
-		actions.Add(new ActionDestroy(this));
-		actions.Add(
-			new ActionAdjustResources(
-				new Resource(GetMineralAdjustmentToDestroy(), Resource.ResourceType.MINERAL)));
-		namedActionSet.Add(new NamedActionSet("Destroy", actions));
+
+		namedActionSet.Add(new NamedActionSet("Destroy", GetDestroyAction()));
 
 		ProposeActions(namedActionSet);
 	}

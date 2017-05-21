@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
 	private Inventory myInventory;
 	public ActionOptionMenu actionOptionMenuPrefab;
@@ -49,23 +49,13 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	public void ExecuteAction(int _index, List<NamedActionSet> _actionSets)
+	public override void ExecuteAction(NamedActionSet _actionSet)
 	{
-		bool actionIsCancel = false;
-		for (int j = 0; j < _actionSets[_index].actions.Count; j++)
-		{
-			IAction a = _actionSets[_index].actions[j];
-			
-			if (a.GetType() == typeof(ActionCancel))
-			{
-				actionIsCancel = true;
-			}
-
-			_actionSets[_index].actions[j].Execute();
-		}
-
+		bool isActionCancel = false;
+		base.ExecuteActionBase(_actionSet, ref isActionCancel);
+		
 		Destroy(currentActionMenu.gameObject);
-		if (!actionIsCancel)
+		if (!isActionCancel)
 		{
 			eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);
 		}

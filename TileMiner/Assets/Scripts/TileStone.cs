@@ -16,19 +16,14 @@ public class TileStone : Tile
 	public override void Activate()
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
-		List<IAction> actions = new List<IAction>();
 
-		actions = new List<IAction>();
-		actions.Add(new ActionDestroy(this));
-		actions.Add(
-			new ActionAdjustResources(
-				new Resource(GetMineralAdjustmentToDestroy(), Resource.ResourceType.MINERAL)));
-		namedActionSet.Add(new NamedActionSet("Destroy Stone", actions));
+		namedActionSet.Add(new NamedActionSet("Destroy Stone", GetDestroyAction()));
+		
 		ProposeActions(namedActionSet);
 	}
 
-	public override int GetMineralAdjustmentToDestroy()
+	public override Resource GetResourceAdjustmentToDestroy()
 	{
-		return Mathf.Min(mineralAdjustmentToDestroy + tileGrid.GetStoneCollectAdjustmentValue(), 0);
+		return new Resource(Mathf.Min(mineralAdjustmentToDestroy + tileGrid.GetStoneCollectAdjustmentValue(), 0), Resource.ResourceType.MINERAL);
 	}
 }

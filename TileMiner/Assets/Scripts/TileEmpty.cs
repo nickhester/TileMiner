@@ -79,6 +79,15 @@ public class TileEmpty : Tile
 					levelGenerator.GetTilePrefab(TileType.DIRT).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
 		namedActionSets.Add(new NamedActionSet("Fill With Dirt", actions));
 
+		// specialized build types
+
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.DRILL_RIG));
+		actions.Add(
+			new ActionAdjustResources(
+					levelGenerator.GetTilePrefab(TileType.DRILL_RIG).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		namedActionSets.Add(new NamedActionSet("Build Drill Rig", actions));
+
 		ProposeActions(namedActionSets);
 	}
 }

@@ -55,9 +55,9 @@ public class ActionOptionMenu : MonoBehaviour
 			Text buttonText = buttonObject.GetComponentInChildren<Text>();
 			
 			buttonText.text = buttonTextString;
-			int currentIteration = i;
+			NamedActionSet _actionSet = _actionSets[i];
 			Button buttonComponent = buttonObject.GetComponent<Button>();
-			buttonComponent.onClick.AddListener(delegate { _player.ExecuteAction(currentIteration, _actionSets); });
+			buttonComponent.onClick.AddListener(delegate { _player.ExecuteAction(_actionSet); });
 
 			buttonComponent.interactable = shouldButtonBeInteractable;
 		}
@@ -67,7 +67,8 @@ public class ActionOptionMenu : MonoBehaviour
 			&& _actionSets[0].canBeDefaultIfOnlyOption
 			&& !atLeastOneActionIsInvalid)
 		{
-			_player.ExecuteAction(0, _actionSets);
+			NamedActionSet _actionSet = _actionSets[0];
+			_player.ExecuteAction(_actionSet);
 		}
 	}
 }
