@@ -32,60 +32,68 @@ public class TileEmpty : Tile
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.RESIDENCE));
-		actions.Add(
-			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.RESIDENCE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.RESIDENCE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		namedActionSets.Add(new NamedActionSet("Build Residence", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.STATION));
-		actions.Add(
-			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.STATION).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.STATION).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		namedActionSets.Add(new NamedActionSet("Build Station", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.REFINERY));
-		actions.Add(
-			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.REFINERY).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.REFINERY).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		namedActionSets.Add(new NamedActionSet("Build Refinery", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.MINE));
-		actions.Add(
-			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.MINE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.MINE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		namedActionSets.Add(new NamedActionSet("Build Mine", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.QUARRY));
-		actions.Add(
-			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.QUARRY).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.QUARRY).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		namedActionSets.Add(new NamedActionSet("Build Quarry", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.BEACON));
-		actions.Add(
-			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.BEACON).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.BEACON).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		namedActionSets.Add(new NamedActionSet("Build Beacon", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.DIRT));
-		actions.Add(
-			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.DIRT).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.DIRT).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		namedActionSets.Add(new NamedActionSet("Fill With Dirt", actions));
 
 		// specialized build types
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.DRILL_RIG));
-		actions.Add(
-			new ActionAdjustResources(
-					levelGenerator.GetTilePrefab(TileType.DRILL_RIG).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate())));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.DRILL_RIG).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
 		namedActionSets.Add(new NamedActionSet("Build Drill Rig", actions));
 
 		ProposeActions(namedActionSets);

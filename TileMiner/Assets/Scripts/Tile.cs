@@ -13,8 +13,14 @@ public abstract class Tile : MonoBehaviour
 	protected bool hasBeenInitialized = false;
 
 	[SerializeField] protected int weightSupportValue = 0;
+
 	[SerializeField] protected int mineralAdjustmentToBuild = 0;
 	[SerializeField] protected int mineralAdjustmentToDestroy = 0;
+	[SerializeField] protected int goldAdjustmentToBuild = 0;
+	[SerializeField] protected int goldAdjustmentToDestroy = 0;
+	[SerializeField] protected int energyAdjustmentToBuild = 0;
+	[SerializeField] protected int energyAdjustmentToDestroy = 0;
+
 	public bool isStructure = false;
 	protected bool isStructureActive = true;
 
@@ -149,12 +155,30 @@ public abstract class Tile : MonoBehaviour
 		return weightSupportValue;
 	}
 	
-	public virtual Resource GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	public virtual List<Resource> GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
 	{
-		return new Resource(mineralAdjustmentToBuild, Resource.ResourceType.MINERAL);
+		List<Resource> resources = new List<Resource>();
+
+		if (mineralAdjustmentToBuild != 0)
+			resources.Add(new Resource(mineralAdjustmentToBuild, Resource.ResourceType.MINERAL));
+		if (goldAdjustmentToBuild != 0)
+			resources.Add(new Resource(goldAdjustmentToBuild, Resource.ResourceType.GOLD));
+		if (energyAdjustmentToBuild != 0)
+			resources.Add(new Resource(energyAdjustmentToBuild, Resource.ResourceType.ENERGY));
+
+		return resources;
 	}
-	protected Resource GetMineralAdjustmentToBuild_stacked(TileGrid _tileGrid, Coordinate buildTarget, float multiplier)
+
+	// stack cost increases only apply to mineral adjustments right now
+	protected List<Resource> GetMineralAdjustmentToBuild_stacked(TileGrid _tileGrid, Coordinate buildTarget, float multiplier)
 	{
+		List<Resource> resources = new List<Resource>();
+
+		if (goldAdjustmentToBuild != 0)
+			resources.Add(new Resource(goldAdjustmentToBuild, Resource.ResourceType.GOLD));
+		if (energyAdjustmentToBuild != 0)
+			resources.Add(new Resource(energyAdjustmentToBuild, Resource.ResourceType.ENERGY));
+		
 		Tile targetTile = _tileGrid.GetTileAt(buildTarget);
 		Tile currentTileDown = targetTile;
 		int numLikeTilesBelow = 0;
@@ -171,8 +195,10 @@ public abstract class Tile : MonoBehaviour
 				break;
 			}
 		}
-		
-		return new Resource((int)(mineralAdjustmentToBuild * Mathf.Pow(multiplier, numLikeTilesBelow)), Resource.ResourceType.MINERAL);
+
+		resources.Add(new Resource((int)(mineralAdjustmentToBuild * Mathf.Pow(multiplier, numLikeTilesBelow)), Resource.ResourceType.MINERAL));
+
+		return resources;
 	}
 
 	public virtual Resource GetResourceAdjustmentToDestroy()

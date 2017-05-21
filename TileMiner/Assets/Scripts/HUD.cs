@@ -9,8 +9,9 @@ public class HUD : MonoBehaviour, IEventSubscriber
 	Player player;
 
 	[SerializeField] private Text mineralCount;
+	[SerializeField] private Text goldCount;
 	[SerializeField] private Text energyCount;
-
+	
 	void Start()
 	{
 		player = GameObject.FindObjectOfType<Player>();
@@ -29,8 +30,11 @@ public class HUD : MonoBehaviour, IEventSubscriber
 	void UpdateResourceValues()
 	{
 		int numMinerals = player.GetInventory().GetResource(Resource.ResourceType.MINERAL);
+		int numGold = player.GetInventory().GetResource(Resource.ResourceType.GOLD);
 		int numEnergy = player.GetInventory().GetResource(Resource.ResourceType.ENERGY);
+		
 		mineralCount.text = numMinerals.ToString();
+		goldCount.text = numGold.ToString();
 		energyCount.text = numEnergy.ToString();
 	}
 }

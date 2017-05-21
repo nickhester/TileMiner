@@ -19,10 +19,12 @@ public class Player : Entity
 	void Update ()
 	{
 		// HACK: Mineral Earn Cheat
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
+		if (Input.GetKeyDown(KeyCode.M))
 			GetInventory().AddResource(new Resource(100, Resource.ResourceType.MINERAL));
-		}
+		if (Input.GetKeyDown(KeyCode.G))
+			GetInventory().AddResource(new Resource(10, Resource.ResourceType.GOLD));
+		if (Input.GetKeyDown(KeyCode.E))
+			GetInventory().AddResource(new Resource(1, Resource.ResourceType.ENERGY));
 	}
 
 	public Inventory GetInventory()

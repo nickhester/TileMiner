@@ -54,7 +54,7 @@ public class LevelGenerator : MonoBehaviour
 			{
 				Tile.TileType _type = ChooseNextTileType(j, i);
 				Coordinate coordinateToCreate = new Coordinate(j, i);
-				Tile t = CreateOneTile(coordinateToCreate, _type);
+				CreateOneTile(coordinateToCreate, _type);
 
 				tileCount[_type]++;
 			}

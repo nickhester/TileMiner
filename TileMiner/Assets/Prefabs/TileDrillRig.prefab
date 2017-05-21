@@ -68,8 +68,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: 0
-  mineralAdjustmentToBuild: -120
+  mineralAdjustmentToBuild: 0
   mineralAdjustmentToDestroy: 0
+  goldAdjustmentToBuild: -25
+  goldAdjustmentToDestroy: 0
+  energyAdjustmentToBuild: 0
+  energyAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: 0
   baseProbability: 0

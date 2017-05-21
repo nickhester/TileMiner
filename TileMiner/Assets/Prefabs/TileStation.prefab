@@ -71,6 +71,10 @@ MonoBehaviour:
   weightSupportValue: -1
   mineralAdjustmentToBuild: -50
   mineralAdjustmentToDestroy: 10
+  goldAdjustmentToBuild: 0
+  goldAdjustmentToDestroy: 0
+  energyAdjustmentToBuild: 0
+  energyAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: -1
   baseProbability: 0
@@ -90,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9a3b38a53e501448ebac52f7cb1c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 15
+  radius: 14
   isIlluminateOnStart: 1
 --- !u!212 &212000012871114896
 SpriteRenderer:

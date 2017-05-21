@@ -5,8 +5,6 @@ using System;
 
 public class TileBeacon : Tile
 {
-	[Header("Type-Specific Properties")]
-	[SerializeField] private int energyAdjustmentToBuild;
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
@@ -40,15 +38,5 @@ public class TileBeacon : Tile
 		}
 
 		return isValid;
-	}
-
-	public int GetEnergyAdjustmentToBuild()
-	{
-		return energyAdjustmentToBuild;
-	}
-
-	public override Resource GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
-	{
-		return new Resource(energyAdjustmentToBuild, Resource.ResourceType.ENERGY);
 	}
 }

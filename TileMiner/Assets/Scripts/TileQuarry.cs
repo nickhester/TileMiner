@@ -29,7 +29,6 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 	public override void Activate()
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
-		List<IAction> actions = new List<IAction>();
 
 		namedActionSet.Add(new NamedActionSet("Destroy", GetDestroyAction()));
 
@@ -96,7 +95,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		return isValid;
 	}
 
-	public override Resource GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
+	public override List<Resource> GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
 	{
 		return GetMineralAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}
