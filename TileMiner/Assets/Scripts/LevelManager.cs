@@ -8,22 +8,90 @@ public class LevelManager : MonoBehaviour
 	
 	void Start ()
 	{
-		Initialize();
+		LevelSelector levelSelector = FindObjectOfType<LevelSelector>();
+		if (levelSelector != null)
+		{
+			Initialize(levelSelector.GetQueuedLevel());
+			print("loading from levelSelector");
+		}
+		else
+		{
+			Initialize("Level 1");
+			print("loading default");
+		}
 	}
 
-	public void Initialize()
+	public void Initialize(string levelName)
 	{
-		LevelDefinition levelDefinition = new LevelDefinition(200);
+		LevelDefinition levelDefinition = GenerateDefinitionFromLevelResource(levelName);
 
-		// define each tile type's level generation settings		// tile type				base prob	increase prob	depth start		depth end	guarantee #
-		levelDefinition.AddTileGenerationInfo(new TileGenerationInfo(Tile.TileType.DIRT,		1.0f,		0.0f,			0,				999,		0));
-		levelDefinition.AddTileGenerationInfo(new TileGenerationInfo(Tile.TileType.DIRT2,		0.1f,		0.02f,			15,				999,		0));
-		levelDefinition.AddTileGenerationInfo(new TileGenerationInfo(Tile.TileType.ENERGY_WELL,	0.1f,		0.02f,			45,				55,			5));
-		levelDefinition.AddTileGenerationInfo(new TileGenerationInfo(Tile.TileType.GOLD_VEIN,	0.02f,		0.01f,			10,				55,			0));
-		levelDefinition.AddTileGenerationInfo(new TileGenerationInfo(Tile.TileType.STONE,		0.2f,		0.037f,			2,				999,		0));
-		levelDefinition.AddTileGenerationInfo(new TileGenerationInfo(Tile.TileType.STONE2,		0.05f,		0.08f,			25,				999,		0));
+		if (levelDefinition == null)
+		{
+			levelDefinition = GenerateDefinitionFromLevelResource("Level 1");
+			Debug.LogWarning("No resource found. defaulting to level 1");
+		}
 
 		levelGenerator = GetComponent<LevelGenerator>();
 		levelGenerator.Initialize(levelDefinition);
+	}
+
+	LevelDefinition GenerateDefinitionFromLevelResource(string levelName)
+	{
+		FileIO fileIO = new FileIO(levelName, "txt");
+		string fileText = fileIO.GetFileText();
+		if (fileText == null)
+			return null;
+
+		var levelInfoDict = new Dictionary<string, Dictionary<string, string>>();
+
+		foreach (var line in fileText.Split('\n'))
+		{
+			if (line.StartsWith("//"))		// line comment
+				continue;
+
+			if (!(string.IsNullOrEmpty(line) || line.Trim().Length == 0))	// if not an empty line
+			{
+				string dataIdentifier = line.Split(':')[0].ToLower();
+				string dataValue = line.Split(':')[1].Trim();
+
+				string dataCategory = dataIdentifier.Split('/')[0];
+				string dataProperty = dataIdentifier.Split('/')[1];
+
+				if (!levelInfoDict.ContainsKey(dataCategory))
+					// add key to external dict
+					levelInfoDict.Add(dataCategory, new Dictionary<string, string>());
+
+				levelInfoDict[dataCategory].Add(dataProperty, dataValue);
+			}
+		}
+
+		LevelDefinition levelDefinition = new LevelDefinition(int.Parse(levelInfoDict["levelmanager"]["mapheight"]));
+		
+		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.DIRT, ref levelInfoDict));
+		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.DIRT2, ref levelInfoDict));
+		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.ENERGY_WELL, ref levelInfoDict));
+		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.GOLD_VEIN, ref levelInfoDict));
+		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.STONE, ref levelInfoDict));
+		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.STONE2, ref levelInfoDict));
+		
+		return levelDefinition;
+	}
+
+	TileGenerationInfo GenerateInfoForOneType(Tile.TileType tiletype, ref Dictionary<string, Dictionary<string, string>> levelInfoDict)
+	{
+		string baseProbability = "baseProbability".ToLower();
+		string increaseProbabilityPerRow = "increaseProbabilityPerRow".ToLower();
+		string depthRangeStart = "depthRangeStart".ToLower();
+		string depthRangeEnd = "depthRangeEnd".ToLower();
+		string guaranteeAtLeast = "guaranteeAtLeast".ToLower();
+
+		// define each tile type's level generation settings
+		string tileString = Tile.GetTileNameByEnum(tiletype).ToLower();
+		return new TileGenerationInfo(tiletype,
+										float.Parse(levelInfoDict[tileString][baseProbability]),
+										float.Parse(levelInfoDict[tileString][increaseProbabilityPerRow]),
+										int.Parse(levelInfoDict[tileString][depthRangeStart]),
+										int.Parse(levelInfoDict[tileString][depthRangeEnd]),
+										int.Parse(levelInfoDict[tileString][guaranteeAtLeast]));
 	}
 }

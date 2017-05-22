@@ -1,7 +1,0 @@
-Name: Level 1
-
-LevelManager/MapHeight: 70
-LevelManager/MapWidth: 8
-LevelManager/NumSkyTiles: 12
-
-TileDirt2/BaseProbability: 0.1
