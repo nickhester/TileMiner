@@ -8,7 +8,6 @@ public class LightSource : MonoBehaviour
 	public int radius = 8;
 	private TileGrid tileGrid;
 	private Tile myTile;
-	public bool isIlluminateOnStart = true;
 	
 	void Start ()
 	{
@@ -17,11 +16,6 @@ public class LightSource : MonoBehaviour
 		tileGrid = myTile.GetTileGrid();
 
 		FindObjectOfType<LightManager>().RegisterLightSource(this);
-
-		/*
-		if (isIlluminateOnStart)
-			IlluminateRadial();
-			*/
 	}
 
 	void OnDestroy()

@@ -12,6 +12,7 @@ public class LevelGenerator : MonoBehaviour
 	[SerializeField] private float tileSpacing = 1.0f;
 	[SerializeField] private List<Tile> tilePrefabs = new List<Tile>();
 	private TileGrid tileGrid;
+	private LevelDefinition levelDefinition;
 
 	private float verticalOffset {
 		get { return ((numSkyTiles) * tileSpacing); }             // offset to make ground appear in the middle
@@ -23,7 +24,12 @@ public class LevelGenerator : MonoBehaviour
 		set { }
 	}
 
-	void Start ()
+	public void Initialize()
+	{
+		Initialize(null);
+	}
+
+	public void Initialize (LevelDefinition levelDefinition)
 	{
 		// check tile types vs prefabs
 		if (tilePrefabs.Count != Enum.GetValues(typeof(Tile.TileType)).Length)
@@ -31,10 +37,17 @@ public class LevelGenerator : MonoBehaviour
 			Debug.LogWarning("number of tile types and prefabs are different");
 		}
 
+		// implement level definition
+		this.levelDefinition = levelDefinition;
+		if (levelDefinition != null)
+		{
+			if (levelDefinition.mapHeight != null) { mapHeight = (int)(levelDefinition.mapHeight); }
+			if (levelDefinition.numSkyTiles != null) { numSkyTiles = (int)(levelDefinition.numSkyTiles); }
+		}
+
 		tileGrid = new TileGrid(mapWidth, mapHeight, numSkyTiles);
 		CreateTiles();
-
-		GetComponent<LevelManager>().Initialize(tileGrid);
+		
 		GetComponent<LightManager>().Initialize(tileGrid);
 	}
 
@@ -42,10 +55,12 @@ public class LevelGenerator : MonoBehaviour
 	{
 		Dictionary<Tile.TileType, int> tileCount = new Dictionary<Tile.TileType, int>();
 		Dictionary<Tile.TileType, int> tileMinimumGuarantees = new Dictionary<Tile.TileType, int>();
-		for (int i = 0; i < tilePrefabs.Count; i++)
+		for (int i = 0; i < levelDefinition.tileGenerationInfoList.Count; i++)
 		{
-			tileMinimumGuarantees.Add((Tile.TileType)i, tilePrefabs[i].guaranteeAtLeast);
-			tileCount.Add((Tile.TileType)i, 0);
+			// 
+			tileMinimumGuarantees.Add(levelDefinition.tileGenerationInfoList[i].tileType, levelDefinition.tileGenerationInfoList[i].guaranteeAtLeast);
+			// pre-populate dictionary
+			tileCount.Add(levelDefinition.tileGenerationInfoList[i].tileType, 0);
 		}
 
 		for (int i = 0; i < mapHeight; i++)
@@ -56,7 +71,8 @@ public class LevelGenerator : MonoBehaviour
 				Coordinate coordinateToCreate = new Coordinate(j, i);
 				CreateOneTile(coordinateToCreate, _type);
 
-				tileCount[_type]++;
+				if (_type != Tile.TileType.EMPTY)
+					tileCount[_type]++;
 			}
 		}
 
@@ -68,17 +84,18 @@ public class LevelGenerator : MonoBehaviour
 				while (minGuarantee.Value > tileCount[minGuarantee.Key])
 				{
 					// choose a place in the grid to add one
-					if ((GetTilePrefab(minGuarantee.Key).depthRangeStart + numSkyTiles) >= mapHeight)
+					TileGenerationInfo tileGenInfo = levelDefinition.GetTileGenerationInfoFromType(minGuarantee.Key);
+					if ((tileGenInfo.depthRangeStart + numSkyTiles) >= mapHeight)
 						Debug.LogError("Tile Depth Range Start set to beyond depth of grid");
 
 					int randX = UnityEngine.Random.Range(0, mapWidth);
 					int randY = UnityEngine.Random.Range(
-						GetTilePrefab(minGuarantee.Key).depthRangeStart + numSkyTiles, 
-						Mathf.Min(GetTilePrefab(minGuarantee.Key).depthRangeEnd + numSkyTiles, mapHeight - 1));
+						tileGenInfo.depthRangeStart + numSkyTiles, 
+						Mathf.Min(tileGenInfo.depthRangeEnd + numSkyTiles, mapHeight - 1));
 
 					// verify that you're not replacing another tile with a minimum guarantee
 					Tile tileBeingReplaced = tileGrid.GetTileAt(new Coordinate(randX, randY));
-					if (tileBeingReplaced.guaranteeAtLeast > 0)
+					if (levelDefinition.GetTileGenerationInfoFromType(tileBeingReplaced.GetTileType()).guaranteeAtLeast > 0)
 						continue;
 
 					// increase tile count for tile added
@@ -101,9 +118,15 @@ public class LevelGenerator : MonoBehaviour
 			int depth = dimY - numSkyTiles;
 
 			List<TileProbability> tileProbabilities = new List<TileProbability>();
-			for (int i = 0; i < tilePrefabs.Count; i++)
+			List<TileGenerationInfo> tileGenInfoList = levelDefinition.tileGenerationInfoList;
+			for (int i = 0; i < tileGenInfoList.Count; i++)
 			{
-				TileProbability tp = new TileProbability((Tile.TileType)i, tilePrefabs[i].baseProbability, tilePrefabs[i].increaseProbabilityPerRow, tilePrefabs[i].depthRangeStart, tilePrefabs[i].depthRangeEnd);
+				TileProbability tp = new TileProbability(
+					tileGenInfoList[i].tileType, 
+					tileGenInfoList[i].baseProbability, 
+					tileGenInfoList[i].increaseProbabilityPerRow, 
+					tileGenInfoList[i].depthRangeStart, 
+					tileGenInfoList[i].depthRangeEnd);
 				tileProbabilities.Add(tp);
 			}
 			

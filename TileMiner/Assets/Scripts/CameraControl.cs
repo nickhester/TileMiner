@@ -15,10 +15,6 @@ public class CameraControl : MonoBehaviour
 	[SerializeField] private float timeToDrag = 0.1f;
 	private float timeToDragCounter = 0.0f;
 	[SerializeField] private float distanceToDrag = 0.1f;
-
-	void Start ()
-	{
-	}
 	
 	void Update ()
 	{

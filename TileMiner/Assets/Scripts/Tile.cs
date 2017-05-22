@@ -25,14 +25,7 @@ public abstract class Tile : MonoBehaviour
 	protected bool isStructureActive = true;
 
 	[SerializeField] protected int populationAdjustment = 0;
-
-	[Header("Level Generation")]
-	public float baseProbability;
-	public float increaseProbabilityPerRow;
-	public int depthRangeStart = 0;
-	public int depthRangeEnd = 999;
-	public int guaranteeAtLeast = 0;
-
+	
 	public enum TileType
 	{
 		EMPTY,
