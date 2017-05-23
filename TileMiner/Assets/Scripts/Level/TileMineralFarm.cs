@@ -8,9 +8,14 @@ public class TileMineralFarm : Tile
 	[Header("Type-Specific Properties")]
 	[SerializeField] private float intervalToFarm = 20.0f;
 	private float counterToFarm = 0.0f;
+	[SerializeField] private int numTileSpawnMax = 3;
 
 	private LevelGenerator levelGenerator;
 	private LightManager lightManager;
+
+	// this is the pattern that tile spaces will choose to fill
+	private int[] patternX = { 0, -1, 1, -1, 1 };
+	private int[] patternY = { -1, 0, 0, -1, -1 };
 
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
@@ -27,11 +32,7 @@ public class TileMineralFarm : Tile
 			counterToFarm += Time.deltaTime;
 			if (counterToFarm > intervalToFarm)
 			{
-				// this is the pattern that tile spaces will choose to fill
-				int[] patternX = { 0, -1, 1, -1, 1 };
-				int[] patternY = { -1, 0, 0, -1, -1 };
-
-				for (int i = 0; i < patternX.Length; i++)
+				for (int i = 0; (i < patternX.Length && i < numTileSpawnMax); i++)
 				{
 					Coordinate target = GetCoordinate() + new Coordinate(patternX[i], patternY[i]);
 					Tile tileAtTarget = tileGrid.GetTileAt(target);
@@ -82,5 +83,47 @@ public class TileMineralFarm : Tile
 			isValid = false;
 		}
 		return isValid;
+	}
+
+	public override void SetTechSettings(TechSettingsDefinition techSettingsDefinition)
+	{
+		foreach (var property in techSettingsDefinition.propertyLevels)
+		{
+			switch (property.Key)
+			{
+				case "intervalToFarm":
+					{
+						switch (property.Value)
+						{
+							case 0:
+								intervalToFarm = 20; break;
+							case 1:
+								intervalToFarm = 17; break;
+							case 2:
+								intervalToFarm = 14; break;
+							default:
+								Debug.LogError("SetTechSetting Default Hit"); break;
+						}
+					}
+					break;
+				case "numTileSpawnMax":
+					{
+						switch (property.Value)
+						{
+							case 0:
+								numTileSpawnMax = 3; break;
+							case 1:
+								numTileSpawnMax = 4; break;
+							case 2:
+								numTileSpawnMax = 5; break;
+							default:
+								Debug.LogError("SetTechSetting Default Hit"); break;
+						}
+					}
+					break;
+				default:
+					Debug.LogError("SetTechSetting Default Hit"); break;
+			}
+		}
 	}
 }

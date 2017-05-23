@@ -23,6 +23,7 @@ public abstract class Tile : MonoBehaviour
 
 	public bool isStructure = false;
 	protected bool isStructureActive = true;
+	public bool IsStructureAvailable { get { return true; } set { } }
 
 	[SerializeField] protected int populationAdjustment = 0;
 	
@@ -310,4 +311,6 @@ public abstract class Tile : MonoBehaviour
 	{
 		return (GetBrightnessLevel() > 0);
 	}
+
+	public virtual void SetTechSettings(TechSettingsDefinition techSettingsDefinition) { }
 }

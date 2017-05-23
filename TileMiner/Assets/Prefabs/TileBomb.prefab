@@ -70,17 +70,12 @@ MonoBehaviour:
   weightSupportValue: 0
   mineralAdjustmentToBuild: 0
   mineralAdjustmentToDestroy: 0
-  goldAdjustmentToBuild: -30
+  goldAdjustmentToBuild: -15
   goldAdjustmentToDestroy: 0
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: 0
-  baseProbability: 0
-  increaseProbabilityPerRow: 0
-  depthRangeStart: 0
-  depthRangeEnd: 999
-  guaranteeAtLeast: 0
   maxBrightness: 5
   intervalToExplode: 2
   numTilesRadiusExplosion: 1

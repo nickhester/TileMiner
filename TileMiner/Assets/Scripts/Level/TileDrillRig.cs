@@ -85,4 +85,44 @@ public class TileDrillRig : Tile
 		}
 		return isValid;
 	}
+
+	public override void SetTechSettings(TechSettingsDefinition techSettingsDefinition)
+	{
+		foreach (var property in techSettingsDefinition.propertyLevels)
+		{
+			switch (property.Key)
+			{
+				case "intervalToDrillTile":
+					{
+						switch (property.Value)
+						{
+							case 0:
+								intervalToDrillTile = 10.0f; break;
+							case 1:
+								intervalToDrillTile = 5.0f; break;
+							case 2:
+								intervalToDrillTile = 2.0f; break;
+							default:
+								Debug.LogError("SetTechSetting Default Hit"); break;
+						}
+					} break;
+				case "numTilesLifetime":
+					{
+						switch (property.Value)
+						{
+							case 0:
+								numTilesLifetime = 3; break;
+							case 1:
+								numTilesLifetime = 4; break;
+							case 2:
+								numTilesLifetime = 5; break;
+							default:
+								Debug.LogError("SetTechSetting Default Hit"); break;
+						}
+					} break;
+				default:
+					Debug.LogError("SetTechSetting Default Hit"); break;
+			}
+		}
+	}
 }

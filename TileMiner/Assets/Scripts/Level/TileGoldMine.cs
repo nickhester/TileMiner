@@ -63,4 +63,31 @@ public class TileGoldMine : Tile
 		}
 		return isValid;
 	}
+
+	public override void SetTechSettings(TechSettingsDefinition techSettingsDefinition)
+	{
+		foreach (var property in techSettingsDefinition.propertyLevels)
+		{
+			switch (property.Key)
+			{
+				case "goldEarnBaseInterval":
+					{
+						switch (property.Value)
+						{
+							case 0:
+								goldEarnBaseInterval = 4; break;
+							case 1:
+								goldEarnBaseInterval = 3; break;
+							case 2:
+								goldEarnBaseInterval = 2; break;
+							default:
+								Debug.LogError("SetTechSetting Default Hit"); break;
+						}
+					}
+					break;
+				default:
+					Debug.LogError("SetTechSetting Default Hit"); break;
+			}
+		}
+	}
 }

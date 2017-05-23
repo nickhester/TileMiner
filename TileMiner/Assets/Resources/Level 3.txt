@@ -1,6 +1,6 @@
 MetaData/LevelName: Level 3
 
-LevelManager/MapHeight:					70
+LevelManager/MapHeight:					80
 
 Dirt/baseProbability:					1
 Dirt/increaseProbabilityPerRow:			0
@@ -16,24 +16,24 @@ Rich Dirt/guaranteeAtLeast:				0
 
 Energy Well/baseProbability:			0.1
 Energy Well/increaseProbabilityPerRow:	0.02
-Energy Well/depthRangeStart:			45
-Energy Well/depthRangeEnd:				55
+Energy Well/depthRangeStart:			55
+Energy Well/depthRangeEnd:				65
 Energy Well/guaranteeAtLeast:			5
 
-Gold Vein/baseProbability:				0.02
-Gold Vein/increaseProbabilityPerRow:	0.01
+Gold Vein/baseProbability:				0.015
+Gold Vein/increaseProbabilityPerRow:	0.00
 Gold Vein/depthRangeStart:				10
-Gold Vein/depthRangeEnd:				55
+Gold Vein/depthRangeEnd:				999
 Gold Vein/guaranteeAtLeast:				0
 
 Stone/baseProbability:					0.2
-Stone/increaseProbabilityPerRow:		0.037
+Stone/increaseProbabilityPerRow:		0.04
 Stone/depthRangeStart:					2
 Stone/depthRangeEnd:					999
 Stone/guaranteeAtLeast:					0
 
 Dense Stone/baseProbability:			0.05
 Dense Stone/increaseProbabilityPerRow:	0.08
-Dense Stone/depthRangeStart:			25
+Dense Stone/depthRangeStart:			20
 Dense Stone/depthRangeEnd:				999
 Dense Stone/guaranteeAtLeast:			0

@@ -1,6 +1,6 @@
 MetaData/LevelName: Level 1
 
-LevelManager/MapHeight:					70
+LevelManager/MapHeight:					40
 
 Dirt/baseProbability:					1
 Dirt/increaseProbabilityPerRow:			0
@@ -8,22 +8,22 @@ Dirt/depthRangeStart:					0
 Dirt/depthRangeEnd:						999
 Dirt/guaranteeAtLeast:					0
 
-Rich Dirt/baseProbability:				0.1
-Rich Dirt/increaseProbabilityPerRow:	0.02
-Rich Dirt/depthRangeStart:				15
+Rich Dirt/baseProbability:				0.15
+Rich Dirt/increaseProbabilityPerRow:	0.025
+Rich Dirt/depthRangeStart:				10
 Rich Dirt/depthRangeEnd:				999
 Rich Dirt/guaranteeAtLeast:				0
 
 Energy Well/baseProbability:			0.1
 Energy Well/increaseProbabilityPerRow:	0.02
-Energy Well/depthRangeStart:			45
-Energy Well/depthRangeEnd:				55
+Energy Well/depthRangeStart:			20
+Energy Well/depthRangeEnd:				25
 Energy Well/guaranteeAtLeast:			5
 
-Gold Vein/baseProbability:				0.02
-Gold Vein/increaseProbabilityPerRow:	0.01
+Gold Vein/baseProbability:				0.015
+Gold Vein/increaseProbabilityPerRow:	0.00
 Gold Vein/depthRangeStart:				10
-Gold Vein/depthRangeEnd:				55
+Gold Vein/depthRangeEnd:				999
 Gold Vein/guaranteeAtLeast:				0
 
 Stone/baseProbability:					0.2

@@ -26,16 +26,27 @@ public class LevelGenerator : MonoBehaviour
 
 	public void Initialize()
 	{
-		Initialize(null);
+		Initialize(null, null);
 	}
 
-	public void Initialize (LevelDefinition levelDefinition)
+	public void Initialize (LevelDefinition levelDefinition, List<TechSettingsDefinition> techSettingsDefinitions)
 	{
+		// create local reference copies of all tile prefabs
+		for (int i = 0; i < tilePrefabs.Count; i++)
+		{
+			GameObject instance = Instantiate(tilePrefabs[i].gameObject) as GameObject;
+			Tile instanceTile = instance.GetComponent<Tile>();
+			instance.SetActive(false);
+			tilePrefabs[i] = instanceTile;
+		}
+
 		// check tile types vs prefabs
 		if (tilePrefabs.Count != Enum.GetValues(typeof(Tile.TileType)).Length)
 		{
 			Debug.LogWarning("number of tile types and prefabs are different");
 		}
+
+		ImplementTechSettings(techSettingsDefinitions);
 
 		// implement level definition
 		this.levelDefinition = levelDefinition;
@@ -45,10 +56,24 @@ public class LevelGenerator : MonoBehaviour
 			if (levelDefinition.numSkyTiles != null) { numSkyTiles = (int)(levelDefinition.numSkyTiles); }
 		}
 
+		// generate level
 		tileGrid = new TileGrid(mapWidth, mapHeight, numSkyTiles);
 		CreateTiles();
 		
 		GetComponent<LightManager>().Initialize(tileGrid);
+	}
+
+	void ImplementTechSettings(List<TechSettingsDefinition> techSettingsDefinitions)
+	{
+		// implement tech settings definition
+		if (techSettingsDefinitions != null)
+		{
+			foreach (var setting in techSettingsDefinitions)
+			{
+				Tile t = GetTilePrefab(setting.tileType);
+				t.SetTechSettings(setting);
+			}
+		}
 	}
 
 	void CreateTiles()
@@ -155,12 +180,18 @@ public class LevelGenerator : MonoBehaviour
 	public Tile CreateOneTile(Coordinate _coordinate, Tile.TileType _type)
 	{
 		GameObject go = Instantiate(tilePrefabs[(int)_type].gameObject, new Vector2((_coordinate.x * tileSpacing) - horizontalOffset, (-_coordinate.y * tileSpacing) + verticalOffset), Quaternion.identity) as GameObject;
+		go.SetActive(true);		// local reference copy was set as inactive, so it has to be activated
 		Tile t = go.GetComponent<Tile>();
 
 		t.transform.SetParent(transform);
 		t.Initialize(tileGrid, _coordinate, _type);
 		tileGrid.AddTile(_coordinate, t);
-		
+
+		// initialize light source if it has one
+		LightSource lightSource = go.GetComponent<LightSource>();
+		if (lightSource != null)
+			lightSource.Initialize();
+
 		return t;
 	}
 

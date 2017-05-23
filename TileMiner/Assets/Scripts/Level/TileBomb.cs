@@ -76,4 +76,29 @@ public class TileBomb : Tile
 		}
 		return isValid;
 	}
+
+	public override void SetTechSettings(TechSettingsDefinition techSettingsDefinition)
+	{
+		foreach (var property in techSettingsDefinition.propertyLevels)
+		{
+			switch (property.Key)
+			{
+				case "numTilesRadiusExplosion":
+					{
+						switch (property.Value)
+						{
+							case 0:
+								numTilesRadiusExplosion = 1; break;
+							case 1:
+								numTilesRadiusExplosion = 2; break;
+							default:
+								Debug.LogError("SetTechSetting Default Hit"); break;
+						}
+					} break;
+				default:
+					Debug.LogError("SetTechSetting Default Hit"); break;
+			}
+		}
+		
+	}
 }

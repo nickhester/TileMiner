@@ -8,8 +8,8 @@ public class LightSource : MonoBehaviour
 	public int radius = 8;
 	private TileGrid tileGrid;
 	private Tile myTile;
-	
-	void Start ()
+
+	public void Initialize()
 	{
 		myTile = GetComponent<Tile>();
 		myTile.Brighten();
@@ -20,11 +20,14 @@ public class LightSource : MonoBehaviour
 
 	void OnDestroy()
 	{
-		TurnOffLightInMyRange();
+		if (isActiveAndEnabled)
+		{
+			TurnOffLightInMyRange();
 
-		LightManager lm = FindObjectOfType<LightManager>();
-		if (lm != null)
-			lm.UnregisterLightSource(this);
+			LightManager lm = FindObjectOfType<LightManager>();
+			if (lm != null)
+				lm.UnregisterLightSource(this);
+		}
 	}
 	
 	public void IlluminateRadial()

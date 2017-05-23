@@ -32,7 +32,33 @@ public class LevelManager : MonoBehaviour
 		}
 
 		levelGenerator = GetComponent<LevelGenerator>();
-		levelGenerator.Initialize(levelDefinition);
+		levelGenerator.Initialize(levelDefinition, GetTechSettingsDefinition());
+	}
+
+	List<TechSettingsDefinition> GetTechSettingsDefinition()
+	{
+		List<TechSettingsDefinition> listOfSettings = new List<TechSettingsDefinition>();
+		TechSettingsDefinition techSetting;
+
+		techSetting = new TechSettingsDefinition(Tile.TileType.BOMB);
+		techSetting.propertyLevels.Add("numTilesRadiusExplosion", 0);
+		listOfSettings.Add(techSetting);
+
+		techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
+		techSetting.propertyLevels.Add("intervalToDrillTile", 0);
+		techSetting.propertyLevels.Add("numTilesLifetime", 0);
+		listOfSettings.Add(techSetting);
+
+		techSetting = new TechSettingsDefinition(Tile.TileType.GOLD_MINE);
+		techSetting.propertyLevels.Add("goldEarnBaseInterval", 0);
+		listOfSettings.Add(techSetting);
+
+		techSetting = new TechSettingsDefinition(Tile.TileType.MINERAL_FARM);
+		techSetting.propertyLevels.Add("intervalToFarm", 2);
+		techSetting.propertyLevels.Add("numTileSpawnMax", 0);
+		listOfSettings.Add(techSetting);
+
+		return listOfSettings;
 	}
 
 	LevelDefinition GenerateDefinitionFromLevelResource(string levelName)

@@ -69,18 +69,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weightSupportValue: 2
   mineralAdjustmentToBuild: 0
-  mineralAdjustmentToDestroy: 0
+  mineralAdjustmentToDestroy: -100
   goldAdjustmentToBuild: 0
-  goldAdjustmentToDestroy: 50
+  goldAdjustmentToDestroy: 25
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
   isStructure: 0
   populationAdjustment: 0
-  baseProbability: 0.02
-  increaseProbabilityPerRow: 0.01
-  depthRangeStart: 10
-  depthRangeEnd: 999
-  guaranteeAtLeast: 0
   maxBrightness: 5
 --- !u!212 &212000012871114896
 SpriteRenderer:

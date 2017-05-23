@@ -25,6 +25,13 @@ public class ActionBuild : IAction
 
 		Tile tilePrefab = MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(newType);
 
+		// check tile availability
+		if (!tilePrefab.IsStructureAvailable)
+		{
+			isExcludedFromPlayerSelection = true;
+			return false;
+		}
+
 		// check weight
 		int weightValue = tilePrefab.GetWeightSupportValue();
 		bool passesWeightCheck = WeightAnalyzer.CanStructureBeAddedHere(tileToReplace, weightValue);
@@ -47,7 +54,7 @@ public class ActionBuild : IAction
 			result = false;
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.TILE_BELOW_MUST_SUPPORT_WEIGHT));
 		}
-
+		
 		return (result && passesClassValidation);
 	}
 }
