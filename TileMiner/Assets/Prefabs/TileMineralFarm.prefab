@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
   - component: {fileID: 114814773029628214}
+  - component: {fileID: 114046670775952876}
   m_Layer: 0
   m_Name: TileMineralFarm
   m_TagString: Untagged
@@ -56,6 +57,22 @@ BoxCollider2D:
   m_Offset: {x: 0.000000014901161, y: 0.00064821297}
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
+--- !u!114 &114046670775952876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013142335594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93b7062d76ed9cf4c856a6687a5a8232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileType: 14
+  propertyNames:
+  - intervalToFarm
+  - numTileSpawnMax
+  maxLevel: 0200000002000000
 --- !u!114 &114814773029628214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,13 +93,9 @@ MonoBehaviour:
   energyAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: -1
-  baseProbability: 0
-  increaseProbabilityPerRow: 0
-  depthRangeStart: 0
-  depthRangeEnd: 999
-  guaranteeAtLeast: 0
   maxBrightness: 5
   intervalToFarm: 15
+  numTileSpawnMax: 3
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

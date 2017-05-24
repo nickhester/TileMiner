@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
   - component: {fileID: 114197978493560890}
+  - component: {fileID: 114378588957204336}
   m_Layer: 0
   m_Name: TileGoldMine
   m_TagString: Untagged
@@ -76,14 +77,24 @@ MonoBehaviour:
   energyAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: -1
-  baseProbability: 0
-  increaseProbabilityPerRow: 0
-  depthRangeStart: 0
-  depthRangeEnd: 999
-  guaranteeAtLeast: 0
   maxBrightness: 5
   goldEarnPerInterval: 1
   goldEarnBaseInterval: 2
+--- !u!114 &114378588957204336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013142335594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93b7062d76ed9cf4c856a6687a5a8232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileType: 16
+  propertyNames:
+  - goldEarnBaseInterval
+  maxLevel: 02000000
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -16,7 +16,6 @@ public class LevelSelector : MonoBehaviour {
 
 	public string GetQueuedLevel()
 	{
-		Destroy(gameObject, 0.01f);
 		return levelName;
 	}
 }
