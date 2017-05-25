@@ -286,7 +286,6 @@ MonoBehaviour:
   techSettings:
   - {fileID: 114812894230519308, guid: ae4d5b95178366b44b4bee97679bb385, type: 2}
   - {fileID: 114810735649506416, guid: f930f1e0406efed419db4ddd54b2b743, type: 2}
-  - {fileID: 114378588957204336, guid: 7c7b0f6112e74cb4e810aac541380c45, type: 2}
   - {fileID: 114046670775952876, guid: 87cedefbcfdfe88459536c82731bec66, type: 2}
   techLayoutGroupPrefab: {fileID: 1077910848849746, guid: 10d937b23429b334c92deb2636f76e19,
     type: 2}

@@ -83,6 +83,10 @@ public class TileBomb : Tile
 		{
 			switch (property.Key)
 			{
+				case "isAvailable":
+					{
+						IsStructureAvailable = (property.Value == 1 ? true : false);
+					} break;
 				case "numTilesRadiusExplosion":
 					{
 						switch (property.Value)

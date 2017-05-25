@@ -32,31 +32,90 @@ public class LevelManager : MonoBehaviour
 		}
 
 		levelGenerator = GetComponent<LevelGenerator>();
-		levelGenerator.Initialize(levelDefinition, GetTechSettingsDefinition());
+		levelGenerator.Initialize(levelDefinition, GetTechSettingsDefinition(levelName));
 	}
 
-	List<TechSettingsDefinition> GetTechSettingsDefinition()
+	List<TechSettingsDefinition> GetTechSettingsDefinition(string levelName)
 	{
 		List<TechSettingsDefinition> listOfSettings = new List<TechSettingsDefinition>();
 		TechSettingsDefinition techSetting;
 
-		techSetting = new TechSettingsDefinition(Tile.TileType.BOMB);
-		techSetting.propertyLevels.Add("numTilesRadiusExplosion", 0);
-		listOfSettings.Add(techSetting);
+		if (levelName == "Level 1")
+		{
+			techSetting = new TechSettingsDefinition(Tile.TileType.BOMB);
+			techSetting.propertyLevels.Add("isAvailable", 0);
+			techSetting.propertyLevels.Add("numTilesRadiusExplosion", 0);
+			listOfSettings.Add(techSetting);
 
-		techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
-		techSetting.propertyLevels.Add("intervalToDrillTile", 0);
-		techSetting.propertyLevels.Add("numTilesLifetime", 0);
-		listOfSettings.Add(techSetting);
+			techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
+			techSetting.propertyLevels.Add("isAvailable", 0);
+			techSetting.propertyLevels.Add("intervalToDrillTile", 0);
+			techSetting.propertyLevels.Add("numTilesLifetime", 0);
+			listOfSettings.Add(techSetting);
 
-		techSetting = new TechSettingsDefinition(Tile.TileType.GOLD_MINE);
-		techSetting.propertyLevels.Add("goldEarnBaseInterval", 0);
-		listOfSettings.Add(techSetting);
+			techSetting = new TechSettingsDefinition(Tile.TileType.MINERAL_FARM);
+			techSetting.propertyLevels.Add("isAvailable", 0);
+			techSetting.propertyLevels.Add("intervalToFarm", 0);
+			techSetting.propertyLevels.Add("numTileSpawnMax", 0);
+			listOfSettings.Add(techSetting);
+		}
+		else if (levelName == "Level 2")
+		{
+			techSetting = new TechSettingsDefinition(Tile.TileType.BOMB);
+			techSetting.propertyLevels.Add("isAvailable", 1);
+			techSetting.propertyLevels.Add("numTilesRadiusExplosion", 0);
+			listOfSettings.Add(techSetting);
 
-		techSetting = new TechSettingsDefinition(Tile.TileType.MINERAL_FARM);
-		techSetting.propertyLevels.Add("intervalToFarm", 2);
-		techSetting.propertyLevels.Add("numTileSpawnMax", 0);
-		listOfSettings.Add(techSetting);
+			techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
+			techSetting.propertyLevels.Add("isAvailable", 0);
+			techSetting.propertyLevels.Add("intervalToDrillTile", 0);
+			techSetting.propertyLevels.Add("numTilesLifetime", 0);
+			listOfSettings.Add(techSetting);
+
+			techSetting = new TechSettingsDefinition(Tile.TileType.MINERAL_FARM);
+			techSetting.propertyLevels.Add("isAvailable", 0);
+			techSetting.propertyLevels.Add("intervalToFarm", 0);
+			techSetting.propertyLevels.Add("numTileSpawnMax", 0);
+			listOfSettings.Add(techSetting);
+		}
+		else if (levelName == "Level 3")
+		{
+			techSetting = new TechSettingsDefinition(Tile.TileType.BOMB);
+			techSetting.propertyLevels.Add("isAvailable", 1);
+			techSetting.propertyLevels.Add("numTilesRadiusExplosion", 0);
+			listOfSettings.Add(techSetting);
+
+			techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
+			techSetting.propertyLevels.Add("isAvailable", 1);
+			techSetting.propertyLevels.Add("intervalToDrillTile", 0);
+			techSetting.propertyLevels.Add("numTilesLifetime", 0);
+			listOfSettings.Add(techSetting);
+
+			techSetting = new TechSettingsDefinition(Tile.TileType.MINERAL_FARM);
+			techSetting.propertyLevels.Add("isAvailable", 0);
+			techSetting.propertyLevels.Add("intervalToFarm", 0);
+			techSetting.propertyLevels.Add("numTileSpawnMax", 0);
+			listOfSettings.Add(techSetting);
+		}
+		else if (levelName == "Level 4")
+		{
+			techSetting = new TechSettingsDefinition(Tile.TileType.BOMB);
+			techSetting.propertyLevels.Add("isAvailable", 1);
+			techSetting.propertyLevels.Add("numTilesRadiusExplosion", 0);
+			listOfSettings.Add(techSetting);
+
+			techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
+			techSetting.propertyLevels.Add("isAvailable", 1);
+			techSetting.propertyLevels.Add("intervalToDrillTile", 0);
+			techSetting.propertyLevels.Add("numTilesLifetime", 0);
+			listOfSettings.Add(techSetting);
+
+			techSetting = new TechSettingsDefinition(Tile.TileType.MINERAL_FARM);
+			techSetting.propertyLevels.Add("isAvailable", 1);
+			techSetting.propertyLevels.Add("intervalToFarm", 0);
+			techSetting.propertyLevels.Add("numTileSpawnMax", 0);
+			listOfSettings.Add(techSetting);
+		}
 
 		return listOfSettings;
 	}

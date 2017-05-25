@@ -111,15 +111,7 @@ public class TileEmpty : Tile
 			actions.Add(new ActionAdjustResources(res));
 		}
 		namedActionSets.Add(new NamedActionSet("Build Mineral Farm", actions));
-
-		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.GOLD_MINE));
-		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.GOLD_MINE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
-		{
-			actions.Add(new ActionAdjustResources(res));
-		}
-		namedActionSets.Add(new NamedActionSet("Build Gold Mine", actions));
-
+		
 		ProposeActions(namedActionSets);
 	}
 }

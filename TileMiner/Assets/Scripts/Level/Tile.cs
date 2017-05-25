@@ -23,7 +23,7 @@ public abstract class Tile : MonoBehaviour
 
 	public bool isStructure = false;
 	protected bool isStructureActive = true;
-	public bool IsStructureAvailable { get { return true; } set { } }
+	public bool IsStructureAvailable { get; set; }
 
 	[SerializeField] protected int populationAdjustment = 0;
 	
@@ -44,8 +44,7 @@ public abstract class Tile : MonoBehaviour
 		DRILL_RIG,
 		BOMB,
 		MINERAL_FARM,
-		GOLD_VEIN,
-		GOLD_MINE
+		GOLD_VEIN
 	}
 	private TileType myTileType;
 
@@ -257,8 +256,6 @@ public abstract class Tile : MonoBehaviour
 				return "Mineral Farm";
 			case TileType.GOLD_VEIN:
 				return "Gold Vein";
-			case TileType.GOLD_MINE:
-				return "Gold Mine";
 			default:
 				return "ERROR: TILE CASE MISSING DESCRIPTION";
 		}

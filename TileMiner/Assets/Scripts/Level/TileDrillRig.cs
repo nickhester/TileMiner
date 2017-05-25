@@ -92,6 +92,10 @@ public class TileDrillRig : Tile
 		{
 			switch (property.Key)
 			{
+				case "isAvailable":
+					{
+						IsStructureAvailable = (property.Value == 1 ? true : false);
+					} break;
 				case "intervalToDrillTile":
 					{
 						switch (property.Value)

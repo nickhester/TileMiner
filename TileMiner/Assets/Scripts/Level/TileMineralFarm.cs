@@ -91,6 +91,10 @@ public class TileMineralFarm : Tile
 		{
 			switch (property.Key)
 			{
+				case "isAvailable":
+					{
+						IsStructureAvailable = (property.Value == 1 ? true : false);
+					} break;
 				case "intervalToFarm":
 					{
 						switch (property.Value)
@@ -104,8 +108,7 @@ public class TileMineralFarm : Tile
 							default:
 								Debug.LogError("SetTechSetting Default Hit"); break;
 						}
-					}
-					break;
+					} break;
 				case "numTileSpawnMax":
 					{
 						switch (property.Value)
@@ -119,8 +122,7 @@ public class TileMineralFarm : Tile
 							default:
 								Debug.LogError("SetTechSetting Default Hit"); break;
 						}
-					}
-					break;
+					} break;
 				default:
 					Debug.LogError("SetTechSetting Default Hit"); break;
 			}

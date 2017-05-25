@@ -46,8 +46,6 @@ public class LevelGenerator : MonoBehaviour
 			Debug.LogWarning("number of tile types and prefabs are different");
 		}
 
-		ImplementTechSettings(techSettingsDefinitions);
-
 		// implement level definition
 		this.levelDefinition = levelDefinition;
 		if (levelDefinition != null)
@@ -61,6 +59,8 @@ public class LevelGenerator : MonoBehaviour
 		CreateTiles();
 		
 		GetComponent<LightManager>().Initialize(tileGrid);
+
+		ImplementTechSettings(techSettingsDefinitions);
 	}
 
 	void ImplementTechSettings(List<TechSettingsDefinition> techSettingsDefinitions)
@@ -68,10 +68,19 @@ public class LevelGenerator : MonoBehaviour
 		// implement tech settings definition
 		if (techSettingsDefinitions != null)
 		{
-			foreach (var setting in techSettingsDefinitions)
+			foreach (var tile in tilePrefabs)
 			{
-				Tile t = GetTilePrefab(setting.tileType);
-				t.SetTechSettings(setting);
+				tile.IsStructureAvailable = true;
+				foreach (var setting in techSettingsDefinitions)
+				{
+					Tile.TileType a = TileTypeToEnumTileType(tile.GetType());
+					Tile.TileType b = setting.tileType;
+					if (TileTypeToEnumTileType(tile.GetType()) == setting.tileType)
+					{
+						tile.SetTechSettings(setting);
+						break;
+					}
+				}
 			}
 		}
 	}
