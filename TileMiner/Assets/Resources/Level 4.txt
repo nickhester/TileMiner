@@ -20,8 +20,8 @@ Energy Well/depthRangeStart:			55
 Energy Well/depthRangeEnd:				65
 Energy Well/guaranteeAtLeast:			5
 
-Gold Vein/baseProbability:				0.015
-Gold Vein/increaseProbabilityPerRow:	0.00
+Gold Vein/baseProbability:				0.02
+Gold Vein/increaseProbabilityPerRow:	0.001
 Gold Vein/depthRangeStart:				10
 Gold Vein/depthRangeEnd:				999
 Gold Vein/guaranteeAtLeast:				5
