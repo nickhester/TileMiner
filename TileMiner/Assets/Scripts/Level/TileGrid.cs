@@ -13,6 +13,8 @@ public class TileGrid
 	private int currentStoneCollectAdjustmentValue = 0;
 	private EventBroadcast eventBroadcast;
 
+	private List<Tile.TileType> groundTypes;
+
 	public enum Direction
 	{
 		UP,
@@ -27,6 +29,14 @@ public class TileGrid
 		dimY = _dimY;
 		grid = new Tile[dimY, dimX];
 		numRowsSky = _numRowsSky;
+
+		groundTypes = new List<Tile.TileType>()
+		{
+			Tile.TileType.DIRT,
+			Tile.TileType.DIRT2,
+			Tile.TileType.STONE,
+			Tile.TileType.STONE2
+		};
 
 		eventBroadcast = MonoBehaviour.FindObjectOfType<EventBroadcast>();
 	}
@@ -120,6 +130,14 @@ public class TileGrid
 		}
 		return returnTile;
 	}
+	
+	public Tile GetTileNeighbor(Coordinate _offset, Coordinate _originCoordinate)
+	{
+		Coordinate coord = _originCoordinate;
+		coord.x += _offset.x;
+		coord.y += _offset.y;
+		return GetTileAt(coord);
+	}
 
 	public Tile[,] GetRawGrid()
 	{
@@ -182,6 +200,21 @@ public class TileGrid
 		eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_SELECTED_STONE);
 		// subscribers update currentStoneRebateValue at this point
 		return currentStoneCollectAdjustmentValue;
+	}
+
+	public bool GetIsGroundType(Coordinate _coordinate)
+	{
+		Tile t = GetTileAt(_coordinate);
+		return GetIsGroundType(t.GetTileType());
+	}
+
+	public bool GetIsGroundType(Tile.TileType _type)
+	{
+		if (groundTypes.Contains(_type))
+		{
+			return true;
+		}
+		return false;
 	}
 }
 

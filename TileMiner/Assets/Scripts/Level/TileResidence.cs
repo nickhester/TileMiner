@@ -26,14 +26,23 @@ public class TileResidence : Tile
 	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
-		if (_tileGrid.GetDepth(_myCoordinate) < 0)
+		
+		if (HasClearanceOnSides(_tileGrid, _myCoordinate, new List<Coordinate>() {		// if space around it is empty
+			new Coordinate(-1, 0),
+			new Coordinate(1, 0),
+			new Coordinate(-1, -1),
+			new Coordinate(0, -1),
+			new Coordinate(1, -1)
+		})		
+			&& _tileGrid.GetIsGroundType(_myCoordinate + new Coordinate(-1, 1))		// if down and left is ground
+			&& _tileGrid.GetIsGroundType(_myCoordinate + new Coordinate(1, 1)))		// if down and right is ground
 		{
 			//
 		}
 		else
 		{
-			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_HEIGHT, 1, "Not Above Ground."));
-			isExcludedFromPlayerSelection = true;
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_SPACE_AROUND, -1, "Must Have Available Flat Ground On Both Sides"));
+			//isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
 
@@ -59,5 +68,22 @@ public class TileResidence : Tile
 	public override List<Resource> GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
 	{
 		return GetResourceAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
+	}
+
+	bool HasClearanceOnSides(TileGrid _tileGrid, Coordinate _myCoordinate, List<Coordinate> offsets)
+	{
+		foreach (var offset in offsets)
+		{
+			Tile t = _tileGrid.GetTileNeighbor(offset, _myCoordinate);
+
+			if (t == null)
+				return false;
+
+			if (t.GetTileType() != TileType.EMPTY)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }

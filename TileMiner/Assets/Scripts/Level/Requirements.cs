@@ -8,12 +8,13 @@ public class Requirements
 	{																// detail description:
 		REQUIRES_ENOUGH_RESOURCES,									// n/a
 		TILE_BELOW_MUST_SUPPORT_WEIGHT,								// n/a
-		STRUCTURE_REQUIRED_FOR_WEIGHT,		// n/a
+		STRUCTURE_REQUIRED_FOR_WEIGHT,								// n/a
 		REQUIRES_NEARBY_TILE,										// type based on tile type enum
 		REQUIRES_CERTAIN_HEIGHT,									// height required, negative being underground
 		REQUIRES_BEING_ON_CERTAIN_TILE,								// tile based on tile type enum
 		REQUIRES_ENOUGH_POPULATION,									// n/a
-		REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT						// height max
+		REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT,						// height max
+		REQUIRES_CERTAIN_SPACE_AROUND								// n/a
 	}
 
 	public BuildRequirement requirement;

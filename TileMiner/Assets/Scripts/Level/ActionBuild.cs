@@ -7,10 +7,18 @@ public class ActionBuild : IAction
 {
 	private Tile tileToReplace;
 	Tile.TileType newType;
+	bool ShouldValidateAction = true;
 
-	public ActionBuild(Tile _rileToReplace, Tile.TileType _newType)
+	public ActionBuild(Tile _tileToReplace, Tile.TileType _newType)
 	{
-		tileToReplace = _rileToReplace;
+		tileToReplace = _tileToReplace;
+		newType = _newType;
+	}
+
+	public ActionBuild(Tile _tileToReplace, Tile.TileType _newType, bool _validateAction)
+	{
+		ShouldValidateAction = _validateAction;
+		tileToReplace = _tileToReplace;
 		newType = _newType;
 	}
 
@@ -22,6 +30,11 @@ public class ActionBuild : IAction
 	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool result = true;
+
+		if (tileToReplace == null)
+		{
+			return false;
+		}
 
 		Tile tilePrefab = MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(newType);
 
@@ -36,6 +49,7 @@ public class ActionBuild : IAction
 		int weightValue = tilePrefab.GetWeightSupportValue();
 		bool passesWeightCheck = WeightAnalyzer.CanStructureBeAddedHere(tileToReplace, weightValue);
 		
+		// check population
 		if (PopulationAnalyzer.CanStructureBeAdded(tilePrefab, tileToReplace.GetTileGrid()))
 		{
 			//
@@ -46,8 +60,12 @@ public class ActionBuild : IAction
 			result = false;
 		}
 
-		// check with tile for validation
-		bool passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection);
+		bool passesClassValidation = true;
+		if (ShouldValidateAction)
+		{
+			// check with tile for validation
+			passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection);
+		}
 
 		if (!passesWeightCheck)
 		{
