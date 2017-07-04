@@ -49,7 +49,6 @@ public class LevelManager : MonoBehaviour
 
 			techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
 			techSetting.propertyLevels.Add("isAvailable", 0);
-			techSetting.propertyLevels.Add("intervalToDrillTile", 0);
 			techSetting.propertyLevels.Add("numTilesLifetime", 0);
 			listOfSettings.Add(techSetting);
 
@@ -68,7 +67,6 @@ public class LevelManager : MonoBehaviour
 
 			techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
 			techSetting.propertyLevels.Add("isAvailable", 0);
-			techSetting.propertyLevels.Add("intervalToDrillTile", 0);
 			techSetting.propertyLevels.Add("numTilesLifetime", 0);
 			listOfSettings.Add(techSetting);
 
@@ -87,7 +85,6 @@ public class LevelManager : MonoBehaviour
 
 			techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
 			techSetting.propertyLevels.Add("isAvailable", 1);
-			techSetting.propertyLevels.Add("intervalToDrillTile", 0);
 			techSetting.propertyLevels.Add("numTilesLifetime", 0);
 			listOfSettings.Add(techSetting);
 
@@ -106,7 +103,6 @@ public class LevelManager : MonoBehaviour
 
 			techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
 			techSetting.propertyLevels.Add("isAvailable", 1);
-			techSetting.propertyLevels.Add("intervalToDrillTile", 0);
 			techSetting.propertyLevels.Add("numTilesLifetime", 0);
 			listOfSettings.Add(techSetting);
 

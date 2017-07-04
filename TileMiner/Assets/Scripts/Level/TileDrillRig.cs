@@ -96,20 +96,6 @@ public class TileDrillRig : Tile
 					{
 						IsStructureAvailable = (property.Value == 1 ? true : false);
 					} break;
-				case "intervalToDrillTile":
-					{
-						switch (property.Value)
-						{
-							case 0:
-								intervalToDrillTile = 10.0f; break;
-							case 1:
-								intervalToDrillTile = 5.0f; break;
-							case 2:
-								intervalToDrillTile = 2.0f; break;
-							default:
-								Debug.LogError("SetTechSetting Default Hit"); break;
-						}
-					} break;
 				case "numTilesLifetime":
 					{
 						switch (property.Value)

@@ -49,6 +49,7 @@ public class ActionBuild : IAction
 		int weightValue = tilePrefab.GetWeightSupportValue();
 		bool passesWeightCheck = WeightAnalyzer.CanStructureBeAddedHere(tileToReplace, weightValue);
 		
+		/*
 		// check population
 		if (PopulationAnalyzer.CanStructureBeAdded(tilePrefab, tileToReplace.GetTileGrid()))
 		{
@@ -59,6 +60,7 @@ public class ActionBuild : IAction
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_ENOUGH_POPULATION));
 			result = false;
 		}
+		*/
 
 		bool passesClassValidation = true;
 		if (ShouldValidateAction)

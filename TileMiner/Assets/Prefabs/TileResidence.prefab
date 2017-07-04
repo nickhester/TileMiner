@@ -53,9 +53,20 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0.000000014901161, y: 0.00064821297}
+  m_SpriteTilingProperty:
+    border: {x: 0.12, y: 0.12, z: 0.12, w: 0.12}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
+  m_EdgeRadius: 0
 --- !u!114 &114000010450595140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,15 +79,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: -1
-  mineralAdjustmentToBuild: -40
+  mineralAdjustmentToBuild: 0
   mineralAdjustmentToDestroy: 10
+  goldAdjustmentToBuild: 0
+  goldAdjustmentToDestroy: 0
+  energyAdjustmentToBuild: 0
+  energyAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: 5
-  baseProbability: 0
-  increaseProbabilityPerRow: 0
-  depthRangeStart: 0
-  depthRangeEnd: 999
-  guaranteeAtLeast: 0
   maxBrightness: 5
   stackMultiplierCost: 1.8
 --- !u!212 &212000012871114896
@@ -109,8 +119,14 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6c50822e196e33f4da3c129313779f2e, type: 3}
   m_Color: {r: 0.13916522, g: 0.72794116, b: 0.2163151, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
