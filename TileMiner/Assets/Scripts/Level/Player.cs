@@ -9,11 +9,13 @@ public class Player : Entity
 	public ActionOptionMenu actionOptionMenuPrefab;
 	private ActionOptionMenu currentActionMenu;
 	private EventBroadcast eventBroadcast;
+	public bool IsCityBuilt { get; set; }
 
 	void Start ()
 	{
 		GetInventory();
 		eventBroadcast = GameObject.FindObjectOfType<EventBroadcast>();
+		IsCityBuilt = false;
 	}
 	
 	void Update ()

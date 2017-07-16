@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public abstract class Tile : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public abstract class Tile : MonoBehaviour
 	[SerializeField] protected int goldAdjustmentToDestroy = 0;
 	[SerializeField] protected int energyAdjustmentToBuild = 0;
 	[SerializeField] protected int energyAdjustmentToDestroy = 0;
+	[SerializeField] protected int alienTechAdjustmentToDestroy = 0;
 
 	public bool isStructure = false;
 	protected bool isStructureActive = true;
@@ -44,7 +46,8 @@ public abstract class Tile : MonoBehaviour
 		DRILL_RIG,
 		BOMB,
 		MINERAL_FARM,
-		GOLD_VEIN
+		GOLD_VEIN,
+		ALIEN_TECH
 	}
 	private TileType myTileType;
 
@@ -84,6 +87,11 @@ public abstract class Tile : MonoBehaviour
 	}
 
 	protected abstract void PlayerClick();
+
+	public Player GetPlayer()
+	{
+		return player;
+	}
 
 	public abstract void Activate();
 	
@@ -142,6 +150,20 @@ public abstract class Tile : MonoBehaviour
 
 	protected void ProposeActions(List<NamedActionSet> _actions)
 	{
+		// only allow residence build action if player can't destroy tiles yet
+		if (!player.IsCityBuilt)
+		{
+			var buildResidenceAction = from action in _actions
+									   where action.name == "Build Residence"
+									   select action;
+			List<NamedActionSet> buildResidenceActionFinal = buildResidenceAction.ToList();
+			if (buildResidenceActionFinal != null)
+				_actions = buildResidenceActionFinal;
+			else
+				return;
+		}
+			
+
 		player.ProposeActions(_actions);
 	}
 
@@ -210,7 +232,7 @@ public abstract class Tile : MonoBehaviour
 		return resources;
 	}
 	
-	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
+	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
 	{
 		return true;
 	}
@@ -256,6 +278,8 @@ public abstract class Tile : MonoBehaviour
 				return "Mineral Farm";
 			case TileType.GOLD_VEIN:
 				return "Gold Vein";
+			case TileType.ALIEN_TECH:
+				return "Alien Tech";
 			default:
 				return "ERROR: TILE CASE MISSING DESCRIPTION";
 		}

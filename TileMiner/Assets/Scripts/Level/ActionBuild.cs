@@ -66,7 +66,7 @@ public class ActionBuild : IAction
 		if (ShouldValidateAction)
 		{
 			// check with tile for validation
-			passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection);
+			passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection, tileToReplace.GetPlayer());
 		}
 
 		if (!passesWeightCheck)

@@ -5,8 +5,12 @@ using System;
 
 public class TileResidence : Tile
 {
-	[Header("Type-Specific Properties")]
-	[SerializeField] protected float stackMultiplierCost = 2.0f;
+	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
+	{
+		base.Initialize(_tileGrid, _coordinate, _type);
+
+		player.IsCityBuilt = true;
+	}
 
 	protected override void PlayerClick()
 	{
@@ -16,17 +20,29 @@ public class TileResidence : Tile
 	public override void Activate()
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
-
-		namedActionSet.Add(new NamedActionSet("Destroy", GetDestroyAction()));
+		
+		// none; cannot destroy.
 
 		ProposeActions(namedActionSet);
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
 	{
 		bool isValid = true;
-		
+
+		if (_tileGrid.GetDepth(_myCoordinate) < 0)
+		{
+			//
+		}
+		else
+		{
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_HEIGHT, 1, "Not Above Ground."));
+			isExcludedFromPlayerSelection = true;
+			isValid = false;
+		}
+
+		// make sure there's space for the layout
 		if (HasClearanceOnSides(_tileGrid, _myCoordinate, new List<Coordinate>() {		// if space around it is empty
 			new Coordinate(-1, 0),
 			new Coordinate(1, 0),
@@ -43,6 +59,14 @@ public class TileResidence : Tile
 		{
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_CERTAIN_SPACE_AROUND, -1, "Must Have Available Flat Ground On Both Sides"));
 			//isExcludedFromPlayerSelection = true;
+			isValid = false;
+		}
+
+		// if there's already a residence built, don't ever show the option again
+		// TODO: is this what I want?
+		if (player.IsCityBuilt)
+		{
+			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
 
@@ -63,11 +87,6 @@ public class TileResidence : Tile
 		}
 
 		return isValid;
-	}
-
-	public override List<Resource> GetResourceAdjustmentToBuild(TileGrid _tileGrid, Coordinate _buildTarget)
-	{
-		return GetResourceAdjustmentToBuild_stacked(_tileGrid, _buildTarget, stackMultiplierCost);
 	}
 
 	bool HasClearanceOnSides(TileGrid _tileGrid, Coordinate _myCoordinate, List<Coordinate> offsets)

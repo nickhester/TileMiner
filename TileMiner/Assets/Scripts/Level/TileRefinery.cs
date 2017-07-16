@@ -55,7 +55,7 @@ public class TileRefinery : Tile, IStackableTile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
 	{
 		bool isValid = true;
 

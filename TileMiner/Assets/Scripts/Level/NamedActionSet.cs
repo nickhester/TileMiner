@@ -46,4 +46,9 @@ public class NamedActionSet
 		}
 		return retVal;
 	}
+
+	public override string ToString()
+	{
+		return name;
+	}
 }

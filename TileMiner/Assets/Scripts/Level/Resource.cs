@@ -10,7 +10,8 @@ public class Resource
 	{
 		MINERAL,
 		ENERGY,
-		GOLD
+		GOLD,
+		ALIEN_TECH
 	}
 	private ResourceType resourceType;
 

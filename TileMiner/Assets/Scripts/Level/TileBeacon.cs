@@ -9,6 +9,9 @@ public class TileBeacon : Tile
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
 		base.Initialize(_tileGrid, _coordinate, _type);
+
+		LevelManager levelManager = GameObject.FindObjectOfType<LevelManager>();
+		levelManager.ReportLevelCompleted();
 	}
 
 	protected override void PlayerClick()
@@ -22,7 +25,7 @@ public class TileBeacon : Tile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
 	{
 		bool isValid = true;
 		

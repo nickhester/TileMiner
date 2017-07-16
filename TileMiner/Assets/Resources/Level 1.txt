@@ -37,3 +37,9 @@ Dense Stone/increaseProbabilityPerRow:	0
 Dense Stone/depthRangeStart:			25
 Dense Stone/depthRangeEnd:				999
 Dense Stone/guaranteeAtLeast:			0
+
+Alien Tech/baseProbability:				0.02
+Alien Tech/increaseProbabilityPerRow:	0.001
+Alien Tech/depthRangeStart:				10
+Alien Tech/depthRangeEnd:				999
+Alien Tech/guaranteeAtLeast:			5
