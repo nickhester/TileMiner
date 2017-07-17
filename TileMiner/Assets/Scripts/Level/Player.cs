@@ -27,6 +27,8 @@ public class Player : Entity
 			GetInventory().AddResource(new Resource(10, Resource.ResourceType.GOLD));
 		if (Input.GetKeyDown(KeyCode.E))
 			GetInventory().AddResource(new Resource(1, Resource.ResourceType.ENERGY));
+		if (Input.GetKeyDown(KeyCode.T))
+			GetInventory().AddResource(new Resource(1, Resource.ResourceType.ALIEN_TECH));
 	}
 
 	public Inventory GetInventory()

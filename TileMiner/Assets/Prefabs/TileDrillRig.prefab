@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
   - component: {fileID: 114632796715846388}
-  - component: {fileID: 114810735649506416}
   m_Layer: 0
   m_Name: TileDrillRig
   m_TagString: Untagged
@@ -86,27 +85,12 @@ MonoBehaviour:
   goldAdjustmentToDestroy: 0
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
+  alienTechAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: 0
   maxBrightness: 5
   intervalToDrillTile: 2
   numTilesLifetime: 3
---- !u!114 &114810735649506416
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013142335594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93b7062d76ed9cf4c856a6687a5a8232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileType: 12
-  propertyNames:
-  - intervalToDrillTile
-  - numTilesLifetime
-  maxLevel: 0200000002000000
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

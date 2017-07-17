@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
 	private LevelGenerator levelGenerator;
+	private Player player;
 	
 	void Start ()
 	{
@@ -20,12 +21,14 @@ public class LevelManager : MonoBehaviour
 			Initialize("Level 1");
 			print("loading default");
 		}
+
+		player = GameObject.FindObjectOfType<Player>();
 	}
 
 	void OnLevelComplete()
 	{
 		GameManager gm = GameObject.FindObjectOfType<GameManager>();
-		gm.AddNewTechPieces(5);
+		gm.AddNewTechPieces(player.GetInventory().GetResource(Resource.ResourceType.ALIEN_TECH));
 		SceneManager.LoadScene("Level Selection");
 	}
 
@@ -58,17 +61,17 @@ public class LevelManager : MonoBehaviour
 			Debug.LogError("Unable to find GameManager object");
 
 		techSetting = new TechSettingsDefinition(Tile.TileType.BOMB);
-		techSetting.propertyLevels.Add("isAvailable", gm.GetTechLevel(GlobalInventory.Tech.Bomb));
+		techSetting.propertyLevels.Add("isAvailable", gm.GetTechLevel(Tile.TileType.BOMB));
 		techSetting.propertyLevels.Add("numTilesRadiusExplosion", 0);
 		listOfSettings.Add(techSetting);
 
 		techSetting = new TechSettingsDefinition(Tile.TileType.DRILL_RIG);
-		techSetting.propertyLevels.Add("isAvailable", gm.GetTechLevel(GlobalInventory.Tech.DrillRig));
+		techSetting.propertyLevels.Add("isAvailable", gm.GetTechLevel(Tile.TileType.DRILL_RIG));
 		techSetting.propertyLevels.Add("numTilesLifetime", 0);
 		listOfSettings.Add(techSetting);
 
 		techSetting = new TechSettingsDefinition(Tile.TileType.MINERAL_FARM);
-		techSetting.propertyLevels.Add("isAvailable", gm.GetTechLevel(GlobalInventory.Tech.MineralFarm));
+		techSetting.propertyLevels.Add("isAvailable", gm.GetTechLevel(Tile.TileType.MINERAL_FARM));
 		techSetting.propertyLevels.Add("intervalToFarm", 0);
 		techSetting.propertyLevels.Add("numTileSpawnMax", 0);
 		listOfSettings.Add(techSetting);

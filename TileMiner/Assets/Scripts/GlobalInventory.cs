@@ -1,49 +1,63 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GlobalInventory
 {
 	public int NumTechPieces = 0;
 
-	public Dictionary<Tech, int> TechStatus;
-
-	public enum Tech
-	{
-		Bomb,
-		DrillRig,
-		MineralFarm,
-	}
+	public Dictionary<Tile.TileType, int> TechStatus = new Dictionary<Tile.TileType, int>();
+	private Dictionary<Tile.TileType, int> techRequirements = new Dictionary<Tile.TileType, int>();
+	private List<Tile.TileType> unlockableTech = new List<Tile.TileType>();
 
 	public GlobalInventory()
 	{
+		unlockableTech.Add(Tile.TileType.BOMB);
+		unlockableTech.Add(Tile.TileType.DRILL_RIG);
+		unlockableTech.Add(Tile.TileType.MINERAL_FARM);
+
 		// initialize all tech
-		TechStatus = new Dictionary<Tech, int>();
-		TechStatus.Add(Tech.Bomb, 0);
-		TechStatus.Add(Tech.DrillRig, 0);
-		TechStatus.Add(Tech.MineralFarm, 0);
+		TechStatus.Add(Tile.TileType.BOMB, 0);
+		TechStatus.Add(Tile.TileType.DRILL_RIG, 0);
+		TechStatus.Add(Tile.TileType.MINERAL_FARM, 0);
+		
+		techRequirements.Add(Tile.TileType.BOMB, 5);
+		techRequirements.Add(Tile.TileType.DRILL_RIG, 10);
+		techRequirements.Add(Tile.TileType.MINERAL_FARM, 15);
+	}
+
+	public KeyValuePair<Tile.TileType, int> NumTechRequiredToUnlockNextTech()
+	{
+		int numTechs = unlockableTech.Count;
+		for (int i = 0; i < numTechs; i++)
+		{
+			if (NumTechPieces < techRequirements[unlockableTech[i]])
+			{
+				if (i < numTechs)
+					return new KeyValuePair<Tile.TileType, int>((unlockableTech[i]), (techRequirements[unlockableTech[i]] - NumTechPieces));
+			}
+		}
+		return new KeyValuePair<Tile.TileType, int>(0, -1);
 	}
 
 	public void AddTechPieces(int n)
 	{
 		NumTechPieces += n;
 
-		if (NumTechPieces >= 5)
+		if (NumTechPieces >= techRequirements[Tile.TileType.BOMB])
 		{
-			TechStatus[Tech.Bomb] = 1;
-			MonoBehaviour.print("Bomb unlocked");
+			TechStatus[Tile.TileType.BOMB] = 1;
 		}
 
-		if (NumTechPieces >= 10)
+		if (NumTechPieces >= techRequirements[Tile.TileType.DRILL_RIG])
 		{
-			TechStatus[Tech.DrillRig] = 1;
-			MonoBehaviour.print("DrillRig unlocked");
+			TechStatus[Tile.TileType.DRILL_RIG] = 1;
 		}
 
-		if (NumTechPieces >= 15)
+		if (NumTechPieces >= techRequirements[Tile.TileType.MINERAL_FARM])
 		{
-			TechStatus[Tech.MineralFarm] = 1;
-			MonoBehaviour.print("MineralFarm unlocked");
+			TechStatus[Tile.TileType.MINERAL_FARM] = 1;
 		}
 	}
 }

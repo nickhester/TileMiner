@@ -57,6 +57,7 @@ public class TileDirt : Tile
 			resources.Add(new Resource(goldAdjustmentToDestroy, Resource.ResourceType.GOLD));
 
 		resources.Add(new Resource(energyAdjustmentToDestroy, Resource.ResourceType.ENERGY));
+		resources.Add(new Resource(alienTechAdjustmentToDestroy, Resource.ResourceType.ALIEN_TECH));
 		return resources;
 	}
 }

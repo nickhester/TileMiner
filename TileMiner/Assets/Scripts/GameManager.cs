@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene("Level Selection");
 	}
 
-	public int GetTechLevel(GlobalInventory.Tech techName)
+	public int GetTechLevel(Tile.TileType techName)
 	{
 		return globalInventory.TechStatus[techName];
 	}
@@ -25,5 +25,10 @@ public class GameManager : MonoBehaviour
 	public void AddNewTechPieces(int n)
 	{
 		globalInventory.AddTechPieces(n);
+	}
+
+	public GlobalInventory GetGlobalInventory()
+	{
+		return globalInventory;
 	}
 }

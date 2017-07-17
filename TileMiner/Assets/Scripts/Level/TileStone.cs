@@ -28,6 +28,7 @@ public class TileStone : Tile
 		resources.Add(new Resource(Mathf.Min(mineralAdjustmentToDestroy + tileGrid.GetStoneCollectAdjustmentValue(), 0), Resource.ResourceType.MINERAL));
 		resources.Add(new Resource(goldAdjustmentToDestroy, Resource.ResourceType.GOLD));
 		resources.Add(new Resource(energyAdjustmentToDestroy, Resource.ResourceType.ENERGY));
+		resources.Add(new Resource(alienTechAdjustmentToDestroy, Resource.ResourceType.ALIEN_TECH));
 		return resources;
 	}
 }
