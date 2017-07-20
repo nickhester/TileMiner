@@ -82,6 +82,18 @@ public class TileMineralFarm : Tile
 			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
+
+		bool isCityDevelopedForThis = player.GetCity().IsCityBenefitAvailable(CityBenefits.Benefit.MINERAL_FARM);
+		if (isCityDevelopedForThis)
+		{
+			// valid
+		}
+		else
+		{
+			isExcludedFromPlayerSelection = true;
+			isValid = false;
+		}
+
 		return isValid;
 	}
 

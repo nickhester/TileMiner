@@ -85,10 +85,10 @@ MonoBehaviour:
   goldAdjustmentToDestroy: 0
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
+  alienTechAdjustmentToDestroy: 0
   isStructure: 1
-  populationAdjustment: 5
+  populationAdjustment: 0
   maxBrightness: 5
-  stackMultiplierCost: 1.8
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

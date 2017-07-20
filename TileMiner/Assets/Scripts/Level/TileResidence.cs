@@ -9,7 +9,8 @@ public class TileResidence : Tile
 	{
 		base.Initialize(_tileGrid, _coordinate, _type);
 
-		player.IsCityBuilt = true;
+		if (!player.GetCity().hasBeenBuilt)
+			player.ReportCityBuilt();
 	}
 
 	protected override void PlayerClick()
@@ -64,7 +65,7 @@ public class TileResidence : Tile
 
 		// if there's already a residence built, don't ever show the option again
 		// TODO: is this what I want?
-		if (player.IsCityBuilt)
+		if (player.GetCity().hasBeenBuilt)
 		{
 			isExcludedFromPlayerSelection = true;
 			isValid = false;

@@ -72,7 +72,7 @@ public class TileMine : Tile, IEventSubscriber, IStackableTile
 		}
 
 		// check structure height
-		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.MINE, 3);
+		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.MINE, GetCurrentStackLimit(player.GetCity()));
 
 		if (!passesHeightLimitCheck)
 		{

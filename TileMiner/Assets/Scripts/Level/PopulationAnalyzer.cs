@@ -22,7 +22,7 @@ public static class PopulationAnalyzer
 		return false;
 	}
 
-	private static int GetCurrentPopulationAvailable(TileGrid tileGrid)
+	public static int GetCurrentPopulationAvailable(TileGrid tileGrid)
 	{
 		TileGridFilter gridFilter = new TileGridFilter(tileGrid);
 		List<Tile> structures = gridFilter.GetAllStructureTiles();

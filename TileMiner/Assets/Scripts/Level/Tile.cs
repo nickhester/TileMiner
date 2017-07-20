@@ -11,6 +11,7 @@ public abstract class Tile : MonoBehaviour
 	protected EventBroadcast eventBroadcast;
 	private CameraControl cameraControl;
 	protected Player player;
+	protected City city;
 	protected bool hasBeenInitialized = false;
 
 	[SerializeField] protected int weightSupportValue = 0;
@@ -63,6 +64,7 @@ public abstract class Tile : MonoBehaviour
 		eventBroadcast = FindObjectOfType<EventBroadcast>();
 		cameraControl = FindObjectOfType<CameraControl>();
 		player = FindObjectOfType<Player>();
+		city = player.GetComponent<City>();
 		myTileType = _tileType;
 
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -151,7 +153,7 @@ public abstract class Tile : MonoBehaviour
 	protected void ProposeActions(List<NamedActionSet> _actions)
 	{
 		// only allow residence build action if player can't destroy tiles yet
-		if (!player.IsCityBuilt)
+		if (!player.GetCity().hasBeenBuilt)
 		{
 			var buildResidenceAction = from action in _actions
 									   where action.name == "Build Residence"
@@ -335,4 +337,14 @@ public abstract class Tile : MonoBehaviour
 	}
 
 	public virtual void SetTechSettings(TechSettingsDefinition techSettingsDefinition) { }
+
+	protected int GetCurrentStackLimit(City city)
+	{
+		if (city.IsCityBenefitAvailable(CityBenefits.Benefit.STACK_3))
+			return 3;
+		else if (city.IsCityBenefitAvailable(CityBenefits.Benefit.STACK_2))
+			return 2;
+		else
+			return 1;
+	}
 }

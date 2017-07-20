@@ -9,13 +9,13 @@ public class Player : Entity
 	public ActionOptionMenu actionOptionMenuPrefab;
 	private ActionOptionMenu currentActionMenu;
 	private EventBroadcast eventBroadcast;
-	public bool IsCityBuilt { get; set; }
+	public City city;
 
 	void Start ()
 	{
 		GetInventory();
 		eventBroadcast = GameObject.FindObjectOfType<EventBroadcast>();
-		IsCityBuilt = false;
+		city = GetComponent<City>();
 	}
 	
 	void Update ()
@@ -65,5 +65,15 @@ public class Player : Entity
 		{
 			eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);
 		}
+	}
+
+	public void ReportCityBuilt()
+	{
+		city.Build();
+	}
+
+	public City GetCity()
+	{
+		return city;
 	}
 }

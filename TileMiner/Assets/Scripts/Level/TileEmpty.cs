@@ -91,20 +91,20 @@ public class TileEmpty : Tile
 		// specialized build types
 
 		actions = new List<IAction>();
-		actions.Add(new ActionBuild(this, Tile.TileType.DRILL_RIG));
-		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.DRILL_RIG).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
-		{
-			actions.Add(new ActionAdjustResources(res));
-		}
-		namedActionSets.Add(new NamedActionSet("Build Drill Rig", actions));
-
-		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.BOMB));
 		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.BOMB).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 		{
 			actions.Add(new ActionAdjustResources(res));
 		}
 		namedActionSets.Add(new NamedActionSet("Place Bomb", actions));
+
+		actions = new List<IAction>();
+		actions.Add(new ActionBuild(this, Tile.TileType.DRILL_RIG));
+		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.DRILL_RIG).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+		{
+			actions.Add(new ActionAdjustResources(res));
+		}
+		namedActionSets.Add(new NamedActionSet("Build Drill Rig", actions));
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.MINERAL_FARM));

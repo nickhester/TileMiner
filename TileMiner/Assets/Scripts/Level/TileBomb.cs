@@ -74,6 +74,18 @@ public class TileBomb : Tile
 			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
+
+		bool isCityDevelopedForThis = player.GetCity().IsCityBenefitAvailable(CityBenefits.Benefit.BOMB);
+		if (isCityDevelopedForThis)
+		{
+			// valid
+		}
+		else
+		{
+			isExcludedFromPlayerSelection = true;
+			isValid = false;
+		}
+
 		return isValid;
 	}
 

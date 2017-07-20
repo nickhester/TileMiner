@@ -29,7 +29,7 @@ public class LevelGenerator : MonoBehaviour
 		Initialize(null, null);
 	}
 
-	public void Initialize (LevelDefinition levelDefinition, List<TechSettingsDefinition> techSettingsDefinitions)
+	public void Initialize(LevelDefinition levelDefinition, List<TechSettingsDefinition> techSettingsDefinitions)
 	{
 		// create local reference copies of all tile prefabs
 		for (int i = 0; i < tilePrefabs.Count; i++)
@@ -282,5 +282,10 @@ public class LevelGenerator : MonoBehaviour
 	public int GetMapWidth()
 	{
 		return mapWidth;
+	}
+
+	public TileGrid GetTileGrid()
+	{
+		return tileGrid;
 	}
 }

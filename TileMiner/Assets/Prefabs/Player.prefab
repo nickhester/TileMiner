@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000011537076762}
   - component: {fileID: 114000014272716740}
+  - component: {fileID: 114028757627471696}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -53,3 +54,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionOptionMenuPrefab: {fileID: 114000014141348280, guid: 25c13c09461b41b46a05afe441559b5f,
     type: 2}
+  city: {fileID: 0}
+--- !u!114 &114028757627471696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011811446060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e72dd3d68e9c6b4dae50698f6f5f7fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasBeenBuilt: 0

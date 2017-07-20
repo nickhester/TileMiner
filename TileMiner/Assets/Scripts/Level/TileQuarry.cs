@@ -73,7 +73,7 @@ public class TileQuarry : Tile, IEventSubscriber, IStackableTile
 		}
 
 		// check structure height
-		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.QUARRY, 3);
+		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.QUARRY, GetCurrentStackLimit(player.GetCity()));
 
 		if (!passesHeightLimitCheck)
 		{

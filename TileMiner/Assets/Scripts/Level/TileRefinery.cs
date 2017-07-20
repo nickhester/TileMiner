@@ -28,7 +28,8 @@ public class TileRefinery : Tile, IStackableTile
 			float stackedAmount = stackMultiplier.GetStackedAmount_float();		// TODO: Great place to optimize here - don't do this every update loop
 			if (stackedAmount != 0.0f && intervalCounter > (1.0f / stackedAmount))
 			{
-				ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource(mineralEarnPerInterval, Resource.ResourceType.MINERAL));
+				int mineralEarnMultiplier = (city.IsCityBenefitAvailable(CityBenefits.Benefit.REFINERY_DOUBLE) ? 2 : 1);
+				ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource((mineralEarnPerInterval * mineralEarnMultiplier), Resource.ResourceType.MINERAL));
 				actionAdjustResources.Execute();
 				intervalCounter = 0.0f;
 			}
@@ -76,7 +77,7 @@ public class TileRefinery : Tile, IStackableTile
 		}
 
 		// check structure height
-		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.REFINERY, 3);
+		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.REFINERY, GetCurrentStackLimit(player.GetCity()));
 
 		if (!passesHeightLimitCheck)
 		{

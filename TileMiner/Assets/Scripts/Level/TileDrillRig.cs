@@ -83,6 +83,18 @@ public class TileDrillRig : Tile
 			isExcludedFromPlayerSelection = true;
 			isValid = false;
 		}
+
+		bool isCityDevelopedForThis = player.GetCity().IsCityBenefitAvailable(CityBenefits.Benefit.DRILL_RIG);
+		if (isCityDevelopedForThis)
+		{
+			// valid
+		}
+		else
+		{
+			isExcludedFromPlayerSelection = true;
+			isValid = false;
+		}
+
 		return isValid;
 	}
 
