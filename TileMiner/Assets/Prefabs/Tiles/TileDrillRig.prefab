@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4000012868189612}
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
-  - component: {fileID: 114000011861431814}
+  - component: {fileID: 114632796715846388}
   m_Layer: 0
-  m_Name: TileDirt2
+  m_Name: TileDrillRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,10 +53,21 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0.000000014901161, y: 0.00064821297}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
---- !u!114 &114000011861431814
+  m_EdgeRadius: 0
+--- !u!114 &114632796715846388
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -64,25 +75,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013142335594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9596e9c3f3f11f8448d0977bb773d1e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f71cb4edb4f8ef44b5e5170a022e9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weightSupportValue: 1
+  weightSupportValue: 0
   mineralAdjustmentToBuild: 0
-  mineralAdjustmentToDestroy: 20
-  goldAdjustmentToBuild: 0
-  goldAdjustmentToDestroy: 2
+  mineralAdjustmentToDestroy: 0
+  goldAdjustmentToBuild: -20
+  goldAdjustmentToDestroy: 0
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
-  isStructure: 0
+  alienTechAdjustmentToDestroy: 0
+  isStructure: 1
   populationAdjustment: 0
-  baseProbability: 0.1
-  increaseProbabilityPerRow: 0.02
-  depthRangeStart: 15
-  depthRangeEnd: 999
-  guaranteeAtLeast: 0
+  myTileType: 12
   maxBrightness: 5
-  chanceToDropGold: 0.5
+  intervalToDrillTile: 2
+  numTilesLifetime: 3
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -113,8 +122,14 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6bb8f15fffc4f5c4c8a29ebe23c7f764, type: 3}
-  m_Color: {r: 0.31617647, g: 0.1711714, b: 0.03952206, a: 1}
+  m_Sprite: {fileID: 21300000, guid: df01d37850ddd0a4db8983c9ab026727, type: 3}
+  m_Color: {r: 1, g: 0.41369164, b: 0.09558821, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

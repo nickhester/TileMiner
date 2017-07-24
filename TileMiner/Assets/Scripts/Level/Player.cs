@@ -15,7 +15,7 @@ public class Player : Entity
 	{
 		GetInventory();
 		eventBroadcast = GameObject.FindObjectOfType<EventBroadcast>();
-		city = GetComponent<City>();
+		city = GetCity();
 	}
 	
 	void Update ()
@@ -67,13 +67,13 @@ public class Player : Entity
 		}
 	}
 
-	public void ReportCityBuilt()
+	public void ReportCityBuilt(List<Tile> tilesReserved)
 	{
-		city.Build();
+		city.Build(tilesReserved);
 	}
 
 	public City GetCity()
 	{
-		return city;
+		return GetComponent<City>();
 	}
 }

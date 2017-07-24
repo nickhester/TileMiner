@@ -24,6 +24,9 @@ public static class PopulationAnalyzer
 
 	public static int GetCurrentPopulationAvailable(TileGrid tileGrid)
 	{
+		if (tileGrid == null)
+			return 0;		// HACK: assume tileGrid hasn't been initialized yet, so there must be no population
+
 		TileGridFilter gridFilter = new TileGridFilter(tileGrid);
 		List<Tile> structures = gridFilter.GetAllStructureTiles();
 		int populationAvailable = 0;

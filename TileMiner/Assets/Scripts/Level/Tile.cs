@@ -50,7 +50,7 @@ public abstract class Tile : MonoBehaviour
 		GOLD_VEIN,
 		ALIEN_TECH
 	}
-	private TileType myTileType;
+	[SerializeField] private TileType myTileType;
 
 	private int brightnessLevel = 0;
 	public int maxBrightness = 5;
@@ -290,10 +290,12 @@ public abstract class Tile : MonoBehaviour
 	
 	public TileType GetTileType()
 	{
+		/*
 		if (!hasBeenInitialized)
 		{
 			Debug.LogError("Cannot get myTileType on prefab - not instantiated yet.");
 		}
+		*/
 		return myTileType;
 	}
 

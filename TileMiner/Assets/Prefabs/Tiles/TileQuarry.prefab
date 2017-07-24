@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4000012868189612}
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
-  - component: {fileID: 114000010450595140}
+  - component: {fileID: 114000014244536640}
   m_Layer: 0
-  m_Name: TileResidence
+  m_Name: TileQuarry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
---- !u!114 &114000010450595140
+--- !u!114 &114000014244536640
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,11 +75,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013142335594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1612f38db34bd44a6ff122a3f2bae6, type: 3}
+  m_Script: {fileID: 11500000, guid: dfe6986475f64674982a814c5d7e3aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: -1
-  mineralAdjustmentToBuild: 0
+  mineralAdjustmentToBuild: -60
   mineralAdjustmentToDestroy: 10
   goldAdjustmentToBuild: 0
   goldAdjustmentToDestroy: 0
@@ -87,8 +87,12 @@ MonoBehaviour:
   energyAdjustmentToDestroy: 0
   alienTechAdjustmentToDestroy: 0
   isStructure: 1
-  populationAdjustment: 0
+  populationAdjustment: -1
+  myTileType: 9
   maxBrightness: 5
+  stackMultiplierValue: 2.2
+  mineralEarnPerStoneCollection: 3
+  stackMultiplierCost: 2.2
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -121,8 +125,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6c50822e196e33f4da3c129313779f2e, type: 3}
-  m_Color: {r: 0.13916522, g: 0.72794116, b: 0.2163151, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 616cbf5108dd06c4bb6e8322d1f532de, type: 3}
+  m_Color: {r: 0.87782264, g: 0.9485294, b: 0.21620889, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

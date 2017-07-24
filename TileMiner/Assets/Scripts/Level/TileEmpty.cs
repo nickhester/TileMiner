@@ -32,8 +32,6 @@ public class TileEmpty : Tile
 
 		actions = new List<IAction>();
 		actions.Add(new ActionBuild(this, Tile.TileType.RESIDENCE));
-		actions.Add(new ActionBuild(tileGrid.GetTileNeighbor(TileGrid.Direction.LEFT, GetCoordinate()), Tile.TileType.RESIDENCE, false));
-		actions.Add(new ActionBuild(tileGrid.GetTileNeighbor(TileGrid.Direction.RIGHT, GetCoordinate()), Tile.TileType.RESIDENCE, false));
 		foreach (Resource res in levelGenerator.GetTilePrefab(TileType.RESIDENCE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 		{
 			actions.Add(new ActionAdjustResources(res));

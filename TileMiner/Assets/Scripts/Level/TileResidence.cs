@@ -10,7 +10,19 @@ public class TileResidence : Tile
 		base.Initialize(_tileGrid, _coordinate, _type);
 
 		if (!player.GetCity().hasBeenBuilt)
-			player.ReportCityBuilt();
+		{
+			List<Tile> tilesReservedForCity = new List<Tile>();
+			tilesReservedForCity.Add(this);
+			tilesReservedForCity.Add(_tileGrid.GetTileNeighbor(new Coordinate(-1, 0), _coordinate));
+			tilesReservedForCity.Add(_tileGrid.GetTileNeighbor(new Coordinate(1, 0), _coordinate));
+			tilesReservedForCity.Add(_tileGrid.GetTileNeighbor(new Coordinate(1, -1), _coordinate));
+			tilesReservedForCity.Add(_tileGrid.GetTileNeighbor(new Coordinate(0, -1), _coordinate));
+			tilesReservedForCity.Add(_tileGrid.GetTileNeighbor(new Coordinate(-1, -1), _coordinate));
+			tilesReservedForCity.Add(_tileGrid.GetTileNeighbor(new Coordinate(1, -2), _coordinate));
+			tilesReservedForCity.Add(_tileGrid.GetTileNeighbor(new Coordinate(0, -2), _coordinate));
+			tilesReservedForCity.Add(_tileGrid.GetTileNeighbor(new Coordinate(-1, -2), _coordinate));
+			player.ReportCityBuilt(tilesReservedForCity);
+		}
 	}
 
 	protected override void PlayerClick()

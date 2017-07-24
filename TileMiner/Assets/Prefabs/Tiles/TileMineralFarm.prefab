@@ -21,10 +21,9 @@ GameObject:
   - component: {fileID: 4000012868189612}
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
-  - component: {fileID: 114216816326092304}
-  - component: {fileID: 114661213862354680}
+  - component: {fileID: 114814773029628214}
   m_Layer: 0
-  m_Name: TileStation
+  m_Name: TileMineralFarm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,10 +53,21 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0.000000014901161, y: 0.00064821297}
+  m_SpriteTilingProperty:
+    border: {x: 0.12, y: 0.12, z: 0.12, w: 0.12}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
---- !u!114 &114216816326092304
+  m_EdgeRadius: 0
+--- !u!114 &114814773029628214
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -65,37 +75,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013142335594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9533f36ca39cdf7419f17076c62d0c82, type: 3}
+  m_Script: {fileID: 11500000, guid: f3a022535be433a4b8c9576333ad902f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: -1
-  mineralAdjustmentToBuild: -50
-  mineralAdjustmentToDestroy: 10
-  goldAdjustmentToBuild: 0
+  mineralAdjustmentToBuild: 0
+  mineralAdjustmentToDestroy: 0
+  goldAdjustmentToBuild: -50
   goldAdjustmentToDestroy: 0
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
+  alienTechAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: -1
-  baseProbability: 0
-  increaseProbabilityPerRow: 0
-  depthRangeStart: 0
-  depthRangeEnd: 999
-  guaranteeAtLeast: 0
+  myTileType: 14
   maxBrightness: 5
---- !u!114 &114661213862354680
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013142335594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9a3b38a53e501448ebac52f7cb1c55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 14
-  isIlluminateOnStart: 1
+  intervalToFarm: 15
+  numTileSpawnMax: 3
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -126,8 +122,14 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 12d9cb3ff663cee439515282b9c9f342, type: 3}
-  m_Color: {r: 0.88457537, g: 0.65916955, b: 0.9338235, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6bb8f15fffc4f5c4c8a29ebe23c7f764, type: 3}
+  m_Color: {r: 1, g: 0.928, b: 0.034, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

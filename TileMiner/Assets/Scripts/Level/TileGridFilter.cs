@@ -8,6 +8,9 @@ public class TileGridFilter
 
 	public TileGridFilter(TileGrid _tileGrid)
 	{
+		if (_tileGrid == null)
+			Debug.LogError("TileGridFilter ctor received null TileGrid");
+
 		tileGrid = _tileGrid;
 	}
 

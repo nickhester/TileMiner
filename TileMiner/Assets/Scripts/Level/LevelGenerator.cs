@@ -73,8 +73,6 @@ public class LevelGenerator : MonoBehaviour
 				tile.IsStructureAvailable = true;
 				foreach (var setting in techSettingsDefinitions)
 				{
-					Tile.TileType a = TileTypeToEnumTileType(tile.GetType());
-					Tile.TileType b = setting.tileType;
 					if (TileTypeToEnumTileType(tile.GetType()) == setting.tileType)
 					{
 						tile.SetTechSettings(setting);
@@ -186,7 +184,7 @@ public class LevelGenerator : MonoBehaviour
 		return probabilitiesBase.Length - 1;
 	}
 
-	public Tile CreateOneTile(Coordinate _coordinate, Tile.TileType _type)
+	private Tile CreateOneTile(Coordinate _coordinate, Tile.TileType _type)
 	{
 		GameObject go = Instantiate(tilePrefabs[(int)_type].gameObject, new Vector2((_coordinate.x * tileSpacing) - horizontalOffset, (-_coordinate.y * tileSpacing) + verticalOffset), Quaternion.identity) as GameObject;
 		go.SetActive(true);		// local reference copy was set as inactive, so it has to be activated
@@ -287,5 +285,18 @@ public class LevelGenerator : MonoBehaviour
 	public TileGrid GetTileGrid()
 	{
 		return tileGrid;
+	}
+
+	public List<Tile.TileType> GetAvailableTileTypes()
+	{
+		List<Tile.TileType> availableTiles = new List<Tile.TileType>();
+		foreach (var tilePrefab in tilePrefabs)
+		{
+			if (tilePrefab.IsStructureAvailable)
+			{
+				availableTiles.Add(tilePrefab.GetTileType());
+			}
+		}
+		return availableTiles;
 	}
 }

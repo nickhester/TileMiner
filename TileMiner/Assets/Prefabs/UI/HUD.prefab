@@ -11,6 +11,23 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1674333087618720}
   m_IsPrefabParent: 1
+--- !u!1 &1037307460699706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224786087309082396}
+  - component: {fileID: 222458538188133272}
+  - component: {fileID: 114222829065942606}
+  m_Layer: 5
+  m_Name: CityUnlockableText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1097275235307118
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +181,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1415378965281904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224290304265383418}
+  - component: {fileID: 114187804785608096}
+  m_Layer: 5
+  m_Name: CityUnlockables
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1418368952320224
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +300,28 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Gold
+--- !u!114 &114187804785608096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1415378965281904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &114206881729443646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -327,6 +382,39 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114222829065942606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037307460699706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 8
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 8
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Build to grow your City, which will enable your abilities
 --- !u!114 &114238715680843366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -631,6 +719,9 @@ MonoBehaviour:
   goldCount: {fileID: 114238715680843366}
   energyCount: {fileID: 114259336834132526}
   alienTechCount: {fileID: 114592555169761352}
+  cityUnlockableObjectPrefab: {fileID: 114567114645442024, guid: 04f10f80feed0db43836c53bbf9dae2a,
+    type: 2}
+  cityUnlockableParent: {fileID: 1415378965281904}
 --- !u!114 &114986936977593680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -676,6 +767,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245224758712938}
+--- !u!222 &222458538188133272
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037307460699706}
 --- !u!222 &222512171604919898
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -838,6 +935,8 @@ RectTransform:
   - {fileID: 224248576059900408}
   - {fileID: 224014245115508098}
   - {fileID: 224544526458254796}
+  - {fileID: 224786087309082396}
+  - {fileID: 224290304265383418}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -881,7 +980,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -213.7, y: 14.752991}
+  m_AnchoredPosition: {x: -213.69998, y: 14.752991}
   m_SizeDelta: {x: 82, y: 29.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224263197979104742
@@ -903,6 +1002,24 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -40.899994, y: 14.752991}
   m_SizeDelta: {x: 82, y: 29.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224290304265383418
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1415378965281904}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224159278833694710}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -168.35, y: -20.399994}
+  m_SizeDelta: {x: 336.7, y: 40.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224335264221018960
 RectTransform:
@@ -995,4 +1112,22 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -295.69995, y: 14.75}
   m_SizeDelta: {x: 82, y: 29.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224786087309082396
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037307460699706}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224159278833694710}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 168.94373, y: -5.3}
+  m_SizeDelta: {x: 336.7, y: 10.7}
   m_Pivot: {x: 0.5, y: 0.5}
