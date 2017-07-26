@@ -90,8 +90,8 @@ MonoBehaviour:
   populationAdjustment: -1
   myTileType: 9
   maxBrightness: 5
-  stackMultiplierValue: 2.2
-  mineralEarnPerStoneCollection: 3
+  stackMultiplierValue: 1.7
+  mineralEarnPerStoneCollection: 5
   stackMultiplierCost: 2.2
 --- !u!212 &212000012871114896
 SpriteRenderer:

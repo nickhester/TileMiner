@@ -90,6 +90,7 @@ MonoBehaviour:
   populationAdjustment: 0
   myTileType: 16
   maxBrightness: 5
+  minAdjustmentValue: 10
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

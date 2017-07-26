@@ -82,7 +82,7 @@ MonoBehaviour:
   mineralAdjustmentToBuild: 0
   mineralAdjustmentToDestroy: -100
   goldAdjustmentToBuild: 0
-  goldAdjustmentToDestroy: 25
+  goldAdjustmentToDestroy: 20
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
   alienTechAdjustmentToDestroy: 0

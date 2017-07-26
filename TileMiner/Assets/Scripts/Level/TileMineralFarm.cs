@@ -69,20 +69,6 @@ public class TileMineralFarm : Tile
 	{
 		bool isValid = true;
 
-		Tile tileBelow = _tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, _myCoordinate);
-
-		if (tileBelow
-			&& (tileBelow.GetType() == typeof(TileDirt)))
-		{
-			// valid
-		}
-		else
-		{
-			_failureReason.Add(new Requirements(Requirements.BuildRequirement.REQUIRES_BEING_ON_CERTAIN_TILE, (int)Tile.TileType.DIRT, "Not on ground."));
-			isExcludedFromPlayerSelection = true;
-			isValid = false;
-		}
-
 		bool isCityDevelopedForThis = player.GetCity().IsCityBenefitAvailable(CityBenefits.Benefit.MINERAL_FARM);
 		if (isCityDevelopedForThis)
 		{

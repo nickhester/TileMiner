@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: 1
-  mineralAdjustmentToBuild: -250
+  mineralAdjustmentToBuild: -200
   mineralAdjustmentToDestroy: 10
   goldAdjustmentToBuild: 0
   goldAdjustmentToDestroy: 1
