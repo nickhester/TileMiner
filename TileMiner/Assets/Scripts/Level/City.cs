@@ -16,12 +16,12 @@ public class City : MonoBehaviour
 		levelGenerator = FindObjectOfType<LevelGenerator>();
 
 		// set up all city benefits in order
-		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.STACK_2, 6, "Stack some bldgs 2 high for increased benefits"));
-		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.BOMB, 10, "Can build Bombs"));
+		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.STACK_2, 12, "Stack some bldgs 2 high for increased benefits"));
+		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.BOMB, 8, "Can build Bombs"));
 		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.DRILL_RIG, 16, "Can build Drill Rigs"));
-		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.STACK_3, 20, "Stack some bldgs 3 high for increased benefits"));
+		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.STACK_3, 22, "Stack some bldgs 3 high for increased benefits"));
 		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.MINERAL_FARM, 26, "Can build Mineral Farms"));
-		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.REFINERY_DOUBLE, 30, "All Refineries produce 2x resources"));
+		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.REFINERY_DOUBLE, 32, "All Refineries produce 2x resources"));
 	}
 
 	public void Build(List<Tile> tilesReserved)

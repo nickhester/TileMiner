@@ -60,4 +60,9 @@ public class TileDirt : Tile
 		resources.Add(new Resource(alienTechAdjustmentToDestroy, Resource.ResourceType.ALIEN_TECH));
 		return resources;
 	}
+
+	public override void OnDestroyTile()
+	{
+		Instantiate(entityToSpawn, transform.position, Quaternion.identity);
+	}
 }

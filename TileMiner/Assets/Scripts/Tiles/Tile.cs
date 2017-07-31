@@ -29,6 +29,7 @@ public abstract class Tile : MonoBehaviour
 	public bool IsStructureAvailable { get; set; }
 
 	[SerializeField] protected int populationAdjustment = 0;
+	[SerializeField] protected GameObject entityToSpawn;
 	
 	public enum TileType
 	{
@@ -109,6 +110,8 @@ public abstract class Tile : MonoBehaviour
 		}
 		return actions;
 	}
+
+	virtual public void OnDestroyTile() { }
 
 	public bool DestroyImmediate(bool isCollectingResources)
 	{

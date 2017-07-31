@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
   - component: {fileID: 114000011861431814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileDirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,6 +88,8 @@ MonoBehaviour:
   alienTechAdjustmentToDestroy: 0
   isStructure: 0
   populationAdjustment: 0
+  entityToSpawn: {fileID: 1007551933019630, guid: ee1b175083b4a9c42bd67e6fbca29446,
+    type: 2}
   myTileType: 1
   maxBrightness: 5
   chanceToDropGold: 0.2

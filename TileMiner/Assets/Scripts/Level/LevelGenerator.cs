@@ -220,6 +220,9 @@ public class LevelGenerator : MonoBehaviour
 
 	public void DestroyOneTile(Coordinate _coordinate)
 	{
+		Tile oldTile = tileGrid.GetTileAt(_coordinate);
+		oldTile.OnDestroyTile();
+
 		ReplaceOneTile(_coordinate, Tile.TileType.EMPTY);
 	}
 	

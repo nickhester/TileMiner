@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 61000010157808200}
   - component: {fileID: 114216816326092304}
   - component: {fileID: 114661213862354680}
-  m_Layer: 0
+  - component: {fileID: 114673163840924822}
+  m_Layer: 8
   m_Name: TileStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,6 +90,7 @@ MonoBehaviour:
   alienTechAdjustmentToDestroy: 0
   isStructure: 1
   populationAdjustment: -1
+  entityToSpawn: {fileID: 0}
   myTileType: 10
   maxBrightness: 5
 --- !u!114 &114661213862354680
@@ -103,6 +105,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 14
+--- !u!114 &114673163840924822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013142335594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d615def04a06194ca48313eff257612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

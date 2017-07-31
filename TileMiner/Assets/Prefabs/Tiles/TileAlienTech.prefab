@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
   - component: {fileID: 114000011730084088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileAlienTech
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,6 +88,7 @@ MonoBehaviour:
   alienTechAdjustmentToDestroy: 1
   isStructure: 0
   populationAdjustment: 0
+  entityToSpawn: {fileID: 0}
   myTileType: 16
   maxBrightness: 5
   minAdjustmentValue: 10
