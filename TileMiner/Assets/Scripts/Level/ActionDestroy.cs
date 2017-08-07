@@ -16,11 +16,11 @@ public class ActionDestroy : IAction
 	{
 		if (tileToDestroy.GetComponent<TileDirt>() != null)
 		{
-			GameObject.FindObjectOfType<EventBroadcast>().TriggerEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT);
+			EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT);
 		}
 		else if (tileToDestroy.GetComponent<TileStone>() != null)
 		{
-			GameObject.FindObjectOfType<EventBroadcast>().TriggerEvent(EventBroadcast.Event.PLAYER_COLLECTED_STONE);
+			EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.PLAYER_COLLECTED_STONE);
 		}
 
 		MonoBehaviour.FindObjectOfType<LevelGenerator>().DestroyOneTile(tileToDestroy.GetCoordinate());

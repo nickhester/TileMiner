@@ -8,7 +8,6 @@ public abstract class Tile : MonoBehaviour
 {
 	protected TileGrid tileGrid;
 	protected Coordinate myCoordinate;
-	protected EventBroadcast eventBroadcast;
 	private CameraControl cameraControl;
 	protected Player player;
 	protected City city;
@@ -76,7 +75,6 @@ public abstract class Tile : MonoBehaviour
 	{
 		tileGrid = _tileGrid;
 		myCoordinate = _coordinate;
-		eventBroadcast = FindObjectOfType<EventBroadcast>();
 		cameraControl = FindObjectOfType<CameraControl>();
 		player = FindObjectOfType<Player>();
 		city = player.GetComponent<City>();

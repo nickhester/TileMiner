@@ -7,7 +7,7 @@ public class TileDirt : Tile
 {
 	[Header("Type-Specific Properties")]
 	[SerializeField] private float chanceToDropGold = 0.2f;
-	float chanceToSpawnEnemies = 0.1f;
+	float chanceToSpawnEnemies = 0.25f;
 	int numEnemiesToSpawnMin = 3;
 	int numEnemiesToSpawnMax = 6;
 

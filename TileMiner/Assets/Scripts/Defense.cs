@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Defense : MonoBehaviour
 {
-	float targetCheckInterval = 1.0f;
+	float targetCheckInterval = 0.5f;
 	float targetCheckCounter = 0.0f;
-	[SerializeField] private float range;
+	[SerializeField] private float range = 2.0f;
 
-	float attackInterval = 2.0f;
+	[SerializeField] private float attackInterval = 2.0f;
 	float attackCounter = 0.0f;
 
 	Actor currentTarget;

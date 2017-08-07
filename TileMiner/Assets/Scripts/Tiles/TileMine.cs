@@ -15,7 +15,7 @@ public class TileMine : Tile, IEventSubscriber, IStackableTile
 	{
 		base.Initialize(_tileGrid, _coordinate, _type);
 
-		eventBroadcast.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT, this);
+		EventBroadcast.Instance.SubscribeToEvent(EventBroadcast.Event.PLAYER_COLLECTED_DIRT, this);
 
 		stackMultiplier = new StackMultiplier(tileGrid, myCoordinate, this.GetType(), baseMineralEarnPerPlayerAction, stackMultiplierValue);
 	}

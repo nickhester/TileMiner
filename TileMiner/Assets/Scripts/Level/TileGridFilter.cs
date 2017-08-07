@@ -2,19 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TileGridFilter
+public static class TileGridFilter
 {
-	TileGrid tileGrid;
-
-	public TileGridFilter(TileGrid _tileGrid)
-	{
-		if (_tileGrid == null)
-			Debug.LogError("TileGridFilter ctor received null TileGrid");
-
-		tileGrid = _tileGrid;
-	}
-
-	public List<Tile> GetAllStructureTiles()
+	public static List<Tile> GetAllStructureTiles(TileGrid tileGrid)
 	{
 		Tile[,] grid = tileGrid.GetRawGrid();
 		List<Tile> returnList = new List<Tile>();
@@ -33,7 +23,7 @@ public class TileGridFilter
 		return returnList;
 	}
 
-	public int GetNumOfTileType(System.Type _type)
+	public static int GetNumOfTileType(TileGrid tileGrid, System.Type _type)
 	{
 		Tile[,] grid = tileGrid.GetRawGrid();
 		int returnCount = 0;

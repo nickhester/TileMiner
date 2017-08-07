@@ -7,7 +7,21 @@ public class LevelManager : MonoBehaviour
 {
 	private LevelGenerator levelGenerator;
 	private Player player;
-	
+
+	// static ref to singleton
+	private static LevelManager instance;
+	public static LevelManager Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = FindObjectOfType<LevelManager>();
+			}
+			return instance;
+		}
+	}
+
 	void Start ()
 	{
 		LevelSelector levelSelector = FindObjectOfType<LevelSelector>();
@@ -25,17 +39,36 @@ public class LevelManager : MonoBehaviour
 		player = GameObject.FindObjectOfType<Player>();
 	}
 
-	void OnLevelComplete()
+	void OnDestroy()
+	{
+		instance = null;
+	}
+
+	public void ReportLevelCompleted(bool success)
+	{
+		print("Level Complete Reported");
+		if (success)
+			OnLevelSucceeded();
+		else
+			OnLevelFailed();
+	}
+
+	void OnLevelFailed()
+	{
+		OnLevelComplete();
+	}
+
+	void OnLevelSucceeded()
 	{
 		GameManager gm = GameObject.FindObjectOfType<GameManager>();
 		gm.AddNewTechPieces(player.GetInventory().GetResource(Resource.ResourceType.ALIEN_TECH));
-		SceneManager.LoadScene("Level Selection");
+
+		OnLevelComplete();
 	}
 
-	public void ReportLevelCompleted()
+	void OnLevelComplete()
 	{
-		print("Level Complete Reported");
-		OnLevelComplete();
+		SceneManager.LoadScene("Level Selection");
 	}
 
 	public void Initialize(string levelName)

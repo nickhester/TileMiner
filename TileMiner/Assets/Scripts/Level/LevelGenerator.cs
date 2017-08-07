@@ -14,13 +14,23 @@ public class LevelGenerator : MonoBehaviour
 	private TileGrid tileGrid;
 	private LevelDefinition levelDefinition;
 
-	private float verticalOffset {
-		get { return ((numSkyTiles) * tileSpacing); }             // offset to make ground appear in the middle
+	private float verticalOffset
+	{
+		get
+		{
+			// offset to make ground appear in the middle
+			return ((numSkyTiles) * tileSpacing);
+		}
 		set { }
 	}
+
 	private float horizontalOffset
 	{
-		get { return ((mapWidth - 1) * tileSpacing) / 2.0f; }             // offset to center left-right
+		get
+		{
+			// offset to center left-right
+			return ((mapWidth - 1) * tileSpacing) / 2.0f;
+		}
 		set { }
 	}
 
@@ -187,7 +197,7 @@ public class LevelGenerator : MonoBehaviour
 
 	private Tile CreateOneTile(Coordinate _coordinate, Tile.TileType _type)
 	{
-		GameObject go = Instantiate(tilePrefabs[(int)_type].gameObject, new Vector2((_coordinate.x * tileSpacing) - horizontalOffset, (-_coordinate.y * tileSpacing) + verticalOffset), Quaternion.identity) as GameObject;
+		GameObject go = Instantiate(tilePrefabs[(int)_type].gameObject, GetWorldSpacePositionFromCoordinate(_coordinate), Quaternion.identity) as GameObject;
 		go.SetActive(true);		// local reference copy was set as inactive, so it has to be activated
 		Tile t = go.GetComponent<Tile>();
 
@@ -243,7 +253,7 @@ public class LevelGenerator : MonoBehaviour
 		tileGrid.AddTile(_coordMoveEnd, tileToMove);
 
 		// update transform of existing tile
-		Vector2 newPosition = new Vector2((_coordMoveEnd.x * tileSpacing) - horizontalOffset, (-_coordMoveEnd.y * tileSpacing) + verticalOffset);
+		Vector2 newPosition = GetWorldSpacePositionFromCoordinate(_coordMoveEnd);
 		tileToMove.transform.position = newPosition;
 		tileToMove.UpdateCoordinates(_coordMoveEnd);
 
@@ -302,5 +312,15 @@ public class LevelGenerator : MonoBehaviour
 			}
 		}
 		return availableTiles;
+	}
+
+	public Coordinate GetClosestTileCoordinateFromWorldSpacePosition(Vector2 v)
+	{
+		return new Coordinate(Mathf.RoundToInt((v.x + horizontalOffset) / tileSpacing), Mathf.RoundToInt(-(v.y - verticalOffset) / tileSpacing));
+	}
+
+	public Vector2 GetWorldSpacePositionFromCoordinate(Coordinate c)
+	{
+		return new Vector2((c.x * tileSpacing) - horizontalOffset, (-c.y * tileSpacing) + verticalOffset);
 	}
 }

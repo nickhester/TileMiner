@@ -13,6 +13,7 @@ public class HUD : MonoBehaviour, IEventSubscriber
 	[SerializeField] private Text goldCount;
 	[SerializeField] private Text energyCount;
 	[SerializeField] private Text alienTechCount;
+	[SerializeField] private Text cityHealth;
 
 	[SerializeField] private Button cityUnlockableObjectPrefab;
 	[SerializeField] private GameObject cityUnlockableParent;
@@ -21,9 +22,11 @@ public class HUD : MonoBehaviour, IEventSubscriber
 	{
 		player = GameObject.FindObjectOfType<Player>();
 		city = player.GetCity();
-		GameObject.FindObjectOfType<EventBroadcast>().SubscribeToEvent(EventBroadcast.Event.RESOURCE_VALUES_UPDATED, this);
-		GameObject.FindObjectOfType<EventBroadcast>().SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
+		EventBroadcast.Instance.SubscribeToEvent(EventBroadcast.Event.RESOURCE_VALUES_UPDATED, this);
+		EventBroadcast.Instance.SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
+		EventBroadcast.Instance.SubscribeToEvent(EventBroadcast.Event.CITY_HIT, this);
 		UpdateResourceValues();
+		UpdateCityHealth();
 	}
 
 	public void InformOfEvent(EventBroadcast.Event _event)
@@ -35,6 +38,10 @@ public class HUD : MonoBehaviour, IEventSubscriber
 		else if (_event == EventBroadcast.Event.PLAYER_ACTION)
 		{
 			UpdateAvailableCityUnlockables();
+		}
+		else if (_event == EventBroadcast.Event.CITY_HIT)
+		{
+			UpdateCityHealth();
 		}
 	}
 
@@ -67,5 +74,12 @@ public class HUD : MonoBehaviour, IEventSubscriber
 		goldCount.text = numGold.ToString();
 		energyCount.text = numEnergy.ToString();
 		alienTechCount.text = numAlienTech.ToString();
+	}
+
+	void UpdateCityHealth()
+	{
+		int currentCityHealth = City.Instance.CurrentHealth;
+
+		cityHealth.text = currentCityHealth.ToString();
 	}
 }

@@ -10,7 +10,40 @@ public class City : MonoBehaviour
 	private TileGrid tileGrid;
 	private LevelGenerator levelGenerator;
 	private List<Tile> cityTiles;
-	
+
+	private int _currentHealth = 100;
+	public int CurrentHealth
+	{
+		get
+		{
+			return _currentHealth;
+		}
+		private set
+		{
+			_currentHealth = value;
+		}
+	}
+
+	// static ref to singleton
+	private static City instance;
+	public static City Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = FindObjectOfType<City>();
+			}
+			return instance;
+		}
+	}
+
+	public void HitCity(int damage)
+	{
+		if (Instance != null)
+			Instance.GetHit(damage);
+	}
+
 	void Start()
 	{
 		levelGenerator = FindObjectOfType<LevelGenerator>();
@@ -22,6 +55,11 @@ public class City : MonoBehaviour
 		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.STACK_3, 22, "Stack some bldgs 3 high for increased benefits"));
 		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.MINERAL_FARM, 26, "Can build Mineral Farms"));
 		cityBenefits.Add(new CityBenefits(CityBenefits.Benefit.REFINERY_DOUBLE, 32, "All Refineries produce 2x resources"));
+	}
+
+	void OnDestroy()
+	{
+		instance = null;
 	}
 
 	public void Build(List<Tile> tilesReserved)
@@ -76,6 +114,18 @@ public class City : MonoBehaviour
 		int currentPopulation = Mathf.Abs(PopulationAnalyzer.GetCurrentPopulationAvailable(levelGenerator.GetTileGrid()));
 		CityBenefits result = cityBenefits.Where(b => b.benefit == benefit).Single();
 		return currentPopulation >= result.populationRequirement;
+	}
+
+	public void GetHit(int damage)
+	{
+		CurrentHealth--;
+
+		EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.CITY_HIT);
+
+		if (CurrentHealth <= 0)
+		{
+			LevelManager.Instance.ReportLevelCompleted(false);
+		}
 	}
 }
 

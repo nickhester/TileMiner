@@ -11,7 +11,6 @@ public class TileGrid
 	private int numRowsSky;
 
 	private int currentStoneCollectAdjustmentValue = 0;
-	private EventBroadcast eventBroadcast;
 
 	private List<Tile.TileType> groundTypes;
 
@@ -37,8 +36,6 @@ public class TileGrid
 			Tile.TileType.STONE,
 			Tile.TileType.STONE2
 		};
-
-		eventBroadcast = MonoBehaviour.FindObjectOfType<EventBroadcast>();
 	}
 
 	public void AddTile(Coordinate _coordinate, Tile _tile)
@@ -210,7 +207,7 @@ public class TileGrid
 	public int GetStoneCollectAdjustmentValue()
 	{
 		currentStoneCollectAdjustmentValue = 0;
-		eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_SELECTED_STONE);
+		EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.PLAYER_SELECTED_STONE);
 		// subscribers update currentStoneRebateValue at this point
 		return currentStoneCollectAdjustmentValue;
 	}

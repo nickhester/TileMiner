@@ -12,7 +12,26 @@ public class EventBroadcast : MonoBehaviour
 		PLAYER_COLLECTED_DIRT,
 		PLAYER_COLLECTED_STONE,
 		PLAYER_SELECTED_STONE,
-		RESOURCE_VALUES_UPDATED
+		RESOURCE_VALUES_UPDATED,
+		CITY_HIT
+	}
+
+	private static EventBroadcast instance;
+	public static EventBroadcast Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = FindObjectOfType<EventBroadcast>();
+			}
+			return instance;
+		}
+	}
+
+	void OnDestroy()
+	{
+		instance = null;
 	}
 
 	public void SubscribeToEvent(Event _event, IEventSubscriber _subscriber)

@@ -5,13 +5,7 @@ using System.Collections.Generic;
 public class Inventory
 {
 	List<Resource> resourceList = new List<Resource>();
-	EventBroadcast eventBroadcast;
-
-	public Inventory()
-	{
-		eventBroadcast = GameObject.FindObjectOfType<EventBroadcast>();
-	}
-
+	
 	public void AddResource(Resource _resource)
 	{
 		bool foundResource = false;
@@ -29,7 +23,7 @@ public class Inventory
 			resourceList.Add(new Resource(_resource.GetAmount(), _resource.GetResourceType()));
 		}
 
-		eventBroadcast.TriggerEvent(EventBroadcast.Event.RESOURCE_VALUES_UPDATED);
+		EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.RESOURCE_VALUES_UPDATED);
 	}
 
 	public int GetResource(Resource.ResourceType _resourceType)

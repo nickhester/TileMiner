@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bat : Actor
 {
+	float pathTargetWeight = 1.0f;
+
 	float movementPower = 10.0f;
 	float initialImpulse = 0.01f;
 	float wingFlapSpeed = 12.0f;
@@ -27,9 +29,11 @@ public class Bat : Actor
 	{
 		base.FixedUpdate();
 
-		rigidBody.AddForce(Vector2.up * movementPower * Time.deltaTime
+		Vector2 forceToAdd;
+		
+		forceToAdd = Vector2.up * movementPower
 			* (Mathf.Sin(Time.time * wingFlapSpeed) + wingFlapRisingTendency)       // add varying upward force to simulate flapping wings
-			+ (Vector2.right * sideMovementPower * Mathf.Sin(Time.time * sideMovementPhaseSpeed * sideMovementCurrentAmount)));      // add side-to-side movement
+			+ (Vector2.right * sideMovementPower * Mathf.Sin(Time.time * sideMovementPhaseSpeed * sideMovementCurrentAmount));      // add side-to-side movement
 
 		// change side movement amount so it doesn't just go back and forth in the same place forever
 		sideMovementChangeCounter += Time.deltaTime;
@@ -38,6 +42,25 @@ public class Bat : Actor
 			sideMovementChangeCounter = 0.0f;
 			sideMovementCurrentAmount = Random.Range(-sideMovementRange, sideMovementRange);
 		}
+
+		// apply movement toward path steps
+		Vector2 pathTarget = Vector2.zero;
+		if (pathManager.GetPathTargetPosition(transform.position, ref pathTarget))
+		{
+			Debug.DrawLine(transform.position, pathTarget);
+			forceToAdd += (pathTarget - (Vector2)transform.position) * pathTargetWeight;
+		}
+
+		rigidBody.AddForce(forceToAdd * Time.deltaTime);
 	}
 
+	public void OnCollisionEnter2D(Collision2D collision)
+	{
+		Tile hitTile = collision.gameObject.GetComponent<Tile>();
+		if (hitTile != null && hitTile.GetTileType() == Tile.TileType.RESIDENCE)
+		{
+			ReportHitCity();
+			Destroy(this.gameObject);
+		}
+	}
 }

@@ -11,7 +11,7 @@ public class TileBeacon : Tile
 		base.Initialize(_tileGrid, _coordinate, _type);
 
 		LevelManager levelManager = GameObject.FindObjectOfType<LevelManager>();
-		levelManager.ReportLevelCompleted();
+		levelManager.ReportLevelCompleted(true);
 	}
 
 	protected override void PlayerClick()

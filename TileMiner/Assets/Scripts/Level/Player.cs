@@ -8,13 +8,11 @@ public class Player : Entity
 	private Inventory myInventory;
 	public ActionOptionMenu actionOptionMenuPrefab;
 	private ActionOptionMenu currentActionMenu;
-	private EventBroadcast eventBroadcast;
 	public City city;
 
 	void Start ()
 	{
 		GetInventory();
-		eventBroadcast = GameObject.FindObjectOfType<EventBroadcast>();
 		city = GetCity();
 	}
 	
@@ -63,7 +61,7 @@ public class Player : Entity
 		Destroy(currentActionMenu.gameObject);
 		if (!isActionCancel)
 		{
-			eventBroadcast.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);
+			EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);
 		}
 	}
 
