@@ -6,7 +6,7 @@ public class Defense : MonoBehaviour
 {
 	float targetCheckInterval = 1.0f;
 	float targetCheckCounter = 0.0f;
-	float range = 3.0f;
+	[SerializeField] private float range;
 
 	float attackInterval = 2.0f;
 	float attackCounter = 0.0f;

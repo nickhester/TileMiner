@@ -59,6 +59,7 @@ public class LevelGenerator : MonoBehaviour
 		CreateTiles();
 		
 		GetComponent<LightManager>().Initialize(tileGrid);
+		GetComponent<PathManager>().Initialize(tileGrid);
 
 		ImplementTechSettings(techSettingsDefinitions);
 	}

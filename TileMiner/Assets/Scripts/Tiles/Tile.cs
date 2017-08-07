@@ -58,6 +58,20 @@ public abstract class Tile : MonoBehaviour
 	private Color originalColor;
 	private SpriteRenderer spriteRenderer;
 
+	private int _numStepsFromCity = -1;
+	public int numStepsFromCity
+	{
+		get
+		{
+			return _numStepsFromCity;
+		}
+		set
+		{
+			//print("I'm " + GetCoordinate() + " getting set to " + value);
+			_numStepsFromCity = value;
+		}
+	}
+
 	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _tileType)
 	{
 		tileGrid = _tileGrid;

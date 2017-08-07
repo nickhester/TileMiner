@@ -35,6 +35,16 @@ public class City : MonoBehaviour
 		{
 			levelGenerator.ReplaceOneTile(tile.GetCoordinate(), Tile.TileType.RESIDENCE);
 		}
+
+		levelGenerator.GetComponent<PathManager>().UpdateTilePathSteps();
+	}
+
+	public Tile GetCityTile()
+	{
+		if (cityTiles != null && cityTiles.Count > 0)
+			return cityTiles[0];
+		else
+			return null;
 	}
 
 	public List<CityBenefits> GetAvailableCityBenefits()

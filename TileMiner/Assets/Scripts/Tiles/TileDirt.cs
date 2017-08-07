@@ -7,6 +7,9 @@ public class TileDirt : Tile
 {
 	[Header("Type-Specific Properties")]
 	[SerializeField] private float chanceToDropGold = 0.2f;
+	float chanceToSpawnEnemies = 0.1f;
+	int numEnemiesToSpawnMin = 3;
+	int numEnemiesToSpawnMax = 6;
 
 	protected override void PlayerClick()
 	{
@@ -63,6 +66,13 @@ public class TileDirt : Tile
 
 	public override void OnDestroyTile()
 	{
-		Instantiate(entityToSpawn, transform.position, Quaternion.identity);
+		if (UnityEngine.Random.Range(0.0f, 1.0f) < chanceToSpawnEnemies)
+		{
+			int rand = UnityEngine.Random.Range(numEnemiesToSpawnMin, numEnemiesToSpawnMax + 1);
+			for (int i = 0; i < rand; i++)
+			{
+				Instantiate(entityToSpawn, transform.position + (new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f))), Quaternion.identity);
+			}
+		}
 	}
 }

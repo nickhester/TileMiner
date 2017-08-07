@@ -5,8 +5,8 @@ using System;
 
 public class TileGrid
 {
-	private int dimX;
-	private int dimY;
+	public int dimX { get; private set; }
+	public int dimY { get; private set; }
 	private Tile[,] grid;
 	private int numRowsSky;
 
@@ -139,6 +139,19 @@ public class TileGrid
 		return GetTileAt(coord);
 	}
 
+	public List<Tile> GetTileNeighbors(Coordinate _originCoordinate)
+	{
+		List<Tile> returnList = new List<Tile>();
+
+		for (int i = 0; i < Enum.GetNames(typeof(Direction)).Length; i++)
+		{
+			Tile t = GetTileNeighbor((Direction)i, _originCoordinate);
+			if (t != null)
+				returnList.Add(t);
+		}
+		return returnList;
+	}
+
 	public Tile[,] GetRawGrid()
 	{
 		return grid;
@@ -241,5 +254,10 @@ public struct Coordinate
 	public static Coordinate operator -(Coordinate c1, Coordinate c2)
 	{
 		return new Coordinate(c1.x - c2.x, c1.y - c2.y);
+	}
+
+	public override string ToString()
+	{
+		return "(" + x + "," + y + ")";
 	}
 }
