@@ -14,8 +14,7 @@ public class ActionAdjustResources : IAction
 		resource = _resource;
 
 		// check if enough resources
-		Player player = MonoBehaviour.FindObjectOfType<Player>();
-		inventory = player.GetInventory();
+		inventory = Player.Instance.GetInventory();
 		isAdjustmentPossible = ((inventory.GetResource(resource.GetResourceType()) + resource.GetAmount()) >= 0);
 	}
 

@@ -6,9 +6,6 @@ using System;
 
 public class HUD : MonoBehaviour, IEventSubscriber
 {
-	Player player;
-	City city;
-
 	[SerializeField] private Text mineralCount;
 	[SerializeField] private Text goldCount;
 	[SerializeField] private Text energyCount;
@@ -20,8 +17,6 @@ public class HUD : MonoBehaviour, IEventSubscriber
 
 	void Start()
 	{
-		player = GameObject.FindObjectOfType<Player>();
-		city = player.GetCity();
 		EventBroadcast.Instance.SubscribeToEvent(EventBroadcast.Event.RESOURCE_VALUES_UPDATED, this);
 		EventBroadcast.Instance.SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
 		EventBroadcast.Instance.SubscribeToEvent(EventBroadcast.Event.CITY_HIT, this);
@@ -48,7 +43,7 @@ public class HUD : MonoBehaviour, IEventSubscriber
 	private void UpdateAvailableCityUnlockables()
 	{
 		// check which ones are available to display the status of
-		List<CityBenefits> availableBenefits = city.GetAvailableCityBenefits();
+		List<CityBenefits> availableBenefits = City.Instance.GetAvailableCityBenefits();
 
 		// destroy all children of parent object
 		foreach (var child in cityUnlockableParent.GetComponentsInChildren<Button>())
@@ -65,10 +60,10 @@ public class HUD : MonoBehaviour, IEventSubscriber
 
 	void UpdateResourceValues()
 	{
-		int numMinerals = player.GetInventory().GetResource(Resource.ResourceType.MINERAL);
-		int numGold = player.GetInventory().GetResource(Resource.ResourceType.GOLD);
-		int numEnergy = player.GetInventory().GetResource(Resource.ResourceType.ENERGY);
-		int numAlienTech = player.GetInventory().GetResource(Resource.ResourceType.ALIEN_TECH);
+		int numMinerals = Player.Instance.GetInventory().GetResource(Resource.ResourceType.MINERAL);
+		int numGold = Player.Instance.GetInventory().GetResource(Resource.ResourceType.GOLD);
+		int numEnergy = Player.Instance.GetInventory().GetResource(Resource.ResourceType.ENERGY);
+		int numAlienTech = Player.Instance.GetInventory().GetResource(Resource.ResourceType.ALIEN_TECH);
 
 		mineralCount.text = numMinerals.ToString();
 		goldCount.text = numGold.ToString();

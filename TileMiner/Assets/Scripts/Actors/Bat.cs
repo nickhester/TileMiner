@@ -18,6 +18,8 @@ public class Bat : Actor
 	float sideMovementChangeInterval = 6.0f;
 	float sideMovementChangeCounter = 0.0f;
 
+	int damage = 3;
+
 	protected override void Start()
 	{
 		base.Start();
@@ -56,10 +58,9 @@ public class Bat : Actor
 
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
-		Tile hitTile = collision.gameObject.GetComponent<Tile>();
-		if (hitTile != null && hitTile.GetTileType() == Tile.TileType.RESIDENCE)
+		if (collision.gameObject.tag == "City")
 		{
-			ReportHitCity();
+			ReportHitCity(damage);
 			Destroy(this.gameObject);
 		}
 	}

@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4000012868189612}
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
-  - component: {fileID: 114000010450595140}
+  - component: {fileID: 114739349868349438}
   m_Layer: 8
-  m_Name: TileResidence
+  m_Name: TileRift
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
---- !u!114 &114000010450595140
+--- !u!114 &114739349868349438
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,10 +75,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013142335594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1612f38db34bd44a6ff122a3f2bae6, type: 3}
+  m_Script: {fileID: 11500000, guid: ddd57bb17ddabbc4cb991ea6a0498922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weightSupportValue: -1
+  weightSupportValue: 0
   mineralAdjustmentToBuild: 0
   mineralAdjustmentToDestroy: 0
   goldAdjustmentToBuild: 0
@@ -86,10 +86,11 @@ MonoBehaviour:
   energyAdjustmentToBuild: 0
   energyAdjustmentToDestroy: 0
   alienTechAdjustmentToDestroy: 0
-  isStructure: 1
+  isStructure: 0
   populationAdjustment: 0
-  entityToSpawn: {fileID: 0}
-  myTileType: 6
+  entityToSpawn: {fileID: 1007551933019630, guid: ee1b175083b4a9c42bd67e6fbca29446,
+    type: 2}
+  myTileType: 17
   maxBrightness: 5
 --- !u!212 &212000012871114896
 SpriteRenderer:
@@ -124,7 +125,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6bb8f15fffc4f5c4c8a29ebe23c7f764, type: 3}
-  m_Color: {r: 0.453, g: 0.441, b: 1, a: 0.478}
+  m_Color: {r: 0.7244809, g: 0.9852941, b: 0.8881637, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

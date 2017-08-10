@@ -19,7 +19,7 @@ public class TileEnergyWell : Tile
 		List<IAction> actions = new List<IAction>();
 
 		actions = new List<IAction>();
-		actions.Add(new ActionDestroy(this));
+		actions.Add(new ActionBuild(this, TileType.RIFT));
 		actions.Add(
 			new ActionAdjustResources(
 				new Resource(1, Resource.ResourceType.ENERGY)));

@@ -7,7 +7,7 @@ public class ActionOptionMenu : MonoBehaviour
 {
 	[SerializeField] private Button singleButton;
 
-	public void Initialize(List<NamedActionSet> _actionSets, Player _player)
+	public void Initialize(List<NamedActionSet> _actionSets)
 	{
 		_actionSets.Add(new NamedActionSet("Cancel", new ActionCancel()));
 
@@ -56,7 +56,7 @@ public class ActionOptionMenu : MonoBehaviour
 			buttonText.text = buttonTextString;
 			NamedActionSet _actionSet = _actionSets[i];
 			Button buttonComponent = buttonObject.GetComponent<Button>();
-			buttonComponent.onClick.AddListener(delegate { _player.ExecuteAction(_actionSet); });
+			buttonComponent.onClick.AddListener(delegate { Player.Instance.ExecuteAction(_actionSet); });
 
 			buttonComponent.interactable = shouldButtonBeInteractable;
 		}
@@ -67,7 +67,7 @@ public class ActionOptionMenu : MonoBehaviour
 			&& !atLeastOneActionIsInvalid)
 		{
 			NamedActionSet _actionSet = _actionSets[0];
-			_player.ExecuteAction(_actionSet);
+			Player.Instance.ExecuteAction(_actionSet);
 		}
 	}
 }

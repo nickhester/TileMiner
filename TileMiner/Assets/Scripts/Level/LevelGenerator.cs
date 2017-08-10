@@ -34,6 +34,20 @@ public class LevelGenerator : MonoBehaviour
 		set { }
 	}
 
+	// static ref to singleton
+	private static LevelGenerator instance;
+	public static LevelGenerator Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = FindObjectOfType<LevelGenerator>();
+			}
+			return instance;
+		}
+	}
+
 	public void Initialize()
 	{
 		Initialize(null, null);
@@ -72,6 +86,11 @@ public class LevelGenerator : MonoBehaviour
 		GetComponent<PathManager>().Initialize(tileGrid);
 
 		ImplementTechSettings(techSettingsDefinitions);
+	}
+
+	void OnDestroy()
+	{
+		instance = null;
 	}
 
 	void ImplementTechSettings(List<TechSettingsDefinition> techSettingsDefinitions)

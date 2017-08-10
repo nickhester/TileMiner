@@ -6,14 +6,10 @@ using UnityEngine;
 public class PathManager : MonoBehaviour, IEventSubscriber
 {
 	private TileGrid tileGrid;
-	private LevelGenerator levelGenerator;
-	private City city;
 
 	public void Initialize(TileGrid _tileGrid)
 	{
 		tileGrid = _tileGrid;
-		city = FindObjectOfType<Player>().GetCity();
-		levelGenerator = GetComponent<LevelGenerator>();
 
 		EventBroadcast.Instance.SubscribeToEvent(EventBroadcast.Event.PLAYER_ACTION, this);
 	}
@@ -42,7 +38,7 @@ public class PathManager : MonoBehaviour, IEventSubscriber
 		}
 
 		// add city tile(s) to queue 1
-		tilesToCheck.Enqueue(city.GetCityTile().GetCoordinate());
+		tilesToCheck.Enqueue(City.Instance.GetCityTile().GetCoordinate());
 
 		while (tilesToCheck.Count > 0)
 		{
@@ -86,7 +82,7 @@ public class PathManager : MonoBehaviour, IEventSubscriber
 	
 	public bool GetPathTargetPosition(Vector2 currentPos, ref Vector2 returnTargetPosition)
 	{
-		Coordinate currentCoord = levelGenerator.GetClosestTileCoordinateFromWorldSpacePosition(currentPos);
+		Coordinate currentCoord = LevelGenerator.Instance.GetClosestTileCoordinateFromWorldSpacePosition(currentPos);
 		Tile currentClosestTile = tileGrid.GetTileAt(currentCoord);
 		if (currentClosestTile == null)
 		{
@@ -120,7 +116,7 @@ public class PathManager : MonoBehaviour, IEventSubscriber
 		}
 
 		if (returningValidValue)
-			returnTargetPosition = levelGenerator.GetWorldSpacePositionFromCoordinate(targetCoord);
+			returnTargetPosition = LevelGenerator.Instance.GetWorldSpacePositionFromCoordinate(targetCoord);
 		return returningValidValue;
 	}
 

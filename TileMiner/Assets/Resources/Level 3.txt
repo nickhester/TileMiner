@@ -16,7 +16,7 @@ Rich Dirt/guaranteeAtLeast:				0
 
 Energy Well/baseProbability:			0.1
 Energy Well/increaseProbabilityPerRow:	0.02
-Energy Well/depthRangeStart:			45
+Energy Well/depthRangeStart:			30
 Energy Well/depthRangeEnd:				55
 Energy Well/guaranteeAtLeast:			5
 

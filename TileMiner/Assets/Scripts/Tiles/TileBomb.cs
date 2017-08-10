@@ -9,16 +9,7 @@ public class TileBomb : Tile
 	[SerializeField] private float intervalToExplode = 20.0f;
 	private float counterToExplode = 0.0f;
 	[SerializeField] private int numTilesRadiusExplosion = 1;
-
-	private LevelGenerator levelGenerator;
-
-	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
-	{
-		base.Initialize(_tileGrid, _coordinate, _type);
-
-		levelGenerator = FindObjectOfType<LevelGenerator>();
-	}
-
+	
 	private void Update()
 	{
 		if (isStructureActive)
@@ -40,7 +31,7 @@ public class TileBomb : Tile
 					}
 				}
 				// destroy self
-				levelGenerator.DestroyOneTile(GetCoordinate());
+				LevelGenerator.Instance.DestroyOneTile(GetCoordinate());
 			}
 		}
 	}
@@ -56,7 +47,7 @@ public class TileBomb : Tile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
 		
@@ -75,7 +66,7 @@ public class TileBomb : Tile
 			isValid = false;
 		}
 
-		bool isCityDevelopedForThis = player.GetCity().IsCityBenefitAvailable(CityBenefits.Benefit.BOMB);
+		bool isCityDevelopedForThis = City.Instance.IsCityBenefitAvailable(CityBenefits.Benefit.BOMB);
 		if (isCityDevelopedForThis)
 		{
 			// valid

@@ -52,7 +52,7 @@ public class TileMine : Tile, IEventSubscriber, IStackableTile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
 
@@ -72,7 +72,7 @@ public class TileMine : Tile, IEventSubscriber, IStackableTile
 		}
 
 		// check structure height
-		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.MINE, GetCurrentStackLimit(player.GetCity()));
+		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.MINE, GetCurrentStackLimit(City.Instance));
 
 		if (!passesHeightLimitCheck)
 		{

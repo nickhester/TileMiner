@@ -24,7 +24,7 @@ public class ActionBuild : IAction
 
 	public void Execute()
 	{
-		MonoBehaviour.FindObjectOfType<LevelGenerator>().ReplaceOneTile(tileToReplace.GetCoordinate(), newType);
+		LevelGenerator.Instance.ReplaceOneTile(tileToReplace.GetCoordinate(), newType);
 	}
 
 	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
@@ -36,7 +36,7 @@ public class ActionBuild : IAction
 			return false;
 		}
 
-		Tile tilePrefab = MonoBehaviour.FindObjectOfType<LevelGenerator>().GetTilePrefab(newType);
+		Tile tilePrefab = LevelGenerator.Instance.GetTilePrefab(newType);
 
 		// check tile availability
 		if (!tilePrefab.IsStructureAvailable)
@@ -66,7 +66,7 @@ public class ActionBuild : IAction
 		if (ShouldValidateAction)
 		{
 			// check with tile for validation
-			passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection, tileToReplace.GetPlayer());
+			passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection);
 		}
 
 		if (!passesWeightCheck)

@@ -7,20 +7,18 @@ public class LightManager : MonoBehaviour
 	List<LightSource> allLightSources = new List<LightSource>();
 	private TileGrid tileGrid;
 	[SerializeField] private int depthOfSkylight = 12;
-	LevelGenerator levelGenerator;
 
 	public void Initialize(TileGrid _tileGrid)
 	{
 		tileGrid = _tileGrid;
-		levelGenerator = GetComponent<LevelGenerator>();
 
 		ApplyMinimumSkylight();
 	}
 
 	void ApplyMinimumSkylight()
 	{
-		int numSkyTiles = levelGenerator.GetNumSkyTiles();
-		int mapWidth = levelGenerator.GetMapWidth();
+		int numSkyTiles = LevelGenerator.Instance.GetNumSkyTiles();
+		int mapWidth = LevelGenerator.Instance.GetMapWidth();
 		int totalDepthToIlluminate = numSkyTiles + depthOfSkylight;
 		Coordinate coordinate;
 		
@@ -51,8 +49,8 @@ public class LightManager : MonoBehaviour
 
 	void TurnOffSkylight()
 	{
-		int numSkyTiles = levelGenerator.GetNumSkyTiles();
-		int mapWidth = levelGenerator.GetMapWidth();
+		int numSkyTiles = LevelGenerator.Instance.GetNumSkyTiles();
+		int mapWidth = LevelGenerator.Instance.GetMapWidth();
 		int totalDepthToIlluminate = numSkyTiles + depthOfSkylight;
 		Coordinate coordinate;
 

@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-	private LevelGenerator levelGenerator;
-	private Player player;
-
 	// static ref to singleton
 	private static LevelManager instance;
 	public static LevelManager Instance
@@ -35,8 +32,6 @@ public class LevelManager : MonoBehaviour
 			Initialize("Level 1");
 			print("loading default");
 		}
-
-		player = GameObject.FindObjectOfType<Player>();
 	}
 
 	void OnDestroy()
@@ -61,7 +56,7 @@ public class LevelManager : MonoBehaviour
 	void OnLevelSucceeded()
 	{
 		GameManager gm = GameObject.FindObjectOfType<GameManager>();
-		gm.AddNewTechPieces(player.GetInventory().GetResource(Resource.ResourceType.ALIEN_TECH));
+		gm.AddNewTechPieces(Player.Instance.GetInventory().GetResource(Resource.ResourceType.ALIEN_TECH));
 
 		OnLevelComplete();
 	}
@@ -81,8 +76,7 @@ public class LevelManager : MonoBehaviour
 			Debug.LogWarning("No resource found. defaulting to level 1");
 		}
 
-		levelGenerator = GetComponent<LevelGenerator>();
-		levelGenerator.Initialize(levelDefinition, GetTechSettingsDefinition(levelName));
+		LevelGenerator.Instance.Initialize(levelDefinition, GetTechSettingsDefinition(levelName));
 	}
 
 	List<TechSettingsDefinition> GetTechSettingsDefinition(string levelName)

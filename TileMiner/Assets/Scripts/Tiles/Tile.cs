@@ -9,8 +9,6 @@ public abstract class Tile : MonoBehaviour
 	protected TileGrid tileGrid;
 	protected Coordinate myCoordinate;
 	private CameraControl cameraControl;
-	protected Player player;
-	protected City city;
 	protected bool hasBeenInitialized = false;
 
 	[SerializeField] protected int weightSupportValue = 0;
@@ -48,7 +46,8 @@ public abstract class Tile : MonoBehaviour
 		BOMB,
 		MINERAL_FARM,
 		GOLD_VEIN,
-		ALIEN_TECH
+		ALIEN_TECH,
+		RIFT
 	}
 	[SerializeField] private TileType myTileType;
 
@@ -66,7 +65,6 @@ public abstract class Tile : MonoBehaviour
 		}
 		set
 		{
-			//print("I'm " + GetCoordinate() + " getting set to " + value);
 			_numStepsFromCity = value;
 		}
 	}
@@ -76,8 +74,6 @@ public abstract class Tile : MonoBehaviour
 		tileGrid = _tileGrid;
 		myCoordinate = _coordinate;
 		cameraControl = FindObjectOfType<CameraControl>();
-		player = FindObjectOfType<Player>();
-		city = player.GetComponent<City>();
 		myTileType = _tileType;
 
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -102,11 +98,6 @@ public abstract class Tile : MonoBehaviour
 	}
 
 	protected abstract void PlayerClick();
-
-	public Player GetPlayer()
-	{
-		return player;
-	}
 
 	public abstract void Activate();
 	
@@ -168,10 +159,10 @@ public abstract class Tile : MonoBehaviour
 	protected void ProposeActions(List<NamedActionSet> _actions)
 	{
 		// only allow residence build action if player can't destroy tiles yet
-		if (!player.GetCity().hasBeenBuilt)
+		if (!City.Instance.hasBeenBuilt)
 		{
 			var buildResidenceAction = from action in _actions
-									   where action.name == "Build Residence"
+									   where action.name == "Build City"
 									   select action;
 			List<NamedActionSet> buildResidenceActionFinal = buildResidenceAction.ToList();
 			if (buildResidenceActionFinal != null)
@@ -179,9 +170,9 @@ public abstract class Tile : MonoBehaviour
 			else
 				return;
 		}
-			
 
-		player.ProposeActions(_actions);
+
+		Player.Instance.ProposeActions(_actions);
 	}
 
 	public TileGrid GetTileGrid()
@@ -250,7 +241,7 @@ public abstract class Tile : MonoBehaviour
 		return resources;
 	}
 	
-	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
+	public virtual bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		return true;
 	}
@@ -363,5 +354,10 @@ public abstract class Tile : MonoBehaviour
 			return 2;
 		else
 			return 1;
+	}
+
+	protected void SpawnEnemy()
+	{
+		Instantiate(entityToSpawn, transform.position + (new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f))), Quaternion.identity);
 	}
 }

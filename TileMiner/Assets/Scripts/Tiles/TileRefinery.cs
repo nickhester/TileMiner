@@ -28,7 +28,7 @@ public class TileRefinery : Tile, IStackableTile
 			float stackedAmount = stackMultiplier.GetStackedAmount_float();		// TODO: Great place to optimize here - don't do this every update loop
 			if (stackedAmount != 0.0f && intervalCounter > (1.0f / stackedAmount))
 			{
-				int mineralEarnMultiplier = (city.IsCityBenefitAvailable(CityBenefits.Benefit.REFINERY_DOUBLE) ? 2 : 1);
+				int mineralEarnMultiplier = (City.Instance.IsCityBenefitAvailable(CityBenefits.Benefit.REFINERY_DOUBLE) ? 2 : 1);
 				ActionAdjustResources actionAdjustResources = new ActionAdjustResources(new Resource((mineralEarnPerInterval * mineralEarnMultiplier), Resource.ResourceType.MINERAL));
 				actionAdjustResources.Execute();
 				intervalCounter = 0.0f;
@@ -56,7 +56,7 @@ public class TileRefinery : Tile, IStackableTile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
 
@@ -77,7 +77,7 @@ public class TileRefinery : Tile, IStackableTile
 		}
 
 		// check structure height
-		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.REFINERY, GetCurrentStackLimit(player.GetCity()));
+		bool passesHeightLimitCheck = BuildRequirementsAnalyzer.IsNotPastHeightLimit(_myCoordinate, _tileGrid, Tile.TileType.REFINERY, GetCurrentStackLimit(City.Instance));
 
 		if (!passesHeightLimitCheck)
 		{

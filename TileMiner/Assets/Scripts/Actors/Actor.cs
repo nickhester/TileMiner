@@ -18,8 +18,8 @@ public abstract class Actor : MonoBehaviour
 
 	virtual protected void FixedUpdate() { }
 
-	protected void ReportHitCity()
+	protected void ReportHitCity(int damage)
 	{
-		City.Instance.HitCity(1);
+		City.Instance.HitCity(damage);
 	}
 }

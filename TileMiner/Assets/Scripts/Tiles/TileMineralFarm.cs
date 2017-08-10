@@ -9,8 +9,6 @@ public class TileMineralFarm : Tile
 	[SerializeField] private float intervalToFarm = 20.0f;
 	private float counterToFarm = 0.0f;
 	[SerializeField] private int numTileSpawnMax = 3;
-
-	private LevelGenerator levelGenerator;
 	private LightManager lightManager;
 
 	// this is the pattern that tile spaces will choose to fill
@@ -20,8 +18,6 @@ public class TileMineralFarm : Tile
 	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
 	{
 		base.Initialize(_tileGrid, _coordinate, _type);
-
-		levelGenerator = FindObjectOfType<LevelGenerator>();
 		lightManager = FindObjectOfType<LightManager>();
 	}
 
@@ -39,7 +35,7 @@ public class TileMineralFarm : Tile
 					if (tileAtTarget != null && tileAtTarget.GetTileType() == TileType.EMPTY)
 					{
 						// spawn dirt
-						levelGenerator.ReplaceOneTile(target, TileType.DIRT);
+						LevelGenerator.Instance.ReplaceOneTile(target, TileType.DIRT);
 						break;
 					}
 				}
@@ -65,11 +61,11 @@ public class TileMineralFarm : Tile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
 
-		bool isCityDevelopedForThis = player.GetCity().IsCityBenefitAvailable(CityBenefits.Benefit.MINERAL_FARM);
+		bool isCityDevelopedForThis = City.Instance.IsCityBenefitAvailable(CityBenefits.Benefit.MINERAL_FARM);
 		if (isCityDevelopedForThis)
 		{
 			// valid

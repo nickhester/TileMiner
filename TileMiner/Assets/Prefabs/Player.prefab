@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011811446060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.024048, y: 0.6940701, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,7 +54,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionOptionMenuPrefab: {fileID: 114000014141348280, guid: 25c13c09461b41b46a05afe441559b5f,
     type: 2}
-  city: {fileID: 0}
 --- !u!114 &114028757627471696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,3 +66,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasBeenBuilt: 0
+  building: {fileID: 1441531054022482, guid: 585da4e9eaf9bd94bb909057902ebee8, type: 2}

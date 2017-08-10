@@ -9,16 +9,7 @@ public class TileDrillRig : Tile
 	[SerializeField] private float intervalToDrillTile = 20.0f;
 	private float counterToDrillTile = 0.0f;
 	[SerializeField] private int numTilesLifetime = 5;
-
-	private LevelGenerator levelGenerator;
-
-	public override void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _type)
-	{
-		base.Initialize(_tileGrid, _coordinate, _type);
-
-		levelGenerator = FindObjectOfType<LevelGenerator>();
-	}
-
+	
 	private void Update()
 	{
 		if (isStructureActive)
@@ -32,7 +23,7 @@ public class TileDrillRig : Tile
 					tileBelow.DestroyImmediate(false);
 
 				// move drill down one
-				levelGenerator.MoveTile(GetCoordinate(), tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate()).GetCoordinate(), TileType.EMPTY);
+				LevelGenerator.Instance.MoveTile(GetCoordinate(), tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate()).GetCoordinate(), TileType.EMPTY);
 
 				// check tile below that
 				Tile nextTileDown = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, GetCoordinate());
@@ -42,7 +33,7 @@ public class TileDrillRig : Tile
 					|| nextTileDown.GetTileType() == TileType.EMPTY
 					|| nextTileDown.GetTileType() == TileType.ENERGY_WELL)
 				{
-					levelGenerator.DestroyOneTile(GetCoordinate());
+					LevelGenerator.Instance.DestroyOneTile(GetCoordinate());
 				}
 
 				counterToDrillTile = 0.0f;
@@ -65,7 +56,7 @@ public class TileDrillRig : Tile
 	}
 
 	// called on prefab
-	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection, Player player)
+	public override bool CheckIfValidToBuild(TileGrid _tileGrid, Coordinate _myCoordinate, ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
 		bool isValid = true;
 
@@ -84,7 +75,7 @@ public class TileDrillRig : Tile
 			isValid = false;
 		}
 
-		bool isCityDevelopedForThis = player.GetCity().IsCityBenefitAvailable(CityBenefits.Benefit.DRILL_RIG);
+		bool isCityDevelopedForThis = City.Instance.IsCityBenefitAvailable(CityBenefits.Benefit.DRILL_RIG);
 		if (isCityDevelopedForThis)
 		{
 			// valid

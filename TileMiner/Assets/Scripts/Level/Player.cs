@@ -8,12 +8,24 @@ public class Player : Entity
 	private Inventory myInventory;
 	public ActionOptionMenu actionOptionMenuPrefab;
 	private ActionOptionMenu currentActionMenu;
-	public City city;
+
+	// static ref to singleton
+	private static Player instance;
+	public static Player Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = FindObjectOfType<Player>();
+			}
+			return instance;
+		}
+	}
 
 	void Start ()
 	{
 		GetInventory();
-		city = GetCity();
 	}
 	
 	void Update ()
@@ -27,6 +39,11 @@ public class Player : Entity
 			GetInventory().AddResource(new Resource(1, Resource.ResourceType.ENERGY));
 		if (Input.GetKeyDown(KeyCode.T))
 			GetInventory().AddResource(new Resource(1, Resource.ResourceType.ALIEN_TECH));
+	}
+
+	void OnDestroy()
+	{
+		instance = null;
 	}
 
 	public Inventory GetInventory()
@@ -45,7 +62,7 @@ public class Player : Entity
 		{
 			GameObject menu = Instantiate(actionOptionMenuPrefab.gameObject) as GameObject;
 			currentActionMenu = menu.GetComponent<ActionOptionMenu>();
-			currentActionMenu.Initialize(_actionSets, this);
+			currentActionMenu.Initialize(_actionSets);
 		}
 		else
 		{
@@ -63,15 +80,5 @@ public class Player : Entity
 		{
 			EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);
 		}
-	}
-
-	public void ReportCityBuilt(List<Tile> tilesReserved)
-	{
-		city.Build(tilesReserved);
-	}
-
-	public City GetCity()
-	{
-		return GetComponent<City>();
 	}
 }
