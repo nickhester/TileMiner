@@ -14,7 +14,8 @@ public class Requirements
 		REQUIRES_BEING_ON_CERTAIN_TILE,								// tile based on tile type enum
 		REQUIRES_ENOUGH_POPULATION,									// n/a
 		REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT,						// height max
-		REQUIRES_CERTAIN_SPACE_AROUND								// n/a
+		REQUIRES_CERTAIN_SPACE_AROUND,								// n/a
+		INCOMPATIBLE_WITH_LEVEL_PHASE
 	}
 
 	public BuildRequirement requirement;
@@ -61,6 +62,8 @@ public class Requirements
 					return "Population can't sustain this.";
 				case BuildRequirement.REQUIRES_UNDER_STRUCTURE_HEIGHT_LIMIT:
 					return "Can't be taller than " + detail;
+				case BuildRequirement.INCOMPATIBLE_WITH_LEVEL_PHASE:
+					return "Can't do this right now";
 				default:
 					return "*REQUIREMENT ERROR: description not found!*";
 			}

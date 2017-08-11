@@ -52,10 +52,11 @@ public abstract class Tile : MonoBehaviour
 	[SerializeField] private TileType myTileType;
 
 	private int brightnessLevel = 0;
-	public int maxBrightness = 5;
+	[HideInInspector] public int maxBrightness = 5;
 	private Color originalColor;
 	private SpriteRenderer spriteRenderer;
 
+	public bool allowsPathingThrough = false;
 	private int _numStepsFromCity = -1;
 	public int numStepsFromCity
 	{
@@ -158,20 +159,6 @@ public abstract class Tile : MonoBehaviour
 
 	protected void ProposeActions(List<NamedActionSet> _actions)
 	{
-		// only allow residence build action if player can't destroy tiles yet
-		if (!City.Instance.hasBeenBuilt)
-		{
-			var buildResidenceAction = from action in _actions
-									   where action.name == "Build City"
-									   select action;
-			List<NamedActionSet> buildResidenceActionFinal = buildResidenceAction.ToList();
-			if (buildResidenceActionFinal != null)
-				_actions = buildResidenceActionFinal;
-			else
-				return;
-		}
-
-
 		Player.Instance.ProposeActions(_actions);
 	}
 

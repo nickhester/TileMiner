@@ -9,6 +9,9 @@ public class ActionOptionMenu : MonoBehaviour
 
 	public void Initialize(List<NamedActionSet> _actionSets)
 	{
+		if (_actionSets == null || _actionSets.Count == 0)
+			return;
+
 		_actionSets.Add(new NamedActionSet("Cancel", new ActionCancel()));
 
 		// create buttons
@@ -56,7 +59,7 @@ public class ActionOptionMenu : MonoBehaviour
 			buttonText.text = buttonTextString;
 			NamedActionSet _actionSet = _actionSets[i];
 			Button buttonComponent = buttonObject.GetComponent<Button>();
-			buttonComponent.onClick.AddListener(delegate { Player.Instance.ExecuteAction(_actionSet); });
+			buttonComponent.onClick.AddListener(delegate { Player.Instance.ExecuteAction(_actionSet); RemoveCurrentOptionMenu(); });
 
 			buttonComponent.interactable = shouldButtonBeInteractable;
 		}
@@ -66,8 +69,13 @@ public class ActionOptionMenu : MonoBehaviour
 			&& _actionSets[0].canBeDefaultIfOnlyOption
 			&& !atLeastOneActionIsInvalid)
 		{
-			NamedActionSet _actionSet = _actionSets[0];
-			Player.Instance.ExecuteAction(_actionSet);
+			RemoveCurrentOptionMenu();
+			Player.Instance.ExecuteAction(_actionSets[0]);
 		}
+	}
+
+	void RemoveCurrentOptionMenu()
+	{
+		Destroy(this.gameObject);
 	}
 }

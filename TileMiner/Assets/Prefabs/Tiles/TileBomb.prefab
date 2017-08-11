@@ -91,6 +91,7 @@ MonoBehaviour:
   entityToSpawn: {fileID: 0}
   myTileType: 13
   maxBrightness: 5
+  allowsPathingThrough: 1
   intervalToExplode: 2
   numTilesRadiusExplosion: 1
 --- !u!212 &212000012871114896

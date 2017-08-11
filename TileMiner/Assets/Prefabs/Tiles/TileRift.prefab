@@ -92,6 +92,7 @@ MonoBehaviour:
     type: 2}
   myTileType: 17
   maxBrightness: 5
+  allowsPathingThrough: 1
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1

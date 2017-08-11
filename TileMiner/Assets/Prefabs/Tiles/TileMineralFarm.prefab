@@ -51,7 +51,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.000000014901161, y: 0.00064821297}
@@ -91,6 +91,7 @@ MonoBehaviour:
   entityToSpawn: {fileID: 0}
   myTileType: 14
   maxBrightness: 5
+  allowsPathingThrough: 1
   intervalToFarm: 15
   numTileSpawnMax: 3
 --- !u!212 &212000012871114896

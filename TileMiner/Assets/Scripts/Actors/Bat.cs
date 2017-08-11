@@ -7,6 +7,7 @@ public class Bat : Actor
 	float pathTargetWeight = 1.0f;
 
 	float movementPower = 10.0f;
+	[SerializeField] float velocityMax = 1.0f;
 	float initialImpulse = 0.01f;
 	float wingFlapSpeed = 12.0f;
 	float wingFlapRisingTendency = 0.5f;
@@ -54,6 +55,10 @@ public class Bat : Actor
 		}
 
 		rigidBody.AddForce(forceToAdd * Time.deltaTime);
+		if (rigidBody.velocity.magnitude > velocityMax)
+		{
+			rigidBody.velocity = rigidBody.velocity.normalized * velocityMax;
+		}
 	}
 
 	public void OnCollisionEnter2D(Collision2D collision)

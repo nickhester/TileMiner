@@ -19,6 +19,13 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
+	public enum LevelPhase
+	{
+		BUILD_CITY,
+		MAIN
+	}
+	public LevelPhase CurrentLevelPhase = LevelPhase.BUILD_CITY;
+
 	void Start ()
 	{
 		LevelSelector levelSelector = FindObjectOfType<LevelSelector>();
@@ -46,6 +53,11 @@ public class LevelManager : MonoBehaviour
 			OnLevelSucceeded();
 		else
 			OnLevelFailed();
+	}
+
+	public void ReportCityBuilt()
+	{
+		CurrentLevelPhase = LevelPhase.MAIN;
 	}
 
 	void OnLevelFailed()

@@ -25,7 +25,7 @@ public class TileResidence : Tile
 		bool isValid = true;
 		
 		// if there's already a residence built, don't ever show the option again
-		if (City.Instance.hasBeenBuilt)
+		if (LevelManager.Instance.CurrentLevelPhase == LevelManager.LevelPhase.MAIN)
 		{
 			isExcludedFromPlayerSelection = true;
 			isValid = false;

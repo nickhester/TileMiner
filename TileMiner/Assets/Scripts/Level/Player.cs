@@ -75,7 +75,6 @@ public class Player : Entity
 		bool isActionCancel = false;
 		base.ExecuteActionBase(_actionSet, ref isActionCancel);
 		
-		Destroy(currentActionMenu.gameObject);
 		if (!isActionCancel)
 		{
 			EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.PLAYER_ACTION);

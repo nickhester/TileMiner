@@ -91,6 +91,7 @@ MonoBehaviour:
   entityToSpawn: {fileID: 0}
   myTileType: 12
   maxBrightness: 5
+  allowsPathingThrough: 1
   intervalToDrillTile: 2
   numTilesLifetime: 3
 --- !u!212 &212000012871114896

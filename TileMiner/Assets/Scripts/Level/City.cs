@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class City : MonoBehaviour
 {
-	[HideInInspector] public bool hasBeenBuilt = false;
 	private List<CityBenefits> cityBenefits = new List<CityBenefits>();
 	private TileGrid tileGrid;
 	private List<Tile> cityTiles;
@@ -65,7 +64,7 @@ public class City : MonoBehaviour
 
 	public void Build(Coordinate buildingBaseCoordinate, List<Tile> tilesReserved)
 	{
-		hasBeenBuilt = true;
+		LevelManager.Instance.ReportCityBuilt();
 
 		// reserve all city tiles (3x3 grid up)
 		cityTiles = tilesReserved;

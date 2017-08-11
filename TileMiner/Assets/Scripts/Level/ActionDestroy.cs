@@ -28,11 +28,20 @@ public class ActionDestroy : IAction
 
 	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
 	{
-		bool retVal = WeightAnalyzer.CanTileBeRemoved(tileToDestroy);
+		bool retVal = true;
 
+		retVal = LevelManager.Instance.CurrentLevelPhase == LevelManager.LevelPhase.MAIN;
+		if (!retVal)
+		{
+			_failureReason.Add(new Requirements(Requirements.BuildRequirement.INCOMPATIBLE_WITH_LEVEL_PHASE));
+			return false;
+		}
+
+		retVal = WeightAnalyzer.CanTileBeRemoved(tileToDestroy);
 		if (!retVal)
 		{
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.STRUCTURE_REQUIRED_FOR_WEIGHT));
+			return false;
 		}
 
 		return retVal;

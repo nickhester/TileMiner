@@ -23,14 +23,13 @@ public class PathManager : MonoBehaviour, IEventSubscriber
 		Queue<Coordinate> tilesAdjacent = new Queue<Coordinate>();
 		int currentStepValue = 0;
 
-		// set all empty tiles to -1
+		// set all pathable tiles to -1
 		for (int x = 0; x < tileGrid.dimX; x++)
 		{
 			for (int y = 0; y < tileGrid.dimY; y++)
 			{
 				Coordinate c = new Coordinate(x, y);
-				if (tileGrid.GetTileAt(c).GetTileType() == Tile.TileType.EMPTY
-					|| tileGrid.GetTileAt(c).GetTileType() == Tile.TileType.RESIDENCE)
+				if (tileGrid.GetTileAt(c).allowsPathingThrough)
 				{
 					tileGrid.GetTileAt(c).numStepsFromCity = -1;
 				}
@@ -57,12 +56,12 @@ public class PathManager : MonoBehaviour, IEventSubscriber
 					continue;
 				}
 
-				// also find all adjacent tiles, and add them to queue 2 
+				// also find all adjacent tiles, and add them to queue 2
 				List<Tile> neighbors = tileGrid.GetTileNeighbors(c);
 				foreach (var n in neighbors)
 				{
-					// if the tiles are -1. if the tiles are empty.
-					if ((n.GetTileType() == Tile.TileType.EMPTY || n.GetTileType() == Tile.TileType.RESIDENCE)	// TODO: The residence part will probably change once Cities work better
+					// if the tiles are -1. if the tiles allow pathing.
+					if ((n.allowsPathingThrough)
 							&& tileGrid.GetTileAt(n.GetCoordinate()).numStepsFromCity == -1)
 					{
 						tilesAdjacent.Enqueue(n.GetCoordinate());

@@ -91,6 +91,7 @@ MonoBehaviour:
   entityToSpawn: {fileID: 0}
   myTileType: 6
   maxBrightness: 5
+  allowsPathingThrough: 1
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
