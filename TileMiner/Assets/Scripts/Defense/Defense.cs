@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Defense : MonoBehaviour
+public abstract class Defense : MonoBehaviour
 {
-	float targetCheckInterval = 0.5f;
-	float targetCheckCounter = 0.0f;
-	[SerializeField] private float range = 2.0f;
+	protected float targetCheckInterval = 0.5f;
+	protected float targetCheckCounter = 0.0f;
+	[SerializeField] protected float range = 2.0f;
 
-	[SerializeField] private float attackInterval = 2.0f;
-	float attackCounter = 0.0f;
+	[SerializeField] protected float attackInterval = 2.0f;
+	protected float attackCounter = 0.0f;
 
-	Actor currentTarget;
+	protected Actor currentTarget;
 
 	void Update ()
 	{
@@ -33,12 +33,7 @@ public class Defense : MonoBehaviour
 		}
 	}
 
-	void AttackTarget()
-	{
-		Debug.DrawLine(transform.position, currentTarget.transform.position);
-
-		Destroy(currentTarget.gameObject);
-	}
+	protected virtual void AttackTarget() { }
 
 	Actor FindTarget()
 	{

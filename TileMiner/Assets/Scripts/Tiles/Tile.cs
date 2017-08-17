@@ -47,7 +47,8 @@ public abstract class Tile : MonoBehaviour
 		MINERAL_FARM,
 		GOLD_VEIN,
 		ALIEN_TECH,
-		RIFT
+		RIFT,
+		SPREAD_SHOT
 	}
 	[SerializeField] private TileType myTileType;
 

@@ -8,6 +8,8 @@ public abstract class Actor : MonoBehaviour
 	protected PathManager pathManager;
 	protected City city;
 
+	protected int health = 1;
+
 	virtual protected void Start()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
@@ -21,5 +23,13 @@ public abstract class Actor : MonoBehaviour
 	protected void ReportHitCity(int damage)
 	{
 		City.Instance.HitCity(damage);
+	}
+
+	public void GetHit(int damage)
+	{
+		health -= damage;
+
+		if (health <= 0)
+			Destroy(gameObject);
 	}
 }

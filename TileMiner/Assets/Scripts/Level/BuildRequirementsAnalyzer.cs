@@ -20,20 +20,35 @@ public static class BuildRequirementsAnalyzer
 		return false;
 	}
 
+	public static bool IsNotPastHeightLimit(Coordinate c, TileGrid tileGrid, System.Type classType, int limit)
+	{
+		return IsNotPastHeightLimit(c, tileGrid, Tile.TileType.EMPTY, classType, limit, true);
+	}
+
 	public static bool IsNotPastHeightLimit(Coordinate c, TileGrid tileGrid, Tile.TileType tileType, int limit)
+	{
+		return IsNotPastHeightLimit(c, tileGrid, tileType, null, limit, false);
+	}
+
+	private static bool IsNotPastHeightLimit(Coordinate c, TileGrid tileGrid, Tile.TileType tileType, System.Type classType, int limit, bool usingSystemType)
 	{
 		Tile currentTile = tileGrid.GetTileAt(c);
 		int foundOfType = 0;
 		while (true)
 		{
 			currentTile = tileGrid.GetTileNeighbor(TileGrid.Direction.DOWN, currentTile.GetCoordinate());
-			if (currentTile.GetTileType() == tileType)
+			if (usingSystemType)
 			{
-				foundOfType++;
+				if (currentTile.GetType() == classType)
+					foundOfType++;
+				else
+					break;
 			}
 			else
 			{
-				break;
+				if (currentTile.GetTileType() == tileType)
+					foundOfType++;
+				else break;
 			}
 		}
 

@@ -109,6 +109,14 @@ public class TileEmpty : Tile
 				actions.Add(new ActionAdjustResources(res));
 			}
 			namedActionSets.Add(new NamedActionSet("Build Mineral Farm", actions));
+
+			actions = new List<IAction>();
+			actions.Add(new ActionBuild(this, Tile.TileType.SPREAD_SHOT));
+			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.SPREAD_SHOT).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
+			{
+				actions.Add(new ActionAdjustResources(res));
+			}
+			namedActionSets.Add(new NamedActionSet("Build Spread Shot Defense", actions));
 		}
 
 		ProposeActions(namedActionSets);
