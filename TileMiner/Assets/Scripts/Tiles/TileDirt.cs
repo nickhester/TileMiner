@@ -63,16 +63,4 @@ public class TileDirt : Tile
 		resources.Add(new Resource(alienTechAdjustmentToDestroy, Resource.ResourceType.ALIEN_TECH));
 		return resources;
 	}
-
-	public override void OnDestroyTile()
-	{
-		if (UnityEngine.Random.Range(0.0f, 1.0f) < chanceToSpawnEnemies)
-		{
-			int rand = UnityEngine.Random.Range(numEnemiesToSpawnMin, numEnemiesToSpawnMax + 1);
-			for (int i = 0; i < rand; i++)
-			{
-				Instantiate(entityToSpawn, transform.position + (new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f))), Quaternion.identity);
-			}
-		}
-	}
 }

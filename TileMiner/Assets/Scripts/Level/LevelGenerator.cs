@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Assets.Scripts.Level;
+using System.Linq;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -33,6 +35,8 @@ public class LevelGenerator : MonoBehaviour
 		}
 		set { }
 	}
+
+	public List<TileGroup> TileGroups = new List<TileGroup>();
 
 	// static ref to singleton
 	private static LevelGenerator instance;
@@ -117,12 +121,13 @@ public class LevelGenerator : MonoBehaviour
 	{
 		Dictionary<Tile.TileType, int> tileCount = new Dictionary<Tile.TileType, int>();
 		Dictionary<Tile.TileType, int> tileMinimumGuarantees = new Dictionary<Tile.TileType, int>();
-		for (int i = 0; i < levelDefinition.tileGenerationInfoList.Count; i++)
+
+		foreach (var tileGenerationInfo in levelDefinition.tileGenerationInfoList)
 		{
-			// 
-			tileMinimumGuarantees.Add(levelDefinition.tileGenerationInfoList[i].tileType, levelDefinition.tileGenerationInfoList[i].guaranteeAtLeast);
+			// add each minimum guarantee
+			tileMinimumGuarantees.Add(tileGenerationInfo.tileType, tileGenerationInfo.guaranteeAtLeast);
 			// pre-populate dictionary
-			tileCount.Add(levelDefinition.tileGenerationInfoList[i].tileType, 0);
+			tileCount.Add(tileGenerationInfo.tileType, 0);
 		}
 
 		for (int i = 0; i < mapHeight; i++)
@@ -135,6 +140,40 @@ public class LevelGenerator : MonoBehaviour
 
 				if (_type != Tile.TileType.EMPTY)
 					tileCount[_type]++;
+			}
+		}
+
+		// add tile strips
+		int groupNameIndex = 0;
+		foreach (var stripInfo in levelDefinition.tileGenerationInfoList.Where(i => i.isStripType == true))
+		{
+			for (int i = 0; i < stripInfo.numStrips; i++)
+			{
+				// generate name for tile group
+				TileGroup tileGroup = new TileGroup(stripInfo.tileType.ToString() + " " + ++groupNameIndex);
+
+				// get even distribution position
+				int stripDepth = ((mapHeight - numSkyTiles) / (int)stripInfo.numStrips * (i + 1));    // i + 1 so that a strip doesn't appear at the very top
+
+				int stripDepthOffset = 0;
+				for (int j = 0; j < mapWidth; j++)
+				{
+					// random offset
+					stripDepthOffset += UnityEngine.Random.Range(-1, 2);
+
+					Coordinate stripTileCoordinate = new Coordinate(j, stripDepth + stripDepthOffset + numSkyTiles);
+
+					// increase tile count for tile added
+					tileCount[stripInfo.tileType]++;
+
+					// decrease tile count for tile removed
+					tileCount[TileTypeToEnumTileType(tileGrid.GetTileAt(stripTileCoordinate).GetType())]--;
+
+					// replace the tile
+					ReplaceOneTile(stripTileCoordinate, stripInfo.tileType);
+					tileGroup.tileLocations.Add(stripTileCoordinate);
+				}
+				TileGroups.Add(tileGroup);
 			}
 		}
 

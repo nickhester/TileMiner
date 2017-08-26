@@ -153,17 +153,27 @@ public class LevelManager : MonoBehaviour
 		// todo: do this procedurally based on what's available
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.DIRT, ref levelInfoDict));
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.DIRT2, ref levelInfoDict));
-		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.ENERGY_WELL, ref levelInfoDict));
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.GOLD_VEIN, ref levelInfoDict));
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.STONE, ref levelInfoDict));
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.STONE2, ref levelInfoDict));
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.ALIEN_TECH, ref levelInfoDict));
+		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.ENERGY_WELL, ref levelInfoDict));
 
 		return levelDefinition;
 	}
 
 	TileGenerationInfo GenerateInfoForOneType(Tile.TileType tiletype, ref Dictionary<string, Dictionary<string, string>> levelInfoDict)
 	{
+		string tileString = Tile.GetTileNameByEnum(tiletype).ToLower();
+
+		// check if strip
+		string numStrips = "numStrips".ToLower();
+		if (levelInfoDict[tileString].ContainsKey(numStrips))
+		{
+			return new TileGenerationInfo(tiletype,
+				int.Parse(levelInfoDict[tileString][numStrips]));
+		}
+
 		string baseProbability = "baseProbability".ToLower();
 		string increaseProbabilityPerRow = "increaseProbabilityPerRow".ToLower();
 		string depthRangeStart = "depthRangeStart".ToLower();
@@ -171,7 +181,6 @@ public class LevelManager : MonoBehaviour
 		string guaranteeAtLeast = "guaranteeAtLeast".ToLower();
 
 		// define each tile type's level generation settings
-		string tileString = Tile.GetTileNameByEnum(tiletype).ToLower();
 		return new TileGenerationInfo(tiletype,
 										float.Parse(levelInfoDict[tileString][baseProbability]),
 										float.Parse(levelInfoDict[tileString][increaseProbabilityPerRow]),
