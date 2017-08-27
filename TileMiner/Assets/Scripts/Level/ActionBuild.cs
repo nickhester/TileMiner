@@ -5,17 +5,17 @@ using System;
 
 public class ActionBuild : IAction
 {
-	private Tile tileToReplace;
+	private Coordinate tileToReplace;
 	Tile.TileType newType;
 	bool ShouldValidateAction = true;
 
-	public ActionBuild(Tile _tileToReplace, Tile.TileType _newType)
+	public ActionBuild(Coordinate _tileToReplace, Tile.TileType _newType)
 	{
 		tileToReplace = _tileToReplace;
 		newType = _newType;
 	}
 
-	public ActionBuild(Tile _tileToReplace, Tile.TileType _newType, bool _validateAction)
+	public ActionBuild(Coordinate _tileToReplace, Tile.TileType _newType, bool _validateAction)
 	{
 		ShouldValidateAction = _validateAction;
 		tileToReplace = _tileToReplace;
@@ -24,7 +24,7 @@ public class ActionBuild : IAction
 
 	public void Execute()
 	{
-		LevelGenerator.Instance.ReplaceOneTile(tileToReplace.GetCoordinate(), newType);
+		LevelGenerator.Instance.ReplaceOneTile(tileToReplace, newType);
 	}
 
 	public bool IsActionValid(ref List<Requirements> _failureReason, ref bool isExcludedFromPlayerSelection)
@@ -66,7 +66,7 @@ public class ActionBuild : IAction
 		if (ShouldValidateAction)
 		{
 			// check with tile for validation
-			passesClassValidation = tilePrefab.CheckIfValidToBuild(tileToReplace.GetTileGrid(), tileToReplace.GetCoordinate(), ref _failureReason, ref isExcludedFromPlayerSelection);
+			passesClassValidation = tilePrefab.CheckIfValidToBuild(LevelGenerator.Instance.GetTileGrid(), tileToReplace, ref _failureReason, ref isExcludedFromPlayerSelection);
 		}
 
 		if (!passesWeightCheck)

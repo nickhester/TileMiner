@@ -248,7 +248,7 @@ public struct Coordinate
 		return new Coordinate(c1.x + c2.x, c1.y + c2.y);
 	}
 
-	public static Coordinate operator -(Coordinate c1, Coordinate c2)
+	public static Coordinate operator - (Coordinate c1, Coordinate c2)
 	{
 		return new Coordinate(c1.x - c2.x, c1.y - c2.y);
 	}
@@ -256,5 +256,15 @@ public struct Coordinate
 	public override string ToString()
 	{
 		return "(" + x + "," + y + ")";
+	}
+
+	public static bool operator == (Coordinate c1, Coordinate c2)
+	{
+		return c1.x == c2.x && c1.y == c2.y;
+	}
+
+	public static bool operator !=(Coordinate c1, Coordinate c2)
+	{
+		return c1.x != c2.x || c1.y != c2.y;
 	}
 }

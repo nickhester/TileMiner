@@ -7,9 +7,9 @@ using System.Linq;
 
 public class LevelGenerator : MonoBehaviour
 {
-	[SerializeField] private int mapHeight = 20;
-	[SerializeField] private int mapWidth = 10;
-	[SerializeField] private int numSkyTiles = 14;
+	public int MapHeight = 20;
+	public int MapWidth = 10;
+	public int NumSkyTiles = 14;
 
 	[SerializeField] private float tileSpacing = 1.0f;
 	[SerializeField] private List<Tile> tilePrefabs = new List<Tile>();
@@ -21,7 +21,7 @@ public class LevelGenerator : MonoBehaviour
 		get
 		{
 			// offset to make ground appear in the middle
-			return ((numSkyTiles) * tileSpacing);
+			return ((NumSkyTiles) * tileSpacing);
 		}
 		set { }
 	}
@@ -31,12 +31,12 @@ public class LevelGenerator : MonoBehaviour
 		get
 		{
 			// offset to center left-right
-			return ((mapWidth - 1) * tileSpacing) / 2.0f;
+			return ((MapWidth - 1) * tileSpacing) / 2.0f;
 		}
 		set { }
 	}
 
-	public List<TileGroup> TileGroups = new List<TileGroup>();
+	private List<TileGroup> TileGroups = new List<TileGroup>();
 
 	// static ref to singleton
 	private static LevelGenerator instance;
@@ -78,12 +78,12 @@ public class LevelGenerator : MonoBehaviour
 		this.levelDefinition = levelDefinition;
 		if (levelDefinition != null)
 		{
-			if (levelDefinition.mapHeight != null) { mapHeight = (int)(levelDefinition.mapHeight); }
-			if (levelDefinition.numSkyTiles != null) { numSkyTiles = (int)(levelDefinition.numSkyTiles); }
+			if (levelDefinition.mapHeight != null) { MapHeight = (int)(levelDefinition.mapHeight); }
+			if (levelDefinition.numSkyTiles != null) { NumSkyTiles = (int)(levelDefinition.numSkyTiles); }
 		}
 
 		// generate level
-		tileGrid = new TileGrid(mapWidth, mapHeight, numSkyTiles);
+		tileGrid = new TileGrid(MapWidth, MapHeight, NumSkyTiles);
 		CreateTiles();
 		
 		GetComponent<LightManager>().Initialize(tileGrid);
@@ -130,9 +130,9 @@ public class LevelGenerator : MonoBehaviour
 			tileCount.Add(tileGenerationInfo.tileType, 0);
 		}
 
-		for (int i = 0; i < mapHeight; i++)
+		for (int i = 0; i < MapHeight; i++)
 		{
-			for (int j = 0; j < mapWidth; j++)
+			for (int j = 0; j < MapWidth; j++)
 			{
 				Tile.TileType _type = ChooseNextTileType(j, i);
 				Coordinate coordinateToCreate = new Coordinate(j, i);
@@ -153,15 +153,16 @@ public class LevelGenerator : MonoBehaviour
 				TileGroup tileGroup = new TileGroup(stripInfo.tileType.ToString() + " " + ++groupNameIndex);
 
 				// get even distribution position
-				int stripDepth = ((mapHeight - numSkyTiles) / (int)stripInfo.numStrips * (i + 1));    // i + 1 so that a strip doesn't appear at the very top
+				int stripDepth = ((MapHeight - NumSkyTiles) / (int)stripInfo.numStrips * (i + 1));    // i + 1 so that a strip doesn't appear at the very top
 
 				int stripDepthOffset = 0;
-				for (int j = 0; j < mapWidth; j++)
+				for (int j = 0; j < MapWidth; j++)
 				{
 					// random offset
 					stripDepthOffset += UnityEngine.Random.Range(-1, 2);
 
-					Coordinate stripTileCoordinate = new Coordinate(j, stripDepth + stripDepthOffset + numSkyTiles);
+					int depthOfStripTile = stripDepth + stripDepthOffset + NumSkyTiles;
+					Coordinate stripTileCoordinate = new Coordinate(j, (depthOfStripTile > MapHeight - 1 ? MapHeight - 1 : depthOfStripTile));
 
 					// increase tile count for tile added
 					tileCount[stripInfo.tileType]++;
@@ -186,13 +187,13 @@ public class LevelGenerator : MonoBehaviour
 				{
 					// choose a place in the grid to add one
 					TileGenerationInfo tileGenInfo = levelDefinition.GetTileGenerationInfoFromType(minGuarantee.Key);
-					if ((tileGenInfo.depthRangeStart + numSkyTiles) >= mapHeight)
+					if ((tileGenInfo.depthRangeStart + NumSkyTiles) >= MapHeight)
 						Debug.LogError("Tile Depth Range Start set to beyond depth of grid");
 
-					int randX = UnityEngine.Random.Range(0, mapWidth);
+					int randX = UnityEngine.Random.Range(0, MapWidth);
 					int randY = UnityEngine.Random.Range(
-						tileGenInfo.depthRangeStart + numSkyTiles, 
-						Mathf.Min(tileGenInfo.depthRangeEnd + numSkyTiles, mapHeight - 1));
+						tileGenInfo.depthRangeStart + NumSkyTiles, 
+						Mathf.Min(tileGenInfo.depthRangeEnd + NumSkyTiles, MapHeight - 1));
 
 					// verify that you're not replacing another tile with a minimum guarantee
 					Tile tileBeingReplaced = tileGrid.GetTileAt(new Coordinate(randX, randY));
@@ -212,11 +213,11 @@ public class LevelGenerator : MonoBehaviour
 		}
 	}
 
-	Tile.TileType ChooseNextTileType(int dimX, int dimY)
+	private Tile.TileType ChooseNextTileType(int dimX, int dimY)
 	{
-		if (dimY >= numSkyTiles)
+		if (dimY >= NumSkyTiles)
 		{
-			int depth = dimY - numSkyTiles;
+			int depth = dimY - NumSkyTiles;
 
 			List<TileProbability> tileProbabilities = new List<TileProbability>();
 			List<TileGenerationInfo> tileGenInfoList = levelDefinition.tileGenerationInfoList;
@@ -237,7 +238,7 @@ public class LevelGenerator : MonoBehaviour
 		return Tile.TileType.EMPTY;
 	}
 
-	int ChooseTileAtDepth(int depth, float[] probabilitiesBase, float[] probabilitiesIncreaseWithDepth)
+	private int ChooseTileAtDepth(int depth, float[] probabilitiesBase, float[] probabilitiesIncreaseWithDepth)
 	{
 		float rand = UnityEngine.Random.Range(0.0f, 1.0f);
 
@@ -325,7 +326,7 @@ public class LevelGenerator : MonoBehaviour
 		return tilePrefabs[(int)_type].GetComponent<Tile>();
 	}
 
-	public Tile.TileType TileTypeToEnumTileType(System.Type t)
+	public Tile.TileType TileTypeToEnumTileType(Type t)
 	{
 		for (int i = 0; i < tilePrefabs.Count; i++)
 		{
@@ -339,19 +340,9 @@ public class LevelGenerator : MonoBehaviour
 		return Tile.TileType.EMPTY;
 	}
 
-	public System.Type TileTypeEnumToTileType(Tile.TileType t)
+	public Type TileTypeEnumToTileType(Tile.TileType t)
 	{
 		return tilePrefabs[(int)t].GetType();
-	}
-
-	public int GetNumSkyTiles()
-	{
-		return numSkyTiles;
-	}
-
-	public int GetMapWidth()
-	{
-		return mapWidth;
 	}
 
 	public TileGrid GetTileGrid()
@@ -380,5 +371,20 @@ public class LevelGenerator : MonoBehaviour
 	public Vector2 GetWorldSpacePositionFromCoordinate(Coordinate c)
 	{
 		return new Vector2((c.x * tileSpacing) - horizontalOffset, (-c.y * tileSpacing) + verticalOffset);
+	}
+
+	public List<Coordinate> GetTilesInGroup(Coordinate c)
+	{
+		foreach (var tileGroup in TileGroups)
+		{
+			foreach (var loc in tileGroup.tileLocations)
+			{
+				if (c == loc)
+				{
+					return tileGroup.tileLocations;
+				}
+			}
+		}
+		return null;
 	}
 }

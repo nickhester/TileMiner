@@ -106,7 +106,7 @@ public class PathManager : MonoBehaviour, IEventSubscriber
 		foreach (var dir in directions)
 		{
 			Tile t = tileGrid.GetTileNeighbor(dir, currentCoord);
-			if (t != null && t.numStepsFromCity > 0 && t.numStepsFromCity < currentStepNumber)
+			if (t != null && t.numStepsFromCity >= 0 && t.numStepsFromCity < currentStepNumber)
 			{
 				targetCoord = t.GetCoordinate();
 				returningValidValue = true;
@@ -124,6 +124,23 @@ public class PathManager : MonoBehaviour, IEventSubscriber
 		if (_event == EventBroadcast.Event.PLAYER_ACTION)
 		{
 			UpdateTilePathSteps();
+
+			PrintPathValues();
 		}
+	}
+
+	private void PrintPathValues()
+	{
+		TileGrid tg = LevelGenerator.Instance.GetTileGrid();
+		string output = "";
+		for (int i = 0; i < tg.dimY; i++)
+		{
+			for (int j = 0; j < tg.dimX; j++)
+			{
+				output += tg.GetTileAt(new Coordinate(j, i)).numStepsFromCity + ", ";
+			}
+			output += "\n";
+		}
+		print(output);
 	}
 }

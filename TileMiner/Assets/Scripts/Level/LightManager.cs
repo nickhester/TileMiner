@@ -17,8 +17,8 @@ public class LightManager : MonoBehaviour
 
 	void ApplyMinimumSkylight()
 	{
-		int numSkyTiles = LevelGenerator.Instance.GetNumSkyTiles();
-		int mapWidth = LevelGenerator.Instance.GetMapWidth();
+		int numSkyTiles = LevelGenerator.Instance.NumSkyTiles;
+		int mapWidth = LevelGenerator.Instance.MapWidth;
 		int totalDepthToIlluminate = numSkyTiles + depthOfSkylight;
 		Coordinate coordinate;
 		
@@ -49,8 +49,8 @@ public class LightManager : MonoBehaviour
 
 	void TurnOffSkylight()
 	{
-		int numSkyTiles = LevelGenerator.Instance.GetNumSkyTiles();
-		int mapWidth = LevelGenerator.Instance.GetMapWidth();
+		int numSkyTiles = LevelGenerator.Instance.NumSkyTiles;
+		int mapWidth = LevelGenerator.Instance.MapWidth;
 		int totalDepthToIlluminate = numSkyTiles + depthOfSkylight;
 		Coordinate coordinate;
 

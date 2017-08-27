@@ -37,7 +37,7 @@ public class ActionDestroy : IAction
 			return false;
 		}
 
-		retVal = WeightAnalyzer.CanTileBeRemoved(tileToDestroy);
+		retVal = WeightAnalyzer.CanTileBeRemoved(tileToDestroy.GetCoordinate());
 		if (!retVal)
 		{
 			_failureReason.Add(new Requirements(Requirements.BuildRequirement.STRUCTURE_REQUIRED_FOR_WEIGHT));

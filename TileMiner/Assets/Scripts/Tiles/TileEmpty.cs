@@ -37,7 +37,7 @@ public class TileEmpty : Tile
 		{
 			// these all follow the same format
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.STATION));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.STATION));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.STATION).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -45,7 +45,7 @@ public class TileEmpty : Tile
 			namedActionSets.Add(new NamedActionSet("Build Station", actions));
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.REFINERY));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.REFINERY));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.REFINERY).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -53,7 +53,7 @@ public class TileEmpty : Tile
 			namedActionSets.Add(new NamedActionSet("Build Refinery", actions));
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.MINE));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.MINE));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.MINE).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -61,7 +61,7 @@ public class TileEmpty : Tile
 			namedActionSets.Add(new NamedActionSet("Build Mine", actions));
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.QUARRY));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.QUARRY));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.QUARRY).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -69,7 +69,7 @@ public class TileEmpty : Tile
 			namedActionSets.Add(new NamedActionSet("Build Quarry", actions));
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.BEACON));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.BEACON));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.BEACON).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -77,7 +77,7 @@ public class TileEmpty : Tile
 			namedActionSets.Add(new NamedActionSet("Build Beacon", actions));
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.DIRT));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.DIRT));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.DIRT).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -87,7 +87,7 @@ public class TileEmpty : Tile
 			// specialized build types
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.BOMB));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.BOMB));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.BOMB).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -95,7 +95,7 @@ public class TileEmpty : Tile
 			namedActionSets.Add(new NamedActionSet("Place Bomb", actions));
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.DRILL_RIG));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.DRILL_RIG));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.DRILL_RIG).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -103,7 +103,7 @@ public class TileEmpty : Tile
 			namedActionSets.Add(new NamedActionSet("Build Drill Rig", actions));
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.MINERAL_FARM));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.MINERAL_FARM));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.MINERAL_FARM).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));
@@ -111,7 +111,7 @@ public class TileEmpty : Tile
 			namedActionSets.Add(new NamedActionSet("Build Mineral Farm", actions));
 
 			actions = new List<IAction>();
-			actions.Add(new ActionBuild(this, Tile.TileType.SPREAD_SHOT));
+			actions.Add(new ActionBuild(GetCoordinate(), Tile.TileType.SPREAD_SHOT));
 			foreach (Resource res in LevelGenerator.Instance.GetTilePrefab(TileType.SPREAD_SHOT).GetResourceAdjustmentToBuild(tileGrid, GetCoordinate()))
 			{
 				actions.Add(new ActionAdjustResources(res));

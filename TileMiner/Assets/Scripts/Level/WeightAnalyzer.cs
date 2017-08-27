@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public static class WeightAnalyzer
 {
-	public static bool CanTileBeRemoved(Tile t)
+	public static bool CanTileBeRemoved(Coordinate t)
 	{
-		Tile upperNeighbor = t.GetTileGrid().GetTileNeighbor(TileGrid.Direction.UP, t.GetCoordinate());
+		Tile upperNeighbor = LevelGenerator.Instance.GetTileGrid().GetTileNeighbor(TileGrid.Direction.UP, t);
 		if (upperNeighbor.isStructure)
 		{
 			return false;
@@ -21,7 +21,7 @@ public static class WeightAnalyzer
 		return (weightTotal >= 0);
 	}
 
-	public static bool CanStructureBeAddedHere(Tile t, int _addedWeight)
+	public static bool CanStructureBeAddedHere(Coordinate t, int _addedWeight)
 	{
 		List<Tile> columnBelow = GetContiguousTileColumn(t, TileGrid.Direction.DOWN);
 		int weightTotal = 0;
@@ -32,11 +32,10 @@ public static class WeightAnalyzer
 		return (weightTotal + _addedWeight >= 0);
 	}
 
-	static List<Tile> GetContiguousTileColumn(Tile t, TileGrid.Direction _direction)
+	static List<Tile> GetContiguousTileColumn(Coordinate t, TileGrid.Direction _direction)
 	{
 		// the resulting list 1st element will be the tile nearest the starting tile, then outward. It will not include the starting tile.
-		TileGrid tileGrid = t.GetTileGrid();
-		Tile tileToCheck = tileGrid.GetTileNeighbor(_direction, t.GetCoordinate());
+		Tile tileToCheck = LevelGenerator.Instance.GetTileGrid().GetTileNeighbor(_direction, t);
 
 		List<Tile> contiguousTilesInDirection = new List<Tile>();
 		while(true)
@@ -50,7 +49,7 @@ public static class WeightAnalyzer
 				break;
 			}
 
-			tileToCheck = tileGrid.GetTileNeighbor(_direction, tileToCheck.GetCoordinate());
+			tileToCheck = LevelGenerator.Instance.GetTileGrid().GetTileNeighbor(_direction, tileToCheck.GetCoordinate());
 		}
 		return contiguousTilesInDirection;
 	}
