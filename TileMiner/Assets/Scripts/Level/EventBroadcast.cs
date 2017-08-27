@@ -13,7 +13,8 @@ public class EventBroadcast : MonoBehaviour
 		PLAYER_COLLECTED_STONE,
 		PLAYER_SELECTED_STONE,
 		RESOURCE_VALUES_UPDATED,
-		CITY_HIT
+		CITY_HIT,
+		LEVEL_CHANGE
 	}
 
 	private static EventBroadcast instance;

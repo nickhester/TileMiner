@@ -277,6 +277,8 @@ public abstract class Tile : MonoBehaviour
 				return "Gold Vein";
 			case TileType.ALIEN_TECH:
 				return "Alien Tech";
+			case TileType.RIFT:
+				return "Rift";
 			default:
 				return "ERROR: TILE CASE MISSING DESCRIPTION";
 		}
@@ -348,4 +350,6 @@ public abstract class Tile : MonoBehaviour
 	{
 		Instantiate(entityToSpawn, transform.position + (new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f))), Quaternion.identity);
 	}
+
+	public virtual void ReturnResult(bool result) { }
 }

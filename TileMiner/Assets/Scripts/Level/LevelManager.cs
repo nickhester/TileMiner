@@ -158,6 +158,7 @@ public class LevelManager : MonoBehaviour
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.STONE2, ref levelInfoDict));
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.ALIEN_TECH, ref levelInfoDict));
 		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.ENERGY_WELL, ref levelInfoDict));
+		levelDefinition.AddTileGenerationInfo(GenerateInfoForOneType(Tile.TileType.RIFT, ref levelInfoDict));
 
 		return levelDefinition;
 	}

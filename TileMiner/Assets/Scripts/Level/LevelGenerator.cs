@@ -117,6 +117,7 @@ public class LevelGenerator : MonoBehaviour
 		}
 	}
 
+	/// Level generation logic
 	void CreateTiles()
 	{
 		Dictionary<Tile.TileType, int> tileCount = new Dictionary<Tile.TileType, int>();
@@ -195,9 +196,11 @@ public class LevelGenerator : MonoBehaviour
 						tileGenInfo.depthRangeStart + NumSkyTiles, 
 						Mathf.Min(tileGenInfo.depthRangeEnd + NumSkyTiles, MapHeight - 1));
 
-					// verify that you're not replacing another tile with a minimum guarantee
+					// verify that you're not replacing over another tile with a minimum guarantee, or a strip
 					Tile tileBeingReplaced = tileGrid.GetTileAt(new Coordinate(randX, randY));
-					if (levelDefinition.GetTileGenerationInfoFromType(tileBeingReplaced.GetTileType()).guaranteeAtLeast > 0)
+					TileGenerationInfo overwriteCandidateInfo = levelDefinition.GetTileGenerationInfoFromType(tileBeingReplaced.GetTileType());
+					if (overwriteCandidateInfo.guaranteeAtLeast > 0
+						|| overwriteCandidateInfo.isStripType == true)
 						continue;
 
 					// increase tile count for tile added
@@ -269,6 +272,8 @@ public class LevelGenerator : MonoBehaviour
 		if (lightSource != null)
 			lightSource.Initialize();
 
+		EventBroadcast.Instance.TriggerEvent(EventBroadcast.Event.LEVEL_CHANGE);
+
 		return t;
 	}
 
@@ -284,7 +289,7 @@ public class LevelGenerator : MonoBehaviour
 
 		// set passed attributes
 		newTile.SetBrightnessLevel(illuminationLevel);
-
+		
 		return newTile;
 	}
 
@@ -382,6 +387,21 @@ public class LevelGenerator : MonoBehaviour
 				if (c == loc)
 				{
 					return tileGroup.tileLocations;
+				}
+			}
+		}
+		return null;
+	}
+
+	public TileGroup GetTileGroup(Coordinate c)
+	{
+		foreach (var tileGroup in TileGroups)
+		{
+			foreach (var loc in tileGroup.tileLocations)
+			{
+				if (c == loc)
+				{
+					return tileGroup;
 				}
 			}
 		}

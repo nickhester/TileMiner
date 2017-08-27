@@ -6,6 +6,13 @@ namespace Assets.Scripts.Level
 	{
 		public string name;
 		public List<Coordinate> tileLocations = new List<Coordinate>();
+		public enum GroupState
+		{
+			READY,
+			ACTIVE,
+			INACTIVE
+		}
+		public GroupState CurrentState = GroupState.READY;
 
 		public TileGroup(string name)
 		{

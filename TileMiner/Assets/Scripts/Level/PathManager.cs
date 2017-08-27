@@ -6,6 +6,15 @@ using UnityEngine;
 public class PathManager : MonoBehaviour, IEventSubscriber
 {
 	private TileGrid tileGrid;
+	private bool needsUpdate = false;
+
+	void Update()
+	{
+		if (needsUpdate)
+		{
+			UpdateTilePathSteps();
+		}
+	}
 
 	public void Initialize(TileGrid _tileGrid)
 	{
@@ -121,11 +130,9 @@ public class PathManager : MonoBehaviour, IEventSubscriber
 
 	public void InformOfEvent(EventBroadcast.Event _event)
 	{
-		if (_event == EventBroadcast.Event.PLAYER_ACTION)
+		if (_event == EventBroadcast.Event.PLAYER_ACTION || _event == EventBroadcast.Event.LEVEL_CHANGE)
 		{
-			UpdateTilePathSteps();
-
-			PrintPathValues();
+			needsUpdate = true;
 		}
 	}
 
