@@ -8,12 +8,14 @@ public abstract class Actor : MonoBehaviour
 	protected PathManager pathManager;
 	protected City city;
 
+	public int maxHealth = 1;
 	protected int health = 1;
 
 	virtual protected void Start()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
 		pathManager = FindObjectOfType<PathManager>();
+		health = maxHealth;
 	}
 
 	virtual protected void Update() { }

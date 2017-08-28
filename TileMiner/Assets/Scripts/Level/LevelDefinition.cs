@@ -8,6 +8,7 @@ public class LevelDefinition
 	public int? numSkyTiles = null;
 
 	public List<TileGenerationInfo> tileGenerationInfoList = new List<TileGenerationInfo>();
+	public List<WaveDefinition> waveDefinitionList = new List<WaveDefinition>();
 
 	public LevelDefinition(int mapHeight)
 	{
@@ -19,6 +20,11 @@ public class LevelDefinition
 		tileGenerationInfoList.Add(info);
 	}
 
+	public void AddWaveDefinitions(List<WaveDefinition> info)
+	{
+		waveDefinitionList.AddRange(info);
+	}
+
 	public TileGenerationInfo GetTileGenerationInfoFromType(Tile.TileType type)
 	{
 		foreach (var info in tileGenerationInfoList)
@@ -27,6 +33,68 @@ public class LevelDefinition
 				return info;
 		}
 		return null;
+	}
+}
+
+public static class LevelDefinitionParser
+{
+	public static TileGenerationInfo GenerateInfoForOneType(Tile.TileType tileType, ref Dictionary<string, Dictionary<string, string>> levelInfoDict)
+	{
+		string tileString = Tile.GetTileNameByEnum(tileType).ToLower();
+
+		// check if strip
+		string numStrips = "numStrips".ToLower();
+		if (levelInfoDict[tileString].ContainsKey(numStrips))
+		{
+			return new TileGenerationInfo(tileType,
+				int.Parse(levelInfoDict[tileString][numStrips]));
+		}
+
+		string baseProbability = "baseProbability".ToLower();
+		string increaseProbabilityPerRow = "increaseProbabilityPerRow".ToLower();
+		string depthRangeStart = "depthRangeStart".ToLower();
+		string depthRangeEnd = "depthRangeEnd".ToLower();
+		string guaranteeAtLeast = "guaranteeAtLeast".ToLower();
+
+		// define each tile type's level generation settings
+		return new TileGenerationInfo(tileType,
+										float.Parse(levelInfoDict[tileString][baseProbability]),
+										float.Parse(levelInfoDict[tileString][increaseProbabilityPerRow]),
+										int.Parse(levelInfoDict[tileString][depthRangeStart]),
+										int.Parse(levelInfoDict[tileString][depthRangeEnd]),
+										int.Parse(levelInfoDict[tileString][guaranteeAtLeast]));
+	}
+
+	public static List<WaveDefinition> GenerateWaveInfoForType(Tile.TileType tileType, ref Dictionary<string, Dictionary<string, string>> levelInfoDict)
+	{
+		List<WaveDefinition> returnList = new List<WaveDefinition>();
+
+		string tileString = Tile.GetTileNameByEnum(tileType).ToLower();
+
+		string lengthOfWave = "lengthOfWave".ToLower();
+		string actor = "actor".ToLower();
+		string quantity = "quantity".ToLower();
+		string numStrips = "numStrips".ToLower();
+
+		int numberOfStrips = int.Parse(levelInfoDict[tileString][numStrips]);
+		for (int i = 0; i < numberOfStrips; i++)
+		{
+			float lengthOfWaveFloat = float.Parse(levelInfoDict[tileString][i + "-" + lengthOfWave]);
+			int numActors = 0;
+			while (levelInfoDict[tileString].ContainsKey(i + "-" + actor + "-" + numActors))
+				numActors++;
+
+			List<WaveSet> waveSets = new List<WaveSet>();
+			for (int j = 0; j < numActors; j++)
+			{
+				string actorName = levelInfoDict[tileString][i + "-" + actor + "-" + j];
+				string quantityFromDef = levelInfoDict[tileString][i + "-" + quantity + "-" + j];
+				waveSets.Add(new WaveSet(actorName, int.Parse(quantityFromDef)));
+			}
+
+			returnList.Add(new WaveDefinition(tileType, lengthOfWaveFloat, waveSets));
+		}
+		return returnList;
 	}
 }
 

@@ -14,13 +14,13 @@ Rich Dirt/depthRangeStart:				15
 Rich Dirt/depthRangeEnd:				999
 Rich Dirt/guaranteeAtLeast:				0
 
-Rift/numStrips:							5
+Rift/numStrips:							3
 
-Energy Well/baseProbability:			0.015
-Energy Well/increaseProbabilityPerRow:	0.00
-Energy Well/depthRangeStart:			10
-Energy Well/depthRangeEnd:				999
-Energy Well/guaranteeAtLeast:			0
+Energy Well/baseProbability:			0.1
+Energy Well/increaseProbabilityPerRow:	0.02
+Energy Well/depthRangeStart:			30
+Energy Well/depthRangeEnd:				55
+Energy Well/guaranteeAtLeast:			5
 
 Gold Vein/baseProbability:				0.02
 Gold Vein/increaseProbabilityPerRow:	0.001

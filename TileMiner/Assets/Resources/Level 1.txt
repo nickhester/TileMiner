@@ -15,12 +15,20 @@ Rich Dirt/depthRangeEnd:				999
 Rich Dirt/guaranteeAtLeast:				0
 
 Rift/numStrips:							1
+Rift/0-lengthOfWave:					10
+Rift/0-actor-0:							bat
+Rift/0-quantity-0:						15
+Rift/0-actor-1:							hawk
+Rift/0-quantity-1:						5
+Rift/0-actor-2:							flyingArmadillo
+Rift/0-quantity-2:						2
 
-Energy Well/baseProbability:			0.015
-Energy Well/increaseProbabilityPerRow:	0.00
-Energy Well/depthRangeStart:			10
-Energy Well/depthRangeEnd:				999
-Energy Well/guaranteeAtLeast:			0
+
+Energy Well/baseProbability:			0.1
+Energy Well/increaseProbabilityPerRow:	0.02
+Energy Well/depthRangeStart:			20
+Energy Well/depthRangeEnd:				25
+Energy Well/guaranteeAtLeast:			5
 
 Gold Vein/baseProbability:				0.015
 Gold Vein/increaseProbabilityPerRow:	0.00

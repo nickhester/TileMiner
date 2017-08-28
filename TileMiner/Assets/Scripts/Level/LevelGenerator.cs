@@ -11,6 +11,8 @@ public class LevelGenerator : MonoBehaviour
 	public int MapWidth = 10;
 	public int NumSkyTiles = 14;
 
+	int numRewardTilesAtBottom = 4;
+
 	[SerializeField] private float tileSpacing = 1.0f;
 	[SerializeField] private List<Tile> tilePrefabs = new List<Tile>();
 	private TileGrid tileGrid;
@@ -151,10 +153,11 @@ public class LevelGenerator : MonoBehaviour
 			for (int i = 0; i < stripInfo.numStrips; i++)
 			{
 				// generate name for tile group
-				TileGroup tileGroup = new TileGroup(stripInfo.tileType.ToString() + " " + ++groupNameIndex);
+				TileGroup tileGroup = new TileGroup(stripInfo.tileType.ToString() + " " + groupNameIndex);
 
 				// get even distribution position
-				int stripDepth = ((MapHeight - NumSkyTiles) / (int)stripInfo.numStrips * (i + 1));    // i + 1 so that a strip doesn't appear at the very top
+				int stripDepth = ((MapHeight - NumSkyTiles - numRewardTilesAtBottom)
+					/ (int)stripInfo.numStrips * (i + 1));    // i + 1 so that a strip doesn't appear at the very top
 
 				int stripDepthOffset = 0;
 				for (int j = 0; j < MapWidth; j++)
@@ -163,7 +166,7 @@ public class LevelGenerator : MonoBehaviour
 					stripDepthOffset += UnityEngine.Random.Range(-1, 2);
 
 					int depthOfStripTile = stripDepth + stripDepthOffset + NumSkyTiles;
-					Coordinate stripTileCoordinate = new Coordinate(j, (depthOfStripTile > MapHeight - 1 ? MapHeight - 1 : depthOfStripTile));
+					Coordinate stripTileCoordinate = new Coordinate(j, Mathf.Min(depthOfStripTile, MapHeight - numRewardTilesAtBottom - 1));
 
 					// increase tile count for tile added
 					tileCount[stripInfo.tileType]++;
@@ -172,10 +175,14 @@ public class LevelGenerator : MonoBehaviour
 					tileCount[TileTypeToEnumTileType(tileGrid.GetTileAt(stripTileCoordinate).GetType())]--;
 
 					// replace the tile
-					ReplaceOneTile(stripTileCoordinate, stripInfo.tileType);
+					Tile t = ReplaceOneTile(stripTileCoordinate, stripInfo.tileType);
+					t.waveDefinition = levelDefinition.waveDefinitionList[groupNameIndex];
+					
 					tileGroup.tileLocations.Add(stripTileCoordinate);
 				}
 				TileGroups.Add(tileGroup);
+
+				groupNameIndex++;
 			}
 		}
 

@@ -19,7 +19,7 @@ public class TileStone : Tile
 	{
 		List<NamedActionSet> namedActionSet = new List<NamedActionSet>();
 
-		namedActionSet.Add(new NamedActionSet("Destroy Stone", GetDestroyAction()));
+		namedActionSet.Add(new NamedActionSet("Mine Stone", GetDestroyAction()));
 		
 		ProposeActions(namedActionSet);
 	}

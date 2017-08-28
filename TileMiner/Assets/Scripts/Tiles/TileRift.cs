@@ -12,15 +12,19 @@ public class TileRift : Tile
 	float lifetime = 20.0f;
 	float lifetimeCounter = 0.0f;
 
+	public List<Actor> actorsToSpawn;
+	List<Actor> sequenceToSpawn = new List<Actor>();
+
 	void Update()
 	{
 		// spawn rift enemies
 		if (isSpawning)
 		{
 			spawnCounter += Time.deltaTime;
-			if (spawnCounter >= spawnInterval)
+			if (spawnCounter >= spawnInterval && sequenceToSpawn.Count > 0)
 			{
-				SpawnEnemy();
+				SpawnActor(sequenceToSpawn[0]);
+				sequenceToSpawn.RemoveAt(0);
 
 				spawnCounter = 0.0f;
 			}
@@ -57,9 +61,45 @@ public class TileRift : Tile
 	{
 		if (result)
 		{
+			// read from wave definition
+			List<Actor> actors = new List<Actor>();
+			foreach (var waveSet in waveDefinition.Actors)
+			{
+				// figure out which prefab goes with which actor specified in the definition
+				Actor actorPrefab = null;
+				for (int i = 0; i < actorsToSpawn.Count; i++)
+				{
+					if (String.Compare(waveSet.actorName, actorsToSpawn[i].name, true) == 0)
+					{
+						actorPrefab = actorsToSpawn[i];
+					}
+				}
+				
+				// fill list with the correct quantity of them
+				for (int i = 0; i < waveSet.quantity; i++)
+				{
+					actors.Add(actorPrefab);
+				}
+			}
+			// shuffle list
+			while (actors.Count > 0)
+			{
+				int randomInt = UnityEngine.Random.Range(0, actors.Count);
+				sequenceToSpawn.Add(actors[randomInt]);
+				actors.RemoveAt(randomInt);
+			}
+			// set intervals
+			lifetime = waveDefinition.Length;
+			spawnInterval = lifetime / (float)sequenceToSpawn.Count;
+
 			isSpawning = true;
 			LevelGenerator.Instance.GetTileGroup(GetCoordinate()).CurrentState = TileGroup.GroupState.ACTIVE;
 		}
+	}
+
+	protected void SpawnActor(Actor actor)
+	{
+		Instantiate(actor, transform.position + (new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f))), Quaternion.identity);
 	}
 
 	void CompleteSpawning()

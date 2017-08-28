@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50436099615305310}
   - component: {fileID: 114862658845712600}
   m_Layer: 8
-  m_Name: Hawk
+  m_Name: FlyingArmadillo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86734a396693bc542af0f16145459f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  speed: 2
+  maxHealth: 4
+  speed: 1
 --- !u!212 &212813500870305750
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.94482744, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.58823526, b: 0.115558945, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -26,7 +26,6 @@ public abstract class Tile : MonoBehaviour
 	public bool IsStructureAvailable { get; set; }
 
 	[SerializeField] protected int populationAdjustment = 0;
-	[SerializeField] protected GameObject entityToSpawn;
 	
 	public enum TileType
 	{
@@ -70,6 +69,7 @@ public abstract class Tile : MonoBehaviour
 			_numStepsFromCity = value;
 		}
 	}
+	public WaveDefinition waveDefinition;
 
 	public virtual void Initialize(TileGrid _tileGrid, Coordinate _coordinate, TileType _tileType)
 	{
@@ -344,11 +344,6 @@ public abstract class Tile : MonoBehaviour
 			return 2;
 		else
 			return 1;
-	}
-
-	protected void SpawnEnemy()
-	{
-		Instantiate(entityToSpawn, transform.position + (new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f))), Quaternion.identity);
 	}
 
 	public virtual void ReturnResult(bool result) { }

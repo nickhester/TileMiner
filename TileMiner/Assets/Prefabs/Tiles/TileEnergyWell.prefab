@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4000012868189612}
   - component: {fileID: 212000012871114896}
   - component: {fileID: 61000010157808200}
-  - component: {fileID: 114430248588178596}
+  - component: {fileID: 114104360657127370}
   m_Layer: 8
   m_Name: TileEnergyWell
   m_TagString: Untagged
@@ -67,7 +67,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
---- !u!114 &114430248588178596
+--- !u!114 &114104360657127370
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,22 +75,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013142335594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cbb894cca67b3e4fb4211fb6eda9b85, type: 3}
+  m_Script: {fileID: 11500000, guid: a69cbc2e92d6cc549af7ea88ce57f789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weightSupportValue: 1
-  mineralAdjustmentToBuild: -100
-  mineralAdjustmentToDestroy: 0
+  mineralAdjustmentToBuild: 0
+  mineralAdjustmentToDestroy: -100
   goldAdjustmentToBuild: 0
   goldAdjustmentToDestroy: 0
   energyAdjustmentToBuild: 0
-  energyAdjustmentToDestroy: 0
+  energyAdjustmentToDestroy: 1
   alienTechAdjustmentToDestroy: 0
   isStructure: 0
   populationAdjustment: 0
   entityToSpawn: {fileID: 0}
   myTileType: 11
   maxBrightness: 5
+  allowsPathingThrough: 0
+  minAdjustmentValue: 10
 --- !u!212 &212000012871114896
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -132,3 +134,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
